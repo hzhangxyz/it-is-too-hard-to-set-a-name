@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: include/square/abstract_lattice.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('abstract__lattice_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">abstract_lattice.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="abstract__lattice_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#ifndef SQUARE_ABSTRACT_LATTICE_HPP</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="abstract__lattice_8hpp.html#a9692dd633d01f5230f36d8ea02e377db">   22</a></span>&#160;<span class="preprocessor">#define SQUARE_ABSTRACT_LATTICE_HPP</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="basic_8hpp.html">basic.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespacesquare.html">   32</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesquare.html">square</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html">   34</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice</a> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">   35</a></span>&#160;      <span class="keywordtype">int</span> <a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">   36</a></span>&#160;      <span class="keywordtype">int</span> <a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#a81aba9a6882240a10e079e35d8c1057c">   37</a></span>&#160;      <a class="code" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">Size</a> <a class="code" href="structsquare_1_1AbstractLattice.html#a81aba9a6882240a10e079e35d8c1057c">dimension_physics</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">   38</a></span>&#160;      std::map&lt;std::vector&lt;std::tuple&lt;int, int&gt;&gt;, std::shared_ptr&lt;const Tensor&lt;T&gt;&gt;&gt; <a class="code" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">hamiltonians</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#ad964a1926958f4320259036ccb715031">   40</a></span>&#160;      <a class="code" href="structsquare_1_1AbstractLattice.html#ad964a1926958f4320259036ccb715031">AbstractLattice</a>() : <a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a>(0), <a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>(0), <a class="code" href="structsquare_1_1AbstractLattice.html#a81aba9a6882240a10e079e35d8c1057c">dimension_physics</a>(0), <a class="code" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">hamiltonians</a>(){};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="structsquare_1_1AbstractLattice.html#ad964a1926958f4320259036ccb715031">AbstractLattice</a>(<span class="keyword">const</span> <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="structsquare_1_1AbstractLattice.html#ad964a1926958f4320259036ccb715031">AbstractLattice</a>(<a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp; <a class="code" href="structsquare_1_1AbstractLattice.html#ab4a9b7c33881858397947163a4e5a456">operator=</a>(<span class="keyword">const</span> <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp; <a class="code" href="structsquare_1_1AbstractLattice.html#ab4a9b7c33881858397947163a4e5a456">operator=</a>(<a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#abe54efc86397afdc08ae9743d1c5f8c2">   46</a></span>&#160;      <a class="code" href="structsquare_1_1AbstractLattice.html#abe54efc86397afdc08ae9743d1c5f8c2">AbstractLattice</a>(<span class="keywordtype">int</span> <a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a>, <span class="keywordtype">int</span> <a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>, <a class="code" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">Size</a> d) : <a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a>(<a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a>), <a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>(<a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>), <a class="code" href="structsquare_1_1AbstractLattice.html#a81aba9a6882240a10e079e35d8c1057c">dimension_physics</a>(d) {}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#af11558d5e77dc57424aced7f01d60335">   48</a></span>&#160;      <span class="keywordtype">void</span> <a class="code" href="structsquare_1_1AbstractLattice.html#af11558d5e77dc57424aced7f01d60335">set_all_site</a>(std::shared_ptr&lt;<span class="keyword">const</span> <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a>&gt; hamiltonian) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a>; i++) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = 0; j &lt; <a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>; j++) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;               <a class="code" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">hamiltonians</a>[{{i, j}}] = hamiltonian;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;         }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      };</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#af8011e252b32f5557049fee4625fa0bf">   56</a></span>&#160;      <span class="keywordtype">void</span> <a class="code" href="structsquare_1_1AbstractLattice.html#af8011e252b32f5557049fee4625fa0bf">set_all_vertical_bond</a>(std::shared_ptr&lt;<span class="keyword">const</span> <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a>&gt; hamiltonian) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a> - 1; i++) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = 0; j &lt; <a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>; j++) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;               <a class="code" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">hamiltonians</a>[{{i, j}, {i + 1, j}}] = hamiltonian;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;         }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="structsquare_1_1AbstractLattice.html#a2354061ddbd71da0d805d2696405c010">   64</a></span>&#160;      <span class="keywordtype">void</span> <a class="code" href="structsquare_1_1AbstractLattice.html#a2354061ddbd71da0d805d2696405c010">set_all_horizontal_bond</a>(std::shared_ptr&lt;<span class="keyword">const</span> <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a>&gt; hamiltonian) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a>; i++) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = 0; j &lt; <a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a> - 1; j++) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;               <a class="code" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">hamiltonians</a>[{{i, j}, {i, j + 1}}] = hamiltonian;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;         }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="comment">// other hamiltonian setter...</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;   };</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="namespacesquare.html#a70af1ca478536a6afef771b88e9cfb59">   76</a></span>&#160;   std::ostream&amp; <a class="code" href="namespacesquare.html#a70af1ca478536a6afef771b88e9cfb59">operator&lt;</a>(std::ostream&amp; out, <span class="keyword">const</span> <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp; lattice) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      <span class="keyword">using</span> TAT::operator&lt;;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      out &lt; lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a> &lt; lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      out &lt; lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a81aba9a6882240a10e079e35d8c1057c">dimension_physics</a>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="comment">// pool</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      std::vector&lt;std::shared_ptr&lt;const Tensor&lt;T&gt;&gt;&gt; pool;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      std::map&lt;std::vector&lt;std::tuple&lt;int, int&gt;&gt;, <span class="keywordtype">int</span>&gt; pool_map;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [positions, tensor] : lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">hamiltonians</a>) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;         <span class="keywordflow">if</span> (<span class="keyword">auto</span> found = std::find(pool.begin(), pool.end(), tensor); found != pool.end()) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            pool_map[positions] = std::distance(pool.begin(), found);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;         } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            pool_map[positions] = pool.size();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            pool.push_back(tensor);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <a class="code" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">Size</a> pool_size = pool.size();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="comment">// data</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      out &lt; pool_size;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; tensor : pool) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;         out &lt; *tensor;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <a class="code" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">Size</a> map_size = pool_map.size();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      out &lt; map_size;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [positions, index] : pool_map) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         out &lt; positions &lt; index;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;   }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="namespacesquare.html#a147c72691722096f4b6cbe729fc40f1d">  106</a></span>&#160;   std::istream&amp; <a class="code" href="namespacesquare.html#a147c72691722096f4b6cbe729fc40f1d">operator&gt;</a>(std::istream&amp; in, <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp; lattice) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      <span class="keyword">using</span> TAT::operator&gt;;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      in &gt; lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">M</a> &gt; lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">N</a>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      in &gt; lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a81aba9a6882240a10e079e35d8c1057c">dimension_physics</a>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      <a class="code" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">Size</a> pool_size;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      in &gt; pool_size;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      std::vector&lt;std::shared_ptr&lt;const Tensor&lt;T&gt;&gt;&gt; pool;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; pool_size; i++) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;         <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a> tensor;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;         in &gt; tensor;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;         pool.push_back(std::make_shared&lt;<span class="keyword">const</span> <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a>&gt;(std::move(tensor)));</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <a class="code" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">Size</a> map_size;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      in &gt; map_size;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">hamiltonians</a>.clear();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; map_size; i++) {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;         std::vector&lt;std::tuple&lt;int, int&gt;&gt; positions;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;         <span class="keywordtype">int</span> index;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         in &gt; positions &gt; index;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         lattice.<a class="code" href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">hamiltonians</a>[std::move(positions)] = pool[index];</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;      <span class="keywordflow">return</span> in;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;   }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace square</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="anamespacesquare_html_ab17da2a092bb5b4071fff09c8aa47dec"><div class="ttname"><a href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">square::Size</a></div><div class="ttdeci">TAT::Size Size</div><div class="ttdef"><b>Definition:</b> basic.hpp:36</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_a1c0a5fea64cc5c89480f3878173d87f6"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#a1c0a5fea64cc5c89480f3878173d87f6">square::AbstractLattice::M</a></div><div class="ttdeci">int M</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:35</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_a0e930f22ef629363bcf41873831d0ee5"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#a0e930f22ef629363bcf41873831d0ee5">square::AbstractLattice::hamiltonians</a></div><div class="ttdeci">std::map&lt; std::vector&lt; std::tuple&lt; int, int &gt; &gt;, std::shared_ptr&lt; const Tensor&lt; T &gt; &gt; &gt; hamiltonians</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:38</div></div>
+<div class="ttc" id="anamespacesquare_html_a70af1ca478536a6afef771b88e9cfb59"><div class="ttname"><a href="namespacesquare.html#a70af1ca478536a6afef771b88e9cfb59">square::operator&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;(std::ostream &amp;out, const AbstractLattice&lt; T &gt; &amp;lattice)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:76</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_ad964a1926958f4320259036ccb715031"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#ad964a1926958f4320259036ccb715031">square::AbstractLattice::AbstractLattice</a></div><div class="ttdeci">AbstractLattice()</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:40</div></div>
+<div class="ttc" id="anamespacesquare_html"><div class="ttname"><a href="namespacesquare.html">square</a></div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:32</div></div>
+<div class="ttc" id="abasic_8hpp_html"><div class="ttname"><a href="basic_8hpp.html">basic.hpp</a></div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_ab4a9b7c33881858397947163a4e5a456"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#ab4a9b7c33881858397947163a4e5a456">square::AbstractLattice::operator=</a></div><div class="ttdeci">AbstractLattice&lt; T &gt; &amp; operator=(const AbstractLattice&lt; T &gt; &amp;)=default</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_af11558d5e77dc57424aced7f01d60335"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#af11558d5e77dc57424aced7f01d60335">square::AbstractLattice::set_all_site</a></div><div class="ttdeci">void set_all_site(std::shared_ptr&lt; const Tensor&lt; T &gt;&gt; hamiltonian)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:48</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_abe54efc86397afdc08ae9743d1c5f8c2"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#abe54efc86397afdc08ae9743d1c5f8c2">square::AbstractLattice::AbstractLattice</a></div><div class="ttdeci">AbstractLattice(int M, int N, Size d)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:46</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_a81aba9a6882240a10e079e35d8c1057c"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#a81aba9a6882240a10e079e35d8c1057c">square::AbstractLattice::dimension_physics</a></div><div class="ttdeci">Size dimension_physics</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:37</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html">square::AbstractLattice</a></div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:34</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_af8011e252b32f5557049fee4625fa0bf"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#af8011e252b32f5557049fee4625fa0bf">square::AbstractLattice::set_all_vertical_bond</a></div><div class="ttdeci">void set_all_vertical_bond(std::shared_ptr&lt; const Tensor&lt; T &gt;&gt; hamiltonian)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:56</div></div>
+<div class="ttc" id="anamespacesquare_html_a147c72691722096f4b6cbe729fc40f1d"><div class="ttname"><a href="namespacesquare.html#a147c72691722096f4b6cbe729fc40f1d">square::operator&gt;</a></div><div class="ttdeci">std::istream &amp; operator&gt;(std::istream &amp;in, AbstractLattice&lt; T &gt; &amp;lattice)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:106</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html"><div class="ttname"><a href="structTAT_1_1Tensor.html">TAT::Tensor&lt; T &gt;</a></div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_a827725896eefbcb8be28719f10b87a0a"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#a827725896eefbcb8be28719f10b87a0a">square::AbstractLattice::N</a></div><div class="ttdeci">int N</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:36</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html_a2354061ddbd71da0d805d2696405c010"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html#a2354061ddbd71da0d805d2696405c010">square::AbstractLattice::set_all_horizontal_bond</a></div><div class="ttdeci">void set_all_horizontal_bond(std::shared_ptr&lt; const Tensor&lt; T &gt;&gt; hamiltonian)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:64</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_c48b0f5ba0ee61d0e23bde8cc5174d80.html">square</a></li><li class="navelem"><a class="el" href="abstract__lattice_8hpp.html">abstract_lattice.hpp</a></li>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

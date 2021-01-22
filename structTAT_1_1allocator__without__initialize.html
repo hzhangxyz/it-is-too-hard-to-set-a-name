@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: TAT::allocator_without_initialize&lt; T &gt; 模板结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('structTAT_1_1allocator__without__initialize.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="structTAT_1_1allocator__without__initialize-members.html">所有成员列表</a>  </div>
+  <div class="headertitle">
+<div class="title">TAT::allocator_without_initialize&lt; T &gt; 模板结构体 参考<div class="ingroups"><a class="el" href="group__Miscellaneous.html">Miscellaneous</a></div></div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>用于不初始化的<code>vector</code>的<code>allocator</code>, 仅用于张量数据的存储  
+ <a href="structTAT_1_1allocator__without__initialize.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="core_8hpp_source.html">core.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 TAT::allocator_without_initialize&lt; T &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="structTAT_1_1allocator__without__initialize.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1allocator__without__initialize_1_1rebind.html">rebind</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:aafb7374ba58d5384da05a5b34a8533c6"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:aafb7374ba58d5384da05a5b34a8533c6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structTAT_1_1allocator__without__initialize.html#aafb7374ba58d5384da05a5b34a8533c6">construct</a> ([[maybe_unused]] T *pointer, Args &amp;&amp;... arguments)</td></tr>
+<tr class="memdesc:aafb7374ba58d5384da05a5b34a8533c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">初始化函数, 如果没有参数, 且类型T可以被平凡的析构, 则不做任何初始化操作, 否则进行正常的就地初始化  <a href="structTAT_1_1allocator__without__initialize.html#aafb7374ba58d5384da05a5b34a8533c6">更多...</a><br /></td></tr>
+<tr class="separator:aafb7374ba58d5384da05a5b34a8533c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07ed22248d00d9a27e030b4f9d6b7b78"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1allocator__without__initialize.html#a07ed22248d00d9a27e030b4f9d6b7b78">allocate</a> (std::size_t n)</td></tr>
+<tr class="memdesc:a07ed22248d00d9a27e030b4f9d6b7b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">对齐地分配内存, 对齐方式<code>lcm(1024, alignof(T))</code>  <a href="structTAT_1_1allocator__without__initialize.html#a07ed22248d00d9a27e030b4f9d6b7b78">更多...</a><br /></td></tr>
+<tr class="separator:a07ed22248d00d9a27e030b4f9d6b7b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6fda8e87f25ab9d34fb875731bdd304"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1allocator__without__initialize.html#ad6fda8e87f25ab9d34fb875731bdd304">deallocate</a> (T *p, std::size_t n)</td></tr>
+<tr class="memdesc:ad6fda8e87f25ab9d34fb875731bdd304"><td class="mdescLeft">&#160;</td><td class="mdescRight">释放对齐分配的内存  <a href="structTAT_1_1allocator__without__initialize.html#ad6fda8e87f25ab9d34fb875731bdd304">更多...</a><br /></td></tr>
+<tr class="separator:ad6fda8e87f25ab9d34fb875731bdd304"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e11e4aa267f86321c7a7ea26810a291"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1allocator__without__initialize.html#a9e11e4aa267f86321c7a7ea26810a291">allocator_without_initialize</a> ()=default</td></tr>
+<tr class="separator:a9e11e4aa267f86321c7a7ea26810a291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b28195bf4239b815eb18d0b62aa2c6"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ad0b28195bf4239b815eb18d0b62aa2c6"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structTAT_1_1allocator__without__initialize.html#ad0b28195bf4239b815eb18d0b62aa2c6">allocator_without_initialize</a> (<a class="el" href="structTAT_1_1allocator__without__initialize.html">allocator_without_initialize</a>&lt; U &gt;)</td></tr>
+<tr class="separator:ad0b28195bf4239b815eb18d0b62aa2c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+struct TAT::allocator_without_initialize&lt; T &gt;</h3>
+
+<p>用于不初始化的<code>vector</code>的<code>allocator</code>, 仅用于张量数据的存储 </p>
+<dl class="section see"><dt>参见</dt><dd><a class="el" href="structTAT_1_1vector.html" title="尽可能不做初始化的vector容器">vector</a> </dd></dl>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a9e11e4aa267f86321c7a7ea26810a291"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e11e4aa267f86321c7a7ea26810a291">&#9670;&nbsp;</a></span>allocator_without_initialize() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1allocator__without__initialize.html">TAT::allocator_without_initialize</a>&lt; T &gt;::<a class="el" href="structTAT_1_1allocator__without__initialize.html">allocator_without_initialize</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad0b28195bf4239b815eb18d0b62aa2c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0b28195bf4239b815eb18d0b62aa2c6">&#9670;&nbsp;</a></span>allocator_without_initialize() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1allocator__without__initialize.html">TAT::allocator_without_initialize</a>&lt; T &gt;::<a class="el" href="structTAT_1_1allocator__without__initialize.html">allocator_without_initialize</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1allocator__without__initialize.html">allocator_without_initialize</a>&lt; U &gt;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a07ed22248d00d9a27e030b4f9d6b7b78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07ed22248d00d9a27e030b4f9d6b7b78">&#9670;&nbsp;</a></span>allocate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T* <a class="el" href="structTAT_1_1allocator__without__initialize.html">TAT::allocator_without_initialize</a>&lt; T &gt;::allocate </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>对齐地分配内存, 对齐方式<code>lcm(1024, alignof(T))</code> </p>
+
+</div>
+</div>
+<a id="aafb7374ba58d5384da05a5b34a8533c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafb7374ba58d5384da05a5b34a8533c6">&#9670;&nbsp;</a></span>construct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="structTAT_1_1allocator__without__initialize.html">TAT::allocator_without_initialize</a>&lt; T &gt;::construct </td>
+          <td>(</td>
+          <td class="paramtype">[[maybe_unused] ] T *&#160;</td>
+          <td class="paramname"><em>pointer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>arguments</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>初始化函数, 如果没有参数, 且类型T可以被平凡的析构, 则不做任何初始化操作, 否则进行正常的就地初始化 </p>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>初始化的参数类型 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pointer</td><td>被初始化的值的地址 </td></tr>
+    <tr><td class="paramname">arguments</td><td>初始化的参数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>c++20废弃了std::allocator&lt;T&gt;的construct, 但是c++20的行为是检测allocator是否有construct, 有则调用没有则自己construct, 所以没关系 </dd></dl>
+
+</div>
+</div>
+<a id="ad6fda8e87f25ab9d34fb875731bdd304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6fda8e87f25ab9d34fb875731bdd304">&#9670;&nbsp;</a></span>deallocate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="structTAT_1_1allocator__without__initialize.html">TAT::allocator_without_initialize</a>&lt; T &gt;::deallocate </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>释放对齐分配的内存 </p>
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>include/TAT/<a class="el" href="core_8hpp_source.html">core.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceTAT.html">TAT</a></li><li class="navelem"><a class="el" href="structTAT_1_1allocator__without__initialize.html">allocator_without_initialize</a></li>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

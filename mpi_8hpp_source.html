@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: include/TAT/mpi.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('mpi_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">mpi.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="mpi_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#ifndef TAT_MPI_HPP</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="mpi_8hpp.html#a7412048edc41b6032ae34364b389d9d9">   22</a></span>&#160;<span class="preprocessor">#define TAT_MPI_HPP</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="io_8hpp.html">io.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tensor_8hpp.html">tensor.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="timer_8hpp.html">timer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#ifdef TAT_USE_MPI</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">// 不可以extern &quot;C&quot;，因为mpi.h发现不可以被暂时屏蔽的宏__cplusplus后申明一些cpp的函数</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;mpi.h&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceTAT.html">TAT</a> {</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__one__output__stream.html">   45</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structTAT_1_1mpi__one__output__stream.html">mpi_one_output_stream</a> {</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__one__output__stream.html#abd063d64b4205b68b16b80262462b008">   46</a></span>&#160;      std::ostream&amp; <a class="code" href="structTAT_1_1mpi__one__output__stream.html#abd063d64b4205b68b16b80262462b008">out</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__one__output__stream.html#ad652e66fdad439222f6956066328c686">   47</a></span>&#160;      <span class="keywordtype">bool</span> <a class="code" href="structTAT_1_1mpi__one__output__stream.html#ad652e66fdad439222f6956066328c686">valid</a>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__one__output__stream.html#a94f573d99110b1ad808e9a1e20fa312b">   48</a></span>&#160;      std::ostringstream <a class="code" href="structTAT_1_1mpi__one__output__stream.html#a94f573d99110b1ad808e9a1e20fa312b">string</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__one__output__stream.html#a85fc5ce8eedb448901da1f51e8fcccbf">   49</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__one__output__stream.html#a85fc5ce8eedb448901da1f51e8fcccbf">~mpi_one_output_stream</a>() {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;         <a class="code" href="structTAT_1_1mpi__one__output__stream.html#abd063d64b4205b68b16b80262462b008">out</a> &lt;&lt; <span class="keywordtype">string</span>.str() &lt;&lt; std::flush;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      }</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__one__output__stream.html#a529930fee0a0397aec90721eddf57e34">   52</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__one__output__stream.html#a529930fee0a0397aec90721eddf57e34">mpi_one_output_stream</a>(std::ostream&amp; <a class="code" href="structTAT_1_1mpi__one__output__stream.html#abd063d64b4205b68b16b80262462b008">out</a>, <span class="keywordtype">bool</span> <a class="code" href="structTAT_1_1mpi__one__output__stream.html#ad652e66fdad439222f6956066328c686">valid</a>) : <a class="code" href="structTAT_1_1mpi__one__output__stream.html#abd063d64b4205b68b16b80262462b008">out</a>(<a class="code" href="structTAT_1_1mpi__one__output__stream.html#abd063d64b4205b68b16b80262462b008">out</a>), <a class="code" href="structTAT_1_1mpi__one__output__stream.html#ad652e66fdad439222f6956066328c686">valid</a>(<a class="code" href="structTAT_1_1mpi__one__output__stream.html#ad652e66fdad439222f6956066328c686">valid</a>) {}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__one__output__stream.html#aa6dfb74a98a7da3a6d490aa5984717fb">   55</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__one__output__stream.html">mpi_one_output_stream</a>&amp; <a class="code" href="structTAT_1_1mpi__one__output__stream.html#aa6dfb74a98a7da3a6d490aa5984717fb">operator&lt;&lt;</a>(<span class="keyword">const</span> Type&amp; value) &amp; {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;         <span class="keywordflow">if</span> (<a class="code" href="structTAT_1_1mpi__one__output__stream.html#ad652e66fdad439222f6956066328c686">valid</a>) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordtype">string</span> &lt;&lt; value;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;         }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;         <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__one__output__stream.html#a2de25d92b8f2630d5d5c28173e9f532e">   63</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__one__output__stream.html">mpi_one_output_stream</a>&amp;&amp; <a class="code" href="structTAT_1_1mpi__one__output__stream.html#a2de25d92b8f2630d5d5c28173e9f532e">operator&lt;&lt;</a>(<span class="keyword">const</span> Type&amp; value) &amp;&amp; {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;         <span class="keywordflow">if</span> (<a class="code" href="structTAT_1_1mpi__one__output__stream.html#ad652e66fdad439222f6956066328c686">valid</a>) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordtype">string</span> &lt;&lt; value;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;         }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;         <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;   };</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__rank__output__stream.html">   74</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structTAT_1_1mpi__rank__output__stream.html">mpi_rank_output_stream</a> {</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__rank__output__stream.html#a6d345133112c7efa97f3a40f0854a7f8">   75</a></span>&#160;      std::ostream&amp; <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a6d345133112c7efa97f3a40f0854a7f8">out</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__rank__output__stream.html#ad12e22bc84dd141a6912b70997d4cade">   76</a></span>&#160;      std::ostringstream <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#ad12e22bc84dd141a6912b70997d4cade">string</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__rank__output__stream.html#a6bf90dd7295dbd0f55a6378a2bddacf6">   77</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a6bf90dd7295dbd0f55a6378a2bddacf6">~mpi_rank_output_stream</a>() {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a6d345133112c7efa97f3a40f0854a7f8">out</a> &lt;&lt; <span class="keywordtype">string</span>.str() &lt;&lt; std::flush;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      }</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__rank__output__stream.html#a39986f518b6c9bf2a481e84b097e403b">   80</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a39986f518b6c9bf2a481e84b097e403b">mpi_rank_output_stream</a>(std::ostream&amp; <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a6d345133112c7efa97f3a40f0854a7f8">out</a>, <span class="keywordtype">int</span> rank) : <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a6d345133112c7efa97f3a40f0854a7f8">out</a>(<a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a6d345133112c7efa97f3a40f0854a7f8">out</a>) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;         <span class="keywordflow">if</span> (rank != -1) {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordtype">string</span> &lt;&lt; <span class="stringliteral">&quot;[rank &quot;</span> &lt;&lt; rank &lt;&lt; <span class="stringliteral">&quot;] &quot;</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;         }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__rank__output__stream.html#a0eefb6d8478c408f66879e5ca7c1bf2c">   87</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__rank__output__stream.html">mpi_rank_output_stream</a>&amp; <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a0eefb6d8478c408f66879e5ca7c1bf2c">operator&lt;&lt;</a>(<span class="keyword">const</span> Type&amp; value) &amp; {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;         <span class="keywordtype">string</span> &lt;&lt; value;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__rank__output__stream.html#a29fc681783fa6de8299e3b3953e0a7f1">   93</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__rank__output__stream.html">mpi_rank_output_stream</a>&amp;&amp; <a class="code" href="structTAT_1_1mpi__rank__output__stream.html#a29fc681783fa6de8299e3b3953e0a7f1">operator&lt;&lt;</a>(<span class="keyword">const</span> Type&amp; value) &amp;&amp; {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;         <span class="keywordtype">string</span> &lt;&lt; value;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;         <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;   };</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html">  104</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structTAT_1_1mpi__t.html">mpi_t</a> {</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">  105</a></span>&#160;      <span class="keywordtype">int</span> <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a> = 1;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">  106</a></span>&#160;      <span class="keywordtype">int</span> <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a> = 0;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#ifdef TAT_USE_MPI</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a74b3f186e220639e37024cf512b79b73">  108</a></span>&#160;      <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="structTAT_1_1mpi__t.html#a74b3f186e220639e37024cf512b79b73">enabled</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="structTAT_1_1mpi__t.html#a74b3f186e220639e37024cf512b79b73">enabled</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#ifdef TAT_USE_MPI</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#acf9a295fce1a4239854b6209a5c16ebb">  113</a></span>&#160;      <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structTAT_1_1mpi__t.html#acf9a295fce1a4239854b6209a5c16ebb">initialized</a>() noexcept {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;         <span class="keywordtype">int</span> result;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;         MPI_Initialized(&amp;result);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      }</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#ab0efc0a78d7590a38c2255d9e0c29c06">  118</a></span>&#160;      <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="structTAT_1_1mpi__t.html#ab0efc0a78d7590a38c2255d9e0c29c06">finalized</a>() noexcept {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;         <span class="keywordtype">int</span> result;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;         MPI_Finalized(&amp;result);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      }</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a0a40978ff07deb5166e5bdf4698a23ca">  123</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__t.html#a0a40978ff07deb5166e5bdf4698a23ca">mpi_t</a>() {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         <span class="keywordflow">if</span> (!<a class="code" href="structTAT_1_1mpi__t.html#acf9a295fce1a4239854b6209a5c16ebb">initialized</a>()) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            MPI_Init(<span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;         }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;         MPI_Comm_size(MPI_COMM_WORLD, &amp;<a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;         MPI_Comm_rank(MPI_COMM_WORLD, &amp;<a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a>);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;      }</div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a56a2d405b16dc9989d9be2042100944a">  130</a></span>&#160;      <a class="code" href="structTAT_1_1mpi__t.html#a56a2d405b16dc9989d9be2042100944a">~mpi_t</a>() {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;         <span class="keywordflow">if</span> (!<a class="code" href="structTAT_1_1mpi__t.html#ab0efc0a78d7590a38c2255d9e0c29c06">finalized</a>()) {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            MPI_Finalize();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;         }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;      }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a220ca4b638ab2d027855479bf85a945f">  136</a></span>&#160;      <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="structTAT_1_1mpi__t.html#a220ca4b638ab2d027855479bf85a945f">barrier</a>() {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;         MPI_Barrier(MPI_COMM_WORLD);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#add76ab46d3f30e5cc8334006817fed84">  140</a></span>&#160;      <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> <a class="code" href="structTAT_1_1mpi__t.html#add76ab46d3f30e5cc8334006817fed84">mpi_tag</a> = 0;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">  143</a></span>&#160;      <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">send</a>(<span class="keyword">const</span> Type&amp; value, <span class="keyword">const</span> <span class="keywordtype">int</span> destination) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;         <span class="keyword">auto</span> timer_guard = mpi_send_guard();</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;         std::ostringstream stream;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;         stream &lt; value;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;         <span class="keyword">auto</span> data = stream.str(); <span class="comment">// TODO: 也许可以不需复制, 但这个在mpi框架内可能不是很方便</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;         <span class="comment">// TODO 是不是可以立即返回?</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;         MPI_Send(data.data(), data.length(), MPI_BYTE, destination, <a class="code" href="structTAT_1_1mpi__t.html#add76ab46d3f30e5cc8334006817fed84">mpi_tag</a>, MPI_COMM_WORLD);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;      }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;      <span class="comment">// TODO: 异步的处理, 这个优先级很低, 也许以后将和gpu中做svd, gemm一起做成异步</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a994c1d9e288439aa5aa72113283f416e">  154</a></span>&#160;      <span class="keyword">static</span> Type <a class="code" href="structTAT_1_1mpi__t.html#a994c1d9e288439aa5aa72113283f416e">receive</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> source) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;         <span class="keyword">auto</span> timer_guard = mpi_receive_guard();</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;         <span class="keyword">auto</span> status = MPI_Status();</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;         MPI_Probe(source, <a class="code" href="structTAT_1_1mpi__t.html#add76ab46d3f30e5cc8334006817fed84">mpi_tag</a>, MPI_COMM_WORLD, &amp;status);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;         <span class="keywordtype">int</span> length;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;         MPI_Get_count(&amp;status, MPI_BYTE, &amp;length);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;         <span class="keyword">auto</span> data = std::string(length, <span class="charliteral">&#39;\0&#39;</span>); <span class="comment">// 这里不需初始化, 但考虑到load和dump本身效率也不高, 无所谓了</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;         MPI_Recv(data.data(), length, MPI_BYTE, source, <a class="code" href="structTAT_1_1mpi__t.html#add76ab46d3f30e5cc8334006817fed84">mpi_tag</a>, MPI_COMM_WORLD, MPI_STATUS_IGNORE);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;         std::istringstream stream(data);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;         <span class="keyword">auto</span> result = Type();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;         stream &gt; result;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a3dbb160dc1a4e8d54e1a937eee3efbce">  169</a></span>&#160;      Type <a class="code" href="structTAT_1_1mpi__t.html#a3dbb160dc1a4e8d54e1a937eee3efbce">send_receive</a>(<span class="keyword">const</span> Type&amp; value, <span class="keyword">const</span> <span class="keywordtype">int</span> source, <span class="keyword">const</span> <span class="keywordtype">int</span> destination)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;         <span class="keywordflow">if</span> (<a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a> == source) {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            <a class="code" href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">send</a>(value, destination);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;         }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;         <span class="keywordflow">if</span> (<a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a> == destination) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            <span class="keywordflow">return</span> receive&lt;Type&gt;(source);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;         }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;         <span class="keywordflow">return</span> Type();</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;      }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a32905f0bf03dc79530ac8d17a503c6b2">  180</a></span>&#160;      Type <a class="code" href="structTAT_1_1mpi__t.html#a32905f0bf03dc79530ac8d17a503c6b2">broadcast</a>(<span class="keyword">const</span> Type&amp; value, <span class="keyword">const</span> <span class="keywordtype">int</span> root)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;         <span class="keyword">auto</span> timer_guard = mpi_broadcast_guard();</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;         <span class="keywordflow">if</span> (<a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a> == 1) {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            <span class="keywordflow">return</span> value;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;         }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;         <span class="keywordflow">if</span> (0 &gt; root || root &gt;= <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <a class="code" href="group__Miscellaneous.html#ga40f46f83982bd27a7e204d8a1360b6a0">TAT_error</a>(<span class="stringliteral">&quot;Invalid root rank when mpi broadcast&quot;</span>);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;         }</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;         <span class="keyword">const</span> <span class="keyword">auto</span> this_fake_rank = (<a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a> + <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a> - root) % <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;         Type result;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;         <span class="comment">// get from father</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;         <span class="keywordflow">if</span> (this_fake_rank != 0) {</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> father_fake_rank = (this_fake_rank - 1) / 2;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> father_real_rank = (father_fake_rank + root) % <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            result = receive&lt;Type&gt;(father_real_rank);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;         } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            <span class="comment">// 自己就是root的话, 会复制一次张量</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            result = value;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;         }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;         <span class="comment">// send to son</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;         <span class="keyword">const</span> <span class="keyword">auto</span> left_son_fake_rank = this_fake_rank * 2 + 1;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;         <span class="keyword">const</span> <span class="keyword">auto</span> right_son_fake_rank = this_fake_rank * 2 + 2;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;         <span class="keywordflow">if</span> (left_son_fake_rank &lt; <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>) {</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> left_son_real_rank = (left_son_fake_rank + root) % <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            <a class="code" href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">send</a>(result, left_son_real_rank);</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;         }</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;         <span class="keywordflow">if</span> (right_son_fake_rank &lt; <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>) {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> right_son_real_rank = (right_son_fake_rank + root) % <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            <a class="code" href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">send</a>(result, right_son_real_rank);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;         }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;      }</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span> Func&gt;</div>
+<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a1beb2626eac32fec93fa09a881394a6b">  214</a></span>&#160;      Type <a class="code" href="structTAT_1_1mpi__t.html#a1beb2626eac32fec93fa09a881394a6b">reduce</a>(<span class="keyword">const</span> Type&amp; value, <span class="keyword">const</span> <span class="keywordtype">int</span> root, Func&amp;&amp; <span class="keyword">function</span>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;         <span class="keyword">auto</span> timer_guard = mpi_reduce_guard();</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;         <span class="keywordflow">if</span> (<a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a> == 1) {</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            <span class="keywordflow">return</span> value;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;         }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;         <span class="keywordflow">if</span> (0 &gt; root || root &gt;= <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>) {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            <a class="code" href="group__Miscellaneous.html#ga40f46f83982bd27a7e204d8a1360b6a0">TAT_error</a>(<span class="stringliteral">&quot;Invalid root rank when mpi reduce&quot;</span>);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;         }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;         <span class="keyword">const</span> <span class="keyword">auto</span> this_fake_rank = (<a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a> + <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a> - root) % <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;         Type result;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;         <span class="comment">// get from son</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;         <span class="keyword">const</span> <span class="keyword">auto</span> left_son_fake_rank = this_fake_rank * 2 + 1;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;         <span class="keyword">const</span> <span class="keyword">auto</span> right_son_fake_rank = this_fake_rank * 2 + 2;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;         <span class="keywordflow">if</span> (left_son_fake_rank &lt; <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>) {</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> left_son_real_rank = (left_son_fake_rank + root) % <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            result = <span class="keyword">function</span>(value, receive&lt;Type&gt;(left_son_real_rank));</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;         }</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;         <span class="keywordflow">if</span> (right_son_fake_rank &lt; <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>) {</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> right_son_real_rank = (right_son_fake_rank + root) % <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            <span class="comment">// 如果左儿子不存在, 那么右儿子一定不存在, 所以不必判断result是否有效</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            result = <span class="keyword">function</span>(result, receive&lt;Type&gt;(right_son_real_rank));</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;         }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;         <span class="comment">// pass to father</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;         <span class="keywordflow">if</span> (this_fake_rank != 0) {</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> father_fake_rank = (this_fake_rank - 1) / 2;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> father_real_rank = (father_fake_rank + root) % <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            <span class="keywordflow">if</span> (left_son_fake_rank &lt; <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a>) {</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;               <a class="code" href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">send</a>(result, father_real_rank);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;               <a class="code" href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">send</a>(value, father_real_rank);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            }</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;         }</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;         <span class="comment">// 子叶为空tensor, 每个非子叶节点为reduce了所有的后代的结果</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;      }</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">  250</a></span>&#160;      <span class="keyword">auto</span> <a class="code" href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">out_one</a>(<span class="keywordtype">int</span> rank_specified = 0) {</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;         <span class="keywordflow">return</span> <a class="code" href="structTAT_1_1mpi__one__output__stream.html">mpi_one_output_stream</a>(std::cout, rank_specified == <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a>);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;      }</div>
+<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#afff3c1a61ecf5785480e7a7c95df0d66">  253</a></span>&#160;      <span class="keyword">auto</span> <a class="code" href="structTAT_1_1mpi__t.html#afff3c1a61ecf5785480e7a7c95df0d66">log_one</a>(<span class="keywordtype">int</span> rank_specified = 0) {</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;         <span class="keywordflow">return</span> <a class="code" href="structTAT_1_1mpi__one__output__stream.html">mpi_one_output_stream</a>(std::clog, rank_specified == <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a>);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      }</div>
+<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a25c432a1addc0b0e18838d2cd733bcaa">  256</a></span>&#160;      <span class="keyword">auto</span> <a class="code" href="structTAT_1_1mpi__t.html#a25c432a1addc0b0e18838d2cd733bcaa">err_one</a>(<span class="keywordtype">int</span> rank_specified = 0) {</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;         <span class="keywordflow">return</span> <a class="code" href="structTAT_1_1mpi__one__output__stream.html">mpi_one_output_stream</a>(std::cerr, rank_specified == <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a>);</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;      }</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a010af9cba7735422b2131964ffd22e6c">  260</a></span>&#160;      <span class="keyword">auto</span> <a class="code" href="structTAT_1_1mpi__t.html#a010af9cba7735422b2131964ffd22e6c">out_rank</a>() {</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;         <span class="keywordflow">return</span> <a class="code" href="structTAT_1_1mpi__rank__output__stream.html">mpi_rank_output_stream</a>(std::cout, <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a> == 1 ? -1 : <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a>);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      }</div>
+<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#ae05b85b20f19b97c65e9352a8f512f75">  263</a></span>&#160;      <span class="keyword">auto</span> <a class="code" href="structTAT_1_1mpi__t.html#ae05b85b20f19b97c65e9352a8f512f75">log_rank</a>() {</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;         <span class="keywordflow">return</span> <a class="code" href="structTAT_1_1mpi__rank__output__stream.html">mpi_rank_output_stream</a>(std::clog, <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a> == 1 ? -1 : <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a>);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;      }</div>
+<div class="line"><a name="l00266"></a><span class="lineno"><a class="line" href="structTAT_1_1mpi__t.html#a736343318c74e46d68d82a9b5c80abb7">  266</a></span>&#160;      <span class="keyword">auto</span> <a class="code" href="structTAT_1_1mpi__t.html#a736343318c74e46d68d82a9b5c80abb7">err_rank</a>() {</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;         <span class="keywordflow">return</span> <a class="code" href="structTAT_1_1mpi__rank__output__stream.html">mpi_rank_output_stream</a>(std::cerr, <a class="code" href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">size</a> == 1 ? -1 : <a class="code" href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">rank</a>);</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;      }</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;   };</div>
+<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">  273</a></span>&#160;   <span class="keyword">inline</span> <a class="code" href="structTAT_1_1mpi__t.html">mpi_t</a> <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="preprocessor">#ifdef TAT_USE_MPI</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Symmetry, <span class="keyword">typename</span> Name&gt;</div>
+<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="structTAT_1_1Tensor.html#ab409a6f2d8f3ea1812b65a240ba5280c">  278</a></span>&#160;   <span class="keywordtype">void</span> <a class="code" href="structTAT_1_1Tensor.html#ab409a6f2d8f3ea1812b65a240ba5280c">Tensor&lt;ScalarType, Symmetry, Name&gt;::send</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> destination)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;      <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">send</a>(*<span class="keyword">this</span>, destination);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;   }</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Symmetry, <span class="keyword">typename</span> Name&gt;</div>
+<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="structTAT_1_1Tensor.html#ad208b0c8577ff1d5fed6a2b2c945698e">  283</a></span>&#160;   <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;ScalarType, Symmetry, Name&gt;</a> <a class="code" href="structTAT_1_1Tensor.html#ad208b0c8577ff1d5fed6a2b2c945698e">Tensor&lt;ScalarType, Symmetry, Name&gt;::receive</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> source) {</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#a994c1d9e288439aa5aa72113283f416e">receive</a>&lt;<a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;ScalarType, Symmetry, Name&gt;</a>&gt;(source);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;   }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Symmetry, <span class="keyword">typename</span> Name&gt;</div>
+<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="structTAT_1_1Tensor.html#ae4cdde69a41a39bdd528983f775ce9a1">  288</a></span>&#160;   <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;ScalarType, Symmetry, Name&gt;</a> <a class="code" href="structTAT_1_1Tensor.html#ae4cdde69a41a39bdd528983f775ce9a1">Tensor&lt;ScalarType, Symmetry, Name&gt;::send_receive</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> source, <span class="keyword">const</span> <span class="keywordtype">int</span> destination)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#a3dbb160dc1a4e8d54e1a937eee3efbce">send_receive</a>(*<span class="keyword">this</span>, source, destination);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;   }</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Symmetry, <span class="keyword">typename</span> Name&gt;</div>
+<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="structTAT_1_1Tensor.html#a6cd35ca572f1bec93ba43b4a9de5e69d">  293</a></span>&#160;   <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;ScalarType, Symmetry, Name&gt;</a> <a class="code" href="structTAT_1_1Tensor.html#a6cd35ca572f1bec93ba43b4a9de5e69d">Tensor&lt;ScalarType, Symmetry, Name&gt;::broadcast</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> root)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#a32905f0bf03dc79530ac8d17a503c6b2">broadcast</a>(*<span class="keyword">this</span>, root);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;   }</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Symmetry, <span class="keyword">typename</span> Name&gt;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Func&gt;</div>
+<div class="line"><a name="l00299"></a><span class="lineno"><a class="line" href="structTAT_1_1Tensor.html#ab2117eb5c897ed1ac6a42807966e372d">  299</a></span>&#160;   <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;ScalarType, Symmetry, Name&gt;</a> <a class="code" href="structTAT_1_1Tensor.html#ab2117eb5c897ed1ac6a42807966e372d">Tensor&lt;ScalarType, Symmetry, Name&gt;::reduce</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> root, Func&amp;&amp; <span class="keyword">function</span>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#a1beb2626eac32fec93fa09a881394a6b">reduce</a>(*<span class="keyword">this</span>, root, <span class="keyword">function</span>);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;   }</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Symmetry, <span class="keyword">typename</span> Name&gt;</div>
+<div class="line"><a name="l00304"></a><span class="lineno"><a class="line" href="structTAT_1_1Tensor.html#a9b5d2765c5e944925af511d75c5a7690">  304</a></span>&#160;   <span class="keywordtype">void</span> <a class="code" href="structTAT_1_1Tensor.html#a9b5d2765c5e944925af511d75c5a7690">Tensor&lt;ScalarType, Symmetry, Name&gt;::barrier</a>() {</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;      <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#a220ca4b638ab2d027855479bf85a945f">barrier</a>();</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;   }</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;   <span class="keyword">inline</span> evil_t::evil_t() noexcept {</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;      HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      DWORD output_mode = 0;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      GetConsoleMode(output_handle, &amp;output_mode);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;      SetConsoleMode(output_handle, output_mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;      HANDLE error_handle = GetStdHandle(STD_ERROR_HANDLE);</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;      DWORD error_mode = 0;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;      GetConsoleMode(error_handle, &amp;error_mode);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;      SetConsoleMode(error_handle, error_mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;   }</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;   <span class="keyword">inline</span> evil_t::~evil_t() {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="preprocessor">#ifndef NDEBUG</span></div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;      <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#afff3c1a61ecf5785480e7a7c95df0d66">log_one</a>() &lt;&lt; <a class="code" href="group__IO.html#ga812c17cc2001a142260ae10bb8c4c1e6">console_blue</a> &lt;&lt; <span class="stringliteral">&quot;\n\nPremature optimization is the root of all evil!\n&quot;</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;                    &lt;&lt; <a class="code" href="group__IO.html#ga38c688241972425df2d55d7c13e93ed7">console_origin</a> &lt;&lt; <span class="stringliteral">&quot;                                       --- Donald Knuth\n\n\n&quot;</span>;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;   }</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
+<div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="group__Miscellaneous.html#ga0d970b2c306c1c170fffaf084b98467d">  328</a></span>&#160;   <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group__Miscellaneous.html#ga0d970b2c306c1c170fffaf084b98467d">TAT_log</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* message) {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;      <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#ae05b85b20f19b97c65e9352a8f512f75">log_rank</a>() &lt;&lt; <a class="code" href="group__IO.html#ga4abd9dd3c1973d84ec13109f1a219b89">console_yellow</a> &lt;&lt; message &lt;&lt; <a class="code" href="group__IO.html#ga38c688241972425df2d55d7c13e93ed7">console_origin</a> &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;   }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno"><a class="line" href="group__Miscellaneous.html#gae2a782af59ad2716107ad7ca7615b1dd">  332</a></span>&#160;   <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group__Miscellaneous.html#gae2a782af59ad2716107ad7ca7615b1dd">TAT_warning</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* message) {</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;      <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#a736343318c74e46d68d82a9b5c80abb7">err_rank</a>() &lt;&lt; <a class="code" href="group__IO.html#ga1ff0950988386a714f0f9e737f79aa8b">console_red</a> &lt;&lt; message &lt;&lt; <a class="code" href="group__IO.html#ga38c688241972425df2d55d7c13e93ed7">console_origin</a> &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;   }</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno"><a class="line" href="group__Miscellaneous.html#ga40f46f83982bd27a7e204d8a1360b6a0">  336</a></span>&#160;   <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group__Miscellaneous.html#ga40f46f83982bd27a7e204d8a1360b6a0">TAT_error</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* message) {</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(message);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;   }</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;} <span class="comment">// namespace TAT</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a994c1d9e288439aa5aa72113283f416e"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a994c1d9e288439aa5aa72113283f416e">TAT::mpi_t::receive</a></div><div class="ttdeci">static Type receive(const int source)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:154</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__one__output__stream_html_aa6dfb74a98a7da3a6d490aa5984717fb"><div class="ttname"><a href="structTAT_1_1mpi__one__output__stream.html#aa6dfb74a98a7da3a6d490aa5984717fb">TAT::mpi_one_output_stream::operator&lt;&lt;</a></div><div class="ttdeci">mpi_one_output_stream &amp; operator&lt;&lt;(const Type &amp;value) &amp;</div><div class="ttdef"><b>Definition:</b> mpi.hpp:55</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_ae05b85b20f19b97c65e9352a8f512f75"><div class="ttname"><a href="structTAT_1_1mpi__t.html#ae05b85b20f19b97c65e9352a8f512f75">TAT::mpi_t::log_rank</a></div><div class="ttdeci">auto log_rank()</div><div class="ttdef"><b>Definition:</b> mpi.hpp:263</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__rank__output__stream_html_a6bf90dd7295dbd0f55a6378a2bddacf6"><div class="ttname"><a href="structTAT_1_1mpi__rank__output__stream.html#a6bf90dd7295dbd0f55a6378a2bddacf6">TAT::mpi_rank_output_stream::~mpi_rank_output_stream</a></div><div class="ttdeci">~mpi_rank_output_stream()</div><div class="ttdef"><b>Definition:</b> mpi.hpp:77</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a74b3f186e220639e37024cf512b79b73"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a74b3f186e220639e37024cf512b79b73">TAT::mpi_t::enabled</a></div><div class="ttdeci">static constexpr bool enabled</div><div class="ttdef"><b>Definition:</b> mpi.hpp:108</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_ab409a6f2d8f3ea1812b65a240ba5280c"><div class="ttname"><a href="structTAT_1_1Tensor.html#ab409a6f2d8f3ea1812b65a240ba5280c">TAT::Tensor::send</a></div><div class="ttdeci">void send(int destination) const</div><div class="ttdoc">source调用此函数, 向destination发送一个张量</div><div class="ttdef"><b>Definition:</b> mpi.hpp:278</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_a6cd35ca572f1bec93ba43b4a9de5e69d"><div class="ttname"><a href="structTAT_1_1Tensor.html#a6cd35ca572f1bec93ba43b4a9de5e69d">TAT::Tensor::broadcast</a></div><div class="ttdeci">Tensor&lt; ScalarType, Symmetry, Name &gt; broadcast(int root) const</div><div class="ttdoc">从root进程分发张量, 使用简单的树形分发, 必须所有进程一起调用这个函数</div><div class="ttdef"><b>Definition:</b> mpi.hpp:293</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_afff3c1a61ecf5785480e7a7c95df0d66"><div class="ttname"><a href="structTAT_1_1mpi__t.html#afff3c1a61ecf5785480e7a7c95df0d66">TAT::mpi_t::log_one</a></div><div class="ttdeci">auto log_one(int rank_specified=0)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:253</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__one__output__stream_html_ad652e66fdad439222f6956066328c686"><div class="ttname"><a href="structTAT_1_1mpi__one__output__stream.html#ad652e66fdad439222f6956066328c686">TAT::mpi_one_output_stream::valid</a></div><div class="ttdeci">bool valid</div><div class="ttdef"><b>Definition:</b> mpi.hpp:47</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_ab0efc0a78d7590a38c2255d9e0c29c06"><div class="ttname"><a href="structTAT_1_1mpi__t.html#ab0efc0a78d7590a38c2255d9e0c29c06">TAT::mpi_t::finalized</a></div><div class="ttdeci">static bool finalized() noexcept</div><div class="ttdef"><b>Definition:</b> mpi.hpp:118</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_a9b5d2765c5e944925af511d75c5a7690"><div class="ttname"><a href="structTAT_1_1Tensor.html#a9b5d2765c5e944925af511d75c5a7690">TAT::Tensor::barrier</a></div><div class="ttdeci">static void barrier()</div><div class="ttdoc">mpi进程间同步</div><div class="ttdef"><b>Definition:</b> mpi.hpp:304</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_ae4cdde69a41a39bdd528983f775ce9a1"><div class="ttname"><a href="structTAT_1_1Tensor.html#ae4cdde69a41a39bdd528983f775ce9a1">TAT::Tensor::send_receive</a></div><div class="ttdeci">Tensor&lt; ScalarType, Symmetry, Name &gt; send_receive(int source, int destination) const</div><div class="ttdoc">像简单类型一样使用mpi但send和receive, 调用后, 一个destination返回source调用时输入tensor, 其他进程返回空张量</div><div class="ttdef"><b>Definition:</b> mpi.hpp:288</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html"><div class="ttname"><a href="structTAT_1_1mpi__t.html">TAT::mpi_t</a></div><div class="ttdoc">一个mpi handler类型, 会在构造和析构时自动调用MPI_Init和MPI_Finalize, 且会获取Size和Rank信息, 同时提供只在某个rank下有效的输出流</div><div class="ttdef"><b>Definition:</b> mpi.hpp:104</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__one__output__stream_html_abd063d64b4205b68b16b80262462b008"><div class="ttname"><a href="structTAT_1_1mpi__one__output__stream.html#abd063d64b4205b68b16b80262462b008">TAT::mpi_one_output_stream::out</a></div><div class="ttdeci">std::ostream &amp; out</div><div class="ttdef"><b>Definition:</b> mpi.hpp:46</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__rank__output__stream_html"><div class="ttname"><a href="structTAT_1_1mpi__rank__output__stream.html">TAT::mpi_rank_output_stream</a></div><div class="ttdoc">对流进行包装, 每次输出之前打印当前rank</div><div class="ttdef"><b>Definition:</b> mpi.hpp:74</div></div>
+<div class="ttc" id="agroup__IO_html_ga1ff0950988386a714f0f9e737f79aa8b"><div class="ttname"><a href="group__IO.html#ga1ff0950988386a714f0f9e737f79aa8b">TAT::console_red</a></div><div class="ttdeci">const UnixColorCode console_red</div><div class="ttdef"><b>Definition:</b> io.hpp:433</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a1beb2626eac32fec93fa09a881394a6b"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a1beb2626eac32fec93fa09a881394a6b">TAT::mpi_t::reduce</a></div><div class="ttdeci">Type reduce(const Type &amp;value, const int root, Func &amp;&amp;function) const</div><div class="ttdef"><b>Definition:</b> mpi.hpp:214</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__one__output__stream_html_a529930fee0a0397aec90721eddf57e34"><div class="ttname"><a href="structTAT_1_1mpi__one__output__stream.html#a529930fee0a0397aec90721eddf57e34">TAT::mpi_one_output_stream::mpi_one_output_stream</a></div><div class="ttdeci">mpi_one_output_stream(std::ostream &amp;out, bool valid)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:52</div></div>
+<div class="ttc" id="atimer_8hpp_html"><div class="ttname"><a href="timer_8hpp.html">timer.hpp</a></div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a32905f0bf03dc79530ac8d17a503c6b2"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a32905f0bf03dc79530ac8d17a503c6b2">TAT::mpi_t::broadcast</a></div><div class="ttdeci">Type broadcast(const Type &amp;value, const int root) const</div><div class="ttdef"><b>Definition:</b> mpi.hpp:180</div></div>
+<div class="ttc" id="agroup__IO_html_ga38c688241972425df2d55d7c13e93ed7"><div class="ttname"><a href="group__IO.html#ga38c688241972425df2d55d7c13e93ed7">TAT::console_origin</a></div><div class="ttdeci">const UnixColorCode console_origin</div><div class="ttdef"><b>Definition:</b> io.hpp:437</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__rank__output__stream_html_a6d345133112c7efa97f3a40f0854a7f8"><div class="ttname"><a href="structTAT_1_1mpi__rank__output__stream.html#a6d345133112c7efa97f3a40f0854a7f8">TAT::mpi_rank_output_stream::out</a></div><div class="ttdeci">std::ostream &amp; out</div><div class="ttdef"><b>Definition:</b> mpi.hpp:75</div></div>
+<div class="ttc" id="agroup__Miscellaneous_html_ga40f46f83982bd27a7e204d8a1360b6a0"><div class="ttname"><a href="group__Miscellaneous.html#ga40f46f83982bd27a7e204d8a1360b6a0">TAT::TAT_error</a></div><div class="ttdeci">void TAT_error(const char *message)</div><div class="ttdoc">TAT使用的抛出运行时异常</div><div class="ttdef"><b>Definition:</b> mpi.hpp:336</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a5781e2c8a832834744fc14f49e983401"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a5781e2c8a832834744fc14f49e983401">TAT::mpi_t::send</a></div><div class="ttdeci">static void send(const Type &amp;value, const int destination)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:143</div></div>
+<div class="ttc" id="aio_8hpp_html"><div class="ttname"><a href="io_8hpp.html">io.hpp</a></div></div>
+<div class="ttc" id="astructTAT_1_1mpi__rank__output__stream_html_a29fc681783fa6de8299e3b3953e0a7f1"><div class="ttname"><a href="structTAT_1_1mpi__rank__output__stream.html#a29fc681783fa6de8299e3b3953e0a7f1">TAT::mpi_rank_output_stream::operator&lt;&lt;</a></div><div class="ttdeci">mpi_rank_output_stream &amp;&amp; operator&lt;&lt;(const Type &amp;value) &amp;&amp;</div><div class="ttdef"><b>Definition:</b> mpi.hpp:93</div></div>
+<div class="ttc" id="agroup__IO_html_ga4abd9dd3c1973d84ec13109f1a219b89"><div class="ttname"><a href="group__IO.html#ga4abd9dd3c1973d84ec13109f1a219b89">TAT::console_yellow</a></div><div class="ttdeci">const UnixColorCode console_yellow</div><div class="ttdef"><b>Definition:</b> io.hpp:435</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_add76ab46d3f30e5cc8334006817fed84"><div class="ttname"><a href="structTAT_1_1mpi__t.html#add76ab46d3f30e5cc8334006817fed84">TAT::mpi_t::mpi_tag</a></div><div class="ttdeci">static constexpr int mpi_tag</div><div class="ttdef"><b>Definition:</b> mpi.hpp:140</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a25c432a1addc0b0e18838d2cd733bcaa"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a25c432a1addc0b0e18838d2cd733bcaa">TAT::mpi_t::err_one</a></div><div class="ttdeci">auto err_one(int rank_specified=0)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:256</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_ab2117eb5c897ed1ac6a42807966e372d"><div class="ttname"><a href="structTAT_1_1Tensor.html#ab2117eb5c897ed1ac6a42807966e372d">TAT::Tensor::reduce</a></div><div class="ttdeci">Tensor&lt; ScalarType, Symmetry, Name &gt; reduce(int root, Func &amp;&amp;function) const</div><div class="ttdoc">向root进程reduce张量, 使用简单的树形reduce, 必须所有进程一起调用这个函数, 最后root进程返回全部reduce的结果, 其他进程为中间结果一般无意义</div><div class="ttdef"><b>Definition:</b> mpi.hpp:299</div></div>
+<div class="ttc" id="agroup__Miscellaneous_html_gae2a782af59ad2716107ad7ca7615b1dd"><div class="ttname"><a href="group__Miscellaneous.html#gae2a782af59ad2716107ad7ca7615b1dd">TAT::TAT_warning</a></div><div class="ttdeci">void TAT_warning(const char *message)</div><div class="ttdoc">TAT使用的打印警告</div><div class="ttdef"><b>Definition:</b> mpi.hpp:332</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a3dbb160dc1a4e8d54e1a937eee3efbce"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a3dbb160dc1a4e8d54e1a937eee3efbce">TAT::mpi_t::send_receive</a></div><div class="ttdeci">Type send_receive(const Type &amp;value, const int source, const int destination) const</div><div class="ttdef"><b>Definition:</b> mpi.hpp:169</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a0a40978ff07deb5166e5bdf4698a23ca"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a0a40978ff07deb5166e5bdf4698a23ca">TAT::mpi_t::mpi_t</a></div><div class="ttdeci">mpi_t()</div><div class="ttdef"><b>Definition:</b> mpi.hpp:123</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__rank__output__stream_html_a0eefb6d8478c408f66879e5ca7c1bf2c"><div class="ttname"><a href="structTAT_1_1mpi__rank__output__stream.html#a0eefb6d8478c408f66879e5ca7c1bf2c">TAT::mpi_rank_output_stream::operator&lt;&lt;</a></div><div class="ttdeci">mpi_rank_output_stream &amp; operator&lt;&lt;(const Type &amp;value) &amp;</div><div class="ttdef"><b>Definition:</b> mpi.hpp:87</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__one__output__stream_html_a2de25d92b8f2630d5d5c28173e9f532e"><div class="ttname"><a href="structTAT_1_1mpi__one__output__stream.html#a2de25d92b8f2630d5d5c28173e9f532e">TAT::mpi_one_output_stream::operator&lt;&lt;</a></div><div class="ttdeci">mpi_one_output_stream &amp;&amp; operator&lt;&lt;(const Type &amp;value) &amp;&amp;</div><div class="ttdef"><b>Definition:</b> mpi.hpp:63</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__one__output__stream_html"><div class="ttname"><a href="structTAT_1_1mpi__one__output__stream.html">TAT::mpi_one_output_stream</a></div><div class="ttdoc">对流进行包装, 包装后流只会根据创建时指定的有效性决定是否输出</div><div class="ttdef"><b>Definition:</b> mpi.hpp:45</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a220ca4b638ab2d027855479bf85a945f"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a220ca4b638ab2d027855479bf85a945f">TAT::mpi_t::barrier</a></div><div class="ttdeci">static void barrier()</div><div class="ttdef"><b>Definition:</b> mpi.hpp:136</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__rank__output__stream_html_ad12e22bc84dd141a6912b70997d4cade"><div class="ttname"><a href="structTAT_1_1mpi__rank__output__stream.html#ad12e22bc84dd141a6912b70997d4cade">TAT::mpi_rank_output_stream::string</a></div><div class="ttdeci">std::ostringstream string</div><div class="ttdef"><b>Definition:</b> mpi.hpp:76</div></div>
+<div class="ttc" id="agroup__MPI_html_ga8023345bfaa3e140a1b117a7aa5244d9"><div class="ttname"><a href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a></div><div class="ttdeci">mpi_t mpi</div><div class="ttdef"><b>Definition:</b> mpi.hpp:273</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_aed5ce907b04b40e54a8fe01d1528ad7b"><div class="ttname"><a href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">TAT::mpi_t::out_one</a></div><div class="ttdeci">auto out_one(int rank_specified=0)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:250</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_acf9a295fce1a4239854b6209a5c16ebb"><div class="ttname"><a href="structTAT_1_1mpi__t.html#acf9a295fce1a4239854b6209a5c16ebb">TAT::mpi_t::initialized</a></div><div class="ttdeci">static bool initialized() noexcept</div><div class="ttdef"><b>Definition:</b> mpi.hpp:113</div></div>
+<div class="ttc" id="agroup__IO_html_ga812c17cc2001a142260ae10bb8c4c1e6"><div class="ttname"><a href="group__IO.html#ga812c17cc2001a142260ae10bb8c4c1e6">TAT::console_blue</a></div><div class="ttdeci">const UnixColorCode console_blue</div><div class="ttdef"><b>Definition:</b> io.hpp:436</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html"><div class="ttname"><a href="structTAT_1_1Tensor.html">TAT::Tensor</a></div><div class="ttdoc">张量类型</div><div class="ttdef"><b>Definition:</b> tensor.hpp:122</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a06768cd4b932c95403bf26c225fc5172"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a06768cd4b932c95403bf26c225fc5172">TAT::mpi_t::rank</a></div><div class="ttdeci">int rank</div><div class="ttdef"><b>Definition:</b> mpi.hpp:106</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_ad208b0c8577ff1d5fed6a2b2c945698e"><div class="ttname"><a href="structTAT_1_1Tensor.html#ad208b0c8577ff1d5fed6a2b2c945698e">TAT::Tensor::receive</a></div><div class="ttdeci">static Tensor&lt; ScalarType, Symmetry, Name &gt; receive(int source)</div><div class="ttdoc">destination调用此函数, 从source接受一个张量</div><div class="ttdef"><b>Definition:</b> mpi.hpp:283</div></div>
+<div class="ttc" id="agroup__Miscellaneous_html_ga0d970b2c306c1c170fffaf084b98467d"><div class="ttname"><a href="group__Miscellaneous.html#ga0d970b2c306c1c170fffaf084b98467d">TAT::TAT_log</a></div><div class="ttdeci">void TAT_log(const char *message)</div><div class="ttdoc">TAT使用的日志打印</div><div class="ttdef"><b>Definition:</b> mpi.hpp:328</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__rank__output__stream_html_a39986f518b6c9bf2a481e84b097e403b"><div class="ttname"><a href="structTAT_1_1mpi__rank__output__stream.html#a39986f518b6c9bf2a481e84b097e403b">TAT::mpi_rank_output_stream::mpi_rank_output_stream</a></div><div class="ttdeci">mpi_rank_output_stream(std::ostream &amp;out, int rank)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:80</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__one__output__stream_html_a94f573d99110b1ad808e9a1e20fa312b"><div class="ttname"><a href="structTAT_1_1mpi__one__output__stream.html#a94f573d99110b1ad808e9a1e20fa312b">TAT::mpi_one_output_stream::string</a></div><div class="ttdeci">std::ostringstream string</div><div class="ttdef"><b>Definition:</b> mpi.hpp:48</div></div>
+<div class="ttc" id="anamespaceTAT_html"><div class="ttname"><a href="namespaceTAT.html">TAT</a></div><div class="ttdoc">TAT is A Tensor library</div><div class="ttdef"><b>Definition:</b> basic_type.hpp:28</div></div>
+<div class="ttc" id="atensor_8hpp_html"><div class="ttname"><a href="tensor_8hpp.html">tensor.hpp</a></div></div>
+<div class="ttc" id="astructTAT_1_1mpi__one__output__stream_html_a85fc5ce8eedb448901da1f51e8fcccbf"><div class="ttname"><a href="structTAT_1_1mpi__one__output__stream.html#a85fc5ce8eedb448901da1f51e8fcccbf">TAT::mpi_one_output_stream::~mpi_one_output_stream</a></div><div class="ttdeci">~mpi_one_output_stream()</div><div class="ttdef"><b>Definition:</b> mpi.hpp:49</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a010af9cba7735422b2131964ffd22e6c"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a010af9cba7735422b2131964ffd22e6c">TAT::mpi_t::out_rank</a></div><div class="ttdeci">auto out_rank()</div><div class="ttdef"><b>Definition:</b> mpi.hpp:260</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a3d9e7a6e5ad99811c8c8e741e3dfa66c"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a3d9e7a6e5ad99811c8c8e741e3dfa66c">TAT::mpi_t::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> mpi.hpp:105</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a56a2d405b16dc9989d9be2042100944a"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a56a2d405b16dc9989d9be2042100944a">TAT::mpi_t::~mpi_t</a></div><div class="ttdeci">~mpi_t()</div><div class="ttdef"><b>Definition:</b> mpi.hpp:130</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_a736343318c74e46d68d82a9b5c80abb7"><div class="ttname"><a href="structTAT_1_1mpi__t.html#a736343318c74e46d68d82a9b5c80abb7">TAT::mpi_t::err_rank</a></div><div class="ttdeci">auto err_rank()</div><div class="ttdef"><b>Definition:</b> mpi.hpp:266</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d1f80ff82539b6697abb4a4794b81257.html">TAT</a></li><li class="navelem"><a class="el" href="mpi_8hpp.html">mpi.hpp</a></li>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

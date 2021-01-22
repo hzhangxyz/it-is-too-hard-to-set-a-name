@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: No Symmetry Tensor</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('md_docs_NoSymmetry.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">No Symmetry Tensor </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>No Symmetry Tensor is a tensor without any symmetry, which is just a normal tensor. In <code><a class="el" href="namespaceTAT.html" title="TAT is A Tensor library">TAT</a></code>, use </p><div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="namespacesquare.html#a097d4ce61174a8e16b8a1d0b1e7490ea">Tensor</a> = <a class="code" href="structTAT_1_1Tensor.html">TAT::Tensor&lt;double, TAT::NoSymmetry, TAT::DefaultName&gt;</a>;</div>
+</div><!-- fragment --><p>to get <code>Tensor</code> as no symmetry tensor with basic scalar type as <code>double</code>.</p>
+<p>In fact, those are <code><a class="el" href="structTAT_1_1Tensor.html" title="张量类型">TAT::Tensor</a></code>'s default template argument, so you can directly use </p><div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="namespacesquare.html#a097d4ce61174a8e16b8a1d0b1e7490ea">Tensor</a> = <a class="code" href="structTAT_1_1Tensor.html">TAT::Tensor&lt;&gt;</a>;</div>
+</div><!-- fragment --><p>For <code><a class="el" href="structTAT_1_1Tensor.html" title="张量类型">TAT::Tensor</a></code>, the first argument is tensor's basic scalar type, the second is the symmetry the tensor has, and the third is the name type to mark tensor's index.</p>
+<h1><a class="anchor" id="create-tensor"></a>
+Create tensor</h1>
+<p>To create a no symmetry tensor, pass names and dimension for each dimension of the tensor </p><div class="fragment"><div class="line"><span class="keyword">auto</span> tensor = <a class="code" href="structTAT_1_1Tensor.html">TAT::Tensor&lt;double, TAT::NoSymmetry&gt;</a>({<span class="stringliteral">&quot;A&quot;</span>, <span class="stringliteral">&quot;B&quot;</span>}, {3, 4});</div>
+<div class="line">std::cout &lt;&lt; tensor1 &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+</div><!-- fragment --><p>The result is something like </p><div class="fragment"><div class="line">{names:[A,B],edges:[3,4],blocks:[6.91832e-310,4.66918e-310,3.16202e-322,3.95253e-322,4.66986e-310,0,3.39519e-313,5.76075e+180,4.1237e+97,2.69151e+276,1.39981e+93,1.19745e+16]}</div>
+</div><!-- fragment --><p>Please notice that the tensor content is not initialized yet. To initialize it, see <a href="#initialize-tensor">next section</a></p>
+<p>When you pass names information and dimension information, You cannot pass type <code>std::vector&lt;std::string&gt;</code> or <code>std::vector&lt;int&gt;</code>, unless you define macro <code>TAT_USE_EASY_CONVERSION</code> before include <code><a class="el" href="TAT_8hpp.html">TAT/TAT.hpp</a></code>. if this macro not defined, the argument type is <code>std::vector&lt;<a class="el" href="structTAT_1_1FastName.html" title="用于给张量的边命名的类型FastName, 新建FastName的时候可以选定标号, 也可以选定字符串作为名称, FastName将自动保证标号和名称的一一对应">TAT::FastName</a>&gt;</code> and <code>std::vector&lt;<a class="el" href="structTAT_1_1Edge.html" title="张量的边的形状的类型, 是一个Symmetry到Size的映射表, 如果是费米对称性, 还会含有一个箭头方向">TAT::Edge</a>&lt;<a class="el" href="structTAT_1_1NoSymmetry.html" title="无对称性">TAT::NoSymmetry</a>&gt;&gt;</code>, and you need to do conversion manually. Since there are implicit conversion from <code>std::string</code> to <code><a class="el" href="structTAT_1_1FastName.html" title="用于给张量的边命名的类型FastName, 新建FastName的时候可以选定标号, 也可以选定字符串作为名称, FastName将自动保证标号和名称的一一对应">TAT::FastName</a></code>, you can write something like </p><div class="fragment"><div class="line">std::vector&lt;std::string&gt; name_list = ...;</div>
+<div class="line"><a class="code" href="structTAT_1_1Tensor.html">TAT::Tensor&lt;&gt;</a>({name_list.begin(), name_list.end()}, ...);</div>
+</div><!-- fragment --><p>And the similar way also works for <code><a class="el" href="structTAT_1_1Edge.html" title="张量的边的形状的类型, 是一个Symmetry到Size的映射表, 如果是费米对称性, 还会含有一个箭头方向">TAT::Edge</a>&lt;<a class="el" href="structTAT_1_1NoSymmetry.html" title="无对称性">TAT::NoSymmetry</a>&gt;</code>.</p>
+<p><code><a class="el" href="structTAT_1_1Tensor.html" title="张量类型">TAT::Tensor</a></code> is rebust for zero condition, you can run </p><div class="fragment"><div class="line">std::cout &lt;&lt; TAT::Tensor&lt;&gt;({}, {}) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+</div><!-- fragment --><p>to get rank 0 tensor and result is something like </p><div class="fragment"><div class="line">{names:[],edges:[],blocks:[4.67467e-310]}</div>
+</div><!-- fragment --><p>you can also run </p><div class="fragment"><div class="line">std::cout &lt;&lt; TAT::Tensor&lt;&gt;({<span class="stringliteral">&quot;A&quot;</span>,<span class="stringliteral">&quot;B&quot;</span>,<span class="stringliteral">&quot;C&quot;</span>}, {2333, 0, 2333}) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+</div><!-- fragment --><p>to get a tensor with one dimension equals to zero and the result is </p><div class="fragment"><div class="line">{names:[A,B,C],edges:[2333,0,2333],blocks:[]}</div>
+</div><!-- fragment --><h1><a class="anchor" id="initialize-tensor"></a>
+Initialize tensor</h1>
+<h2>Initialize tensor data for test</h2>
+<p>You can easily initialize data for some simple test by <code>tensor.test()</code>, which will initialize data as natural number sequence. For example </p><div class="fragment"><div class="line"><span class="keyword">auto</span> tensor = <a class="code" href="structTAT_1_1Tensor.html">TAT::Tensor&lt;double, TAT::NoSymmetry&gt;</a>({<span class="stringliteral">&quot;A&quot;</span>, <span class="stringliteral">&quot;B&quot;</span>, <span class="stringliteral">&quot;C&quot;</span>}, {2, 2, 3}).test();</div>
+<div class="line">std::cout &lt;&lt; tensor &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+</div><!-- fragment --><p>The result is </p><div class="fragment"><div class="line">{names:[A,B,C],edges:[2,2,3],blocks:[0,1,2,3,4,5,6,7,8,9,10,11]}</div>
+</div><!-- fragment --><h2>Initialize tensor's elements to zero</h2>
+<p>To initialize all tensor's elements to zero, call <code>tensor.zero()</code>, for example </p><div class="fragment"><div class="line"><span class="keyword">auto</span> tensor = <a class="code" href="structTAT_1_1Tensor.html">TAT::Tensor&lt;double, TAT::NoSymmetry&gt;</a>({<span class="stringliteral">&quot;X&quot;</span>, <span class="stringliteral">&quot;Y&quot;</span>, <span class="stringliteral">&quot;Z&quot;</span>}, {1, 2, 3}).zero();</div>
+<div class="line">std::cout &lt;&lt; tensor &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+</div><!-- fragment --><p>The result is </p><div class="fragment"><div class="line">{names:[X,Y,Z],edges:[1,2,3],blocks:[0,0,0,0,0,0]}</div>
+</div><!-- fragment --> </div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<div class="ttc" id="anamespacesquare_html_a097d4ce61174a8e16b8a1d0b1e7490ea"><div class="ttname"><a href="namespacesquare.html#a097d4ce61174a8e16b8a1d0b1e7490ea">square::Tensor</a></div><div class="ttdeci">TAT::Tensor&lt; T &gt; Tensor</div><div class="ttdef"><b>Definition:</b> basic.hpp:39</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html"><div class="ttname"><a href="structTAT_1_1Tensor.html">TAT::Tensor</a></div><div class="ttdoc">张量类型</div><div class="ttdef"><b>Definition:</b> tensor.hpp:122</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

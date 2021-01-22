@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: include/TAT/scalar.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('scalar_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">scalar.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="scalar_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#ifndef TAT_SCALAR_HPP</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="scalar_8hpp.html#ac9391767420d389856d1127737cbfc3d">   22</a></span>&#160;<span class="preprocessor">#define TAT_SCALAR_HPP</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tensor_8hpp.html">tensor.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="timer_8hpp.html">timer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceTAT.html">TAT</a> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define TAT_DEFINE_SCALAR_OPERATOR(OP, EVAL1, EVAL2, EVAL3)                                                                                      \</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">   template&lt;typename ScalarType1, typename ScalarType2, typename Symmetry, typename Name&gt;                                                        \</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">   [[nodiscard]] auto OP(const Tensor&lt;ScalarType1, Symmetry, Name&gt;&amp; tensor_1, const Tensor&lt;ScalarType2, Symmetry, Name&gt;&amp; tensor_2) {             \</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">      auto timer_guard = scalar_outplace_guard();                                                                                                \</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">      using ScalarType = std::common_type_t&lt;ScalarType1, ScalarType2&gt;;                                                                           \</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">      if (tensor_1.names.size() != tensor_2.names.size()) {                                                                                      \</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">         TAT_error(&quot;Try to do scalar operator on two different rank tensor&quot;);                                                                    \</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">      auto real_tensor_2 = &amp;tensor_2;                                                                                                            \</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">      auto new_tensor_2 = Tensor&lt;ScalarType2, Symmetry, Name&gt;();                                                                                 \</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">      if (tensor_1.names != tensor_2.names) {                                                                                                    \</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">         new_tensor_2 = tensor_2.transpose(tensor_1.names);                                                                                      \</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">         real_tensor_2 = &amp;new_tensor_2;                                                                                                          \</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">      auto real_result_edge = &amp;tensor_1.core-&gt;edges;                                                                                             \</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">      auto new_result_edge = decltype(tensor_1.core-&gt;edges)();                                                                                   \</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">      if (tensor_1.core-&gt;edges != real_tensor_2-&gt;core-&gt;edges) {                                                                                  \</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">         new_result_edge.reserve(tensor_1.names.size());                                                                                         \</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">         for (Rank i = 0; i &lt; tensor_1.names.size(); i++) {                                                                                      \</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">            auto&amp; single_new_edge = new_result_edge.emplace_back(tensor_1.core-&gt;edges.at(i));                                                    \</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">            for (auto [symmetry, dimension] : real_tensor_2-&gt;core-&gt;edges.at(i).map) {                                                            \</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">               auto found = single_new_edge.map.find(symmetry);                                                                                  \</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">               if (found == single_new_edge.map.end()) {                                                                                         \</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">                  single_new_edge.map.insert({symmetry, dimension});                                                                             \</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">               } else if (found-&gt;second != dimension) {                                                                                          \</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">                  TAT_error(&quot;Try to do scalar operator on two tensors which edges not compatible&quot;);                                              \</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">               }                                                                                                                                 \</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">            }                                                                                                                                    \</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">         }                                                                                                                                       \</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">         real_result_edge = &amp;new_result_edge;                                                                                                    \</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">      const ScalarType x = 0;                                                                                                                    \</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">      const ScalarType y = 0;                                                                                                                    \</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">      auto result = Tensor&lt;ScalarType, Symmetry, Name&gt;{tensor_1.names, *real_result_edge};                                                       \</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">      for (auto&amp; [symmetries, block] : result.core-&gt;blocks) {                                                                                    \</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">         auto found_1 = tensor_1.core-&gt;blocks.find(symmetries);                                                                                  \</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">         auto found_2 = real_tensor_2-&gt;core-&gt;blocks.find(symmetries);                                                                            \</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">         if (found_1 != tensor_1.core-&gt;blocks.end()) {                                                                                           \</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">            if (found_2 != real_tensor_2-&gt;core-&gt;blocks.end()) {                                                                                  \</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">               const ScalarType1* __restrict a = tensor_1.core-&gt;blocks.at(symmetries).data();                                                    \</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">               const ScalarType2* __restrict b = real_tensor_2-&gt;core-&gt;blocks.at(symmetries).data();                                              \</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">               ScalarType* __restrict c = block.data();                                                                                          \</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">               for (Size j = 0; j &lt; block.size(); j++) {                                                                                         \</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">                  EVAL3;                                                                                                                         \</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">               }                                                                                                                                 \</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">            } else {                                                                                                                             \</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">               const ScalarType1* __restrict a = tensor_1.core-&gt;blocks.at(symmetries).data();                                                    \</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">               ScalarType* __restrict c = block.data();                                                                                          \</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">               for (Size j = 0; j &lt; block.size(); j++) {                                                                                         \</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">                  EVAL2;                                                                                                                         \</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">               }                                                                                                                                 \</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">            }                                                                                                                                    \</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">         } else {                                                                                                                                \</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">            if (found_2 != real_tensor_2-&gt;core-&gt;blocks.end()) {                                                                                  \</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">               const ScalarType2* __restrict b = real_tensor_2-&gt;core-&gt;blocks.at(symmetries).data();                                              \</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">               ScalarType* __restrict c = block.data();                                                                                          \</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">               for (Size j = 0; j &lt; block.size(); j++) {                                                                                         \</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">                  EVAL1;                                                                                                                         \</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">               }                                                                                                                                 \</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">            } else {                                                                                                                             \</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">               std::fill(block.begin(), block.end(), 0);                                                                                         \</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">            }                                                                                                                                    \</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">         }                                                                                                                                       \</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">      return result;                                                                                                                             \</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">   }                                                                                                                                             \</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">   template&lt;typename ScalarType1, typename ScalarType2, typename Symmetry, typename Name, typename = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; \</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">   [[nodiscard]] auto OP(const Tensor&lt;ScalarType1, Symmetry, Name&gt;&amp; tensor_1, const ScalarType2&amp; number_2) {                                     \</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">      auto timer_guard = scalar_outplace_guard();                                                                                                \</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">      using ScalarType = std::common_type_t&lt;ScalarType1, ScalarType2&gt;;                                                                           \</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">      const auto&amp; y = number_2;                                                                                                                  \</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">      auto result = Tensor&lt;ScalarType, Symmetry, Name&gt;{tensor_1.names, tensor_1.core-&gt;edges};                                                    \</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">      for (auto&amp; [symmetries, block] : result.core-&gt;blocks) {                                                                                    \</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">         const ScalarType1* __restrict a = tensor_1.core-&gt;blocks.at(symmetries).data();                                                          \</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">         ScalarType* __restrict c = block.data();                                                                                                \</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">         for (Size j = 0; j &lt; block.size(); j++) {                                                                                               \</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">            EVAL2;                                                                                                                               \</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">         }                                                                                                                                       \</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">      return result;                                                                                                                             \</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">   }                                                                                                                                             \</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">   template&lt;typename ScalarType1, typename ScalarType2, typename Symmetry, typename Name, typename = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; \</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">   [[nodiscard]] auto OP(const ScalarType1&amp; number_1, const Tensor&lt;ScalarType2, Symmetry, Name&gt;&amp; tensor_2) {                                     \</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">      auto timer_guard = scalar_outplace_guard();                                                                                                \</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">      using ScalarType = std::common_type_t&lt;ScalarType1, ScalarType2&gt;;                                                                           \</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">      const auto&amp; x = number_1;                                                                                                                  \</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">      auto result = Tensor&lt;ScalarType, Symmetry, Name&gt;{tensor_2.names, tensor_2.core-&gt;edges};                                                    \</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">      for (auto&amp; [symmetries, block] : result.core-&gt;blocks) {                                                                                    \</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">         const ScalarType2* __restrict b = tensor_2.core-&gt;blocks.at(symmetries).data();                                                          \</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">         ScalarType* __restrict c = block.data();                                                                                                \</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">         for (Size j = 0; j &lt; block.size(); j++) {                                                                                               \</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">            EVAL1;                                                                                                                               \</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">         }                                                                                                                                       \</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">      return result;                                                                                                                             \</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">   }</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="group__Scalar.html#gab99ec2d624e8a258c0805971759c7c20">  129</a></span>&#160;   <a class="code" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(<span class="keyword">operator</span>+, c[j] = x + b[j], c[j] = a[j] + y, c[j] = a[j] + b[j])</div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="group__Scalar.html#ga223cdc779ae84723dbb1f8dda141f7c7">  130</a></span>&#160;   <a class="code" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(operator-, c[j] = x - b[j], c[j] = a[j] - y, c[j] = a[j] - b[j])</div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="group__Scalar.html#ga9c240b61015114f3537bd895ecbf1508">  131</a></span>&#160;   <a class="code" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(operator*, c[j] = x * b[j], c[j] = a[j] * y, c[j] = a[j] * b[j])</div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="group__Scalar.html#ga27618ca0abccaefce93b20933d77e71e">  132</a></span>&#160;   <a class="code" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(operator/, c[j] = x / b[j], c[j] = a[j] / y, c[j] = a[j] / b[j])</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#undef TAT_DEFINE_SCALAR_OPERATOR</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="group__Scalar.html#gadc47d02c3ea718a6c709e57ba8d8e5f0">  135</a></span>&#160;<span class="preprocessor">#define TAT_DEFINE_SCALAR_OPERATOR(OP, EVAL1, EVAL2)                                                                                             \</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">   template&lt;typename ScalarType1, typename ScalarType2, typename Symmetry, typename Name&gt;                                                        \</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">   Tensor&lt;ScalarType1, Symmetry, Name&gt;&amp; OP(Tensor&lt;ScalarType1, Symmetry, Name&gt;&amp; tensor_1, const Tensor&lt;ScalarType2, Symmetry, Name&gt;&amp; tensor_2) { \</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">      auto timer_guard = scalar_inplace_guard();                                                                                                 \</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">      if (tensor_1.core.use_count() != 1) {                                                                                                      \</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">         tensor_1.core = std::make_shared&lt;Core&lt;ScalarType1, Symmetry&gt;&gt;(*tensor_1.core);                                                          \</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="preprocessor">         TAT_warning_or_error_when_copy_shared(&quot;Inplace operator on tensor shared, copy happened here&quot;);                                         \</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="preprocessor">      auto real_tensor_2 = &amp;tensor_2;                                                                                                            \</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">      auto new_tensor_2 = Tensor&lt;ScalarType2, Symmetry, Name&gt;();                                                                                 \</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">      if (tensor_1.names != tensor_2.names) {                                                                                                    \</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">         new_tensor_2 = tensor_2.transpose(tensor_1.names);                                                                                      \</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">         real_tensor_2 = &amp;new_tensor_2;                                                                                                          \</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">      if (tensor_1.core-&gt;edges != real_tensor_2-&gt;core-&gt;edges) {                                                                                  \</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">         TAT_error(&quot;Scalar Operator In Different Shape Tensor, Maybe You Need Outplace Operator&quot;);                                               \</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="preprocessor">      for (auto&amp; [symmetries, block] : tensor_1.core-&gt;blocks) {                                                                                  \</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">         ScalarType1* __restrict a = block.data();                                                                                               \</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor">         const ScalarType2* __restrict b = real_tensor_2-&gt;core-&gt;blocks.at(symmetries).data();                                                    \</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">         for (Size j = 0; j &lt; block.size(); j++) {                                                                                               \</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">            EVAL2;                                                                                                                               \</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">         }                                                                                                                                       \</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">      return tensor_1;                                                                                                                           \</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">   }                                                                                                                                             \</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">   template&lt;typename ScalarType1, typename ScalarType2, typename Symmetry, typename Name, typename = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; \</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor">   Tensor&lt;ScalarType1, Symmetry, Name&gt;&amp; OP(Tensor&lt;ScalarType1, Symmetry, Name&gt;&amp; tensor_1, const ScalarType2&amp; number_2) {                         \</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">      auto timer_guard = scalar_inplace_guard();                                                                                                 \</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">      if (tensor_1.core.use_count() != 1) {                                                                                                      \</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">         tensor_1.core = std::make_shared&lt;Core&lt;ScalarType1, Symmetry&gt;&gt;(*tensor_1.core);                                                          \</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">         TAT_warning_or_error_when_copy_shared(&quot;Inplace operator on tensor shared, copy happened here&quot;);                                         \</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">      const auto&amp; y = number_2;                                                                                                                  \</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor">      for (auto&amp; [symmetries, block] : tensor_1.core-&gt;blocks) {                                                                                  \</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">         ScalarType1* __restrict a = block.data();                                                                                               \</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">         for (Size j = 0; j &lt; block.size(); j++) {                                                                                               \</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">            EVAL1;                                                                                                                               \</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="preprocessor">         }                                                                                                                                       \</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">      return tensor_1;                                                                                                                           \</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor">   }                                                                                                                                             \</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">   template&lt;typename ScalarType1, typename ScalarType2, typename Symmetry, typename Name, typename = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; \</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">   Singular&lt;ScalarType1, Symmetry, Name&gt;&amp; OP(Singular&lt;ScalarType1, Symmetry, Name&gt;&amp; singular, const ScalarType2&amp; number) {                       \</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor">      auto timer_guard = scalar_inplace_guard();                                                                                                 \</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="preprocessor">      const auto&amp; y = number;                                                                                                                    \</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">      for (auto&amp; [symmetry, singulars] : singular.value) {                                                                                       \</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="preprocessor">         real_base_t&lt;ScalarType1&gt;* __restrict a = singulars.data();                                                                              \</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="preprocessor">         for (Size j = 0; j &lt; singulars.size(); j++) {                                                                                           \</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">            EVAL1;                                                                                                                               \</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">         }                                                                                                                                       \</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">      }                                                                                                                                          \</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor">      return singular;                                                                                                                           \</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">   }</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="group__Scalar.html#gaba39b9523324845e58a1bd4586f6d467">  189</a></span>&#160;   <a class="code" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(<span class="keyword">operator</span>+=, a[j] += y, a[j] += b[j])</div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="group__Scalar.html#gae9f0afdf0ed30b52d726d7c3c6713fa8">  190</a></span>&#160;   <a class="code" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(operator-=, a[j] -= y, a[j] -= b[j])</div>
+<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="group__Scalar.html#ga4d1d3862fe9fde5b037d39d8d470a00e">  191</a></span>&#160;   <a class="code" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(operator*=, a[j] *= y, a[j] *= b[j])</div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="group__Scalar.html#ga8b3abc3f6c4fa13cffb1f78580b9bbfb">  192</a></span>&#160;   <a class="code" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(operator/=, a[j] /= y, a[j] /= b[j])</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#undef TAT_DEFINE_SCALAR_OPERATOR</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;} <span class="comment">// namespace TAT</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="atimer_8hpp_html"><div class="ttname"><a href="timer_8hpp.html">timer.hpp</a></div></div>
+<div class="ttc" id="agroup__Scalar_html_ga1254543cfcc0863c5e21c88ef090514c"><div class="ttname"><a href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a></div><div class="ttdeci">#define TAT_DEFINE_SCALAR_OPERATOR(OP, EVAL1, EVAL2, EVAL3)</div><div class="ttdef"><b>Definition:</b> scalar.hpp:135</div></div>
+<div class="ttc" id="anamespaceTAT_html"><div class="ttname"><a href="namespaceTAT.html">TAT</a></div><div class="ttdoc">TAT is A Tensor library</div><div class="ttdef"><b>Definition:</b> basic_type.hpp:28</div></div>
+<div class="ttc" id="atensor_8hpp_html"><div class="ttname"><a href="tensor_8hpp.html">tensor.hpp</a></div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d1f80ff82539b6697abb4a4794b81257.html">TAT</a></li><li class="navelem"><a class="el" href="scalar_8hpp.html">scalar.hpp</a></li>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,984 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: Scalar</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('group__Scalar.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">Scalar</div>  </div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:ga1254543cfcc0863c5e21c88ef090514c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga1254543cfcc0863c5e21c88ef090514c">TAT_DEFINE_SCALAR_OPERATOR</a>(OP,  EVAL1,  EVAL2,  EVAL3)</td></tr>
+<tr class="separator:ga1254543cfcc0863c5e21c88ef090514c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc47d02c3ea718a6c709e57ba8d8e5f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gadc47d02c3ea718a6c709e57ba8d8e5f0">TAT_DEFINE_SCALAR_OPERATOR</a>(OP,  EVAL1,  EVAL2)</td></tr>
+<tr class="separator:gadc47d02c3ea718a6c709e57ba8d8e5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:ga7047ea126e6800a5dacd06910817b383"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </td></tr>
+<tr class="memitem:ga7047ea126e6800a5dacd06910817b383"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga7047ea126e6800a5dacd06910817b383">TAT::operator+</a> (const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:ga7047ea126e6800a5dacd06910817b383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7dd4828880a779ad810c1d8990aebc66"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga7dd4828880a779ad810c1d8990aebc66"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga7dd4828880a779ad810c1d8990aebc66">TAT::operator+</a> (const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const ScalarType2 &amp;number_2)</td></tr>
+<tr class="separator:ga7dd4828880a779ad810c1d8990aebc66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab99ec2d624e8a258c0805971759c7c20"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; </td></tr>
+<tr class="memitem:gab99ec2d624e8a258c0805971759c7c20"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gab99ec2d624e8a258c0805971759c7c20">TAT::operator+</a> (const ScalarType1 &amp;number_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:gab99ec2d624e8a258c0805971759c7c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae22a1f0398536e2c864353309217b4c0"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </td></tr>
+<tr class="memitem:gae22a1f0398536e2c864353309217b4c0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gae22a1f0398536e2c864353309217b4c0">TAT::operator-</a> (const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:gae22a1f0398536e2c864353309217b4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacefec6590aaea19299029cd8d328c20a"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:gacefec6590aaea19299029cd8d328c20a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gacefec6590aaea19299029cd8d328c20a">TAT::operator-</a> (const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const ScalarType2 &amp;number_2)</td></tr>
+<tr class="separator:gacefec6590aaea19299029cd8d328c20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga223cdc779ae84723dbb1f8dda141f7c7"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga223cdc779ae84723dbb1f8dda141f7c7"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga223cdc779ae84723dbb1f8dda141f7c7">TAT::operator-</a> (const ScalarType1 &amp;number_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:ga223cdc779ae84723dbb1f8dda141f7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf3a2d9c124d2b4e9f143a57c6f1f5207"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </td></tr>
+<tr class="memitem:gaf3a2d9c124d2b4e9f143a57c6f1f5207"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gaf3a2d9c124d2b4e9f143a57c6f1f5207">TAT::operator*</a> (const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:gaf3a2d9c124d2b4e9f143a57c6f1f5207"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga558d05e485e6b20db81e4aae53ff40a0"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga558d05e485e6b20db81e4aae53ff40a0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga558d05e485e6b20db81e4aae53ff40a0">TAT::operator*</a> (const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const ScalarType2 &amp;number_2)</td></tr>
+<tr class="separator:ga558d05e485e6b20db81e4aae53ff40a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c240b61015114f3537bd895ecbf1508"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga9c240b61015114f3537bd895ecbf1508"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga9c240b61015114f3537bd895ecbf1508">TAT::operator*</a> (const ScalarType1 &amp;number_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:ga9c240b61015114f3537bd895ecbf1508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbf9c047ab208f29dfaa5358b04edea3"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </td></tr>
+<tr class="memitem:gabbf9c047ab208f29dfaa5358b04edea3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gabbf9c047ab208f29dfaa5358b04edea3">TAT::operator/</a> (const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:gabbf9c047ab208f29dfaa5358b04edea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad40061b79237f5c0e63be06a3be101bf"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:gad40061b79237f5c0e63be06a3be101bf"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gad40061b79237f5c0e63be06a3be101bf">TAT::operator/</a> (const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const ScalarType2 &amp;number_2)</td></tr>
+<tr class="separator:gad40061b79237f5c0e63be06a3be101bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27618ca0abccaefce93b20933d77e71e"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga27618ca0abccaefce93b20933d77e71e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga27618ca0abccaefce93b20933d77e71e">TAT::operator/</a> (const ScalarType1 &amp;number_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:ga27618ca0abccaefce93b20933d77e71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1df74d72207e86e2a370fb50e81b0af9"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </td></tr>
+<tr class="memitem:ga1df74d72207e86e2a370fb50e81b0af9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga1df74d72207e86e2a370fb50e81b0af9">TAT::operator+=</a> (<a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:ga1df74d72207e86e2a370fb50e81b0af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab266de7fd539aaec21c24232f0f9bdab"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:gab266de7fd539aaec21c24232f0f9bdab"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gab266de7fd539aaec21c24232f0f9bdab">TAT::operator+=</a> (<a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const ScalarType2 &amp;number_2)</td></tr>
+<tr class="separator:gab266de7fd539aaec21c24232f0f9bdab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba39b9523324845e58a1bd4586f6d467"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:gaba39b9523324845e58a1bd4586f6d467"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gaba39b9523324845e58a1bd4586f6d467">TAT::operator+=</a> (<a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;singular, const ScalarType2 &amp;number)</td></tr>
+<tr class="separator:gaba39b9523324845e58a1bd4586f6d467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05f840da0df413c17f5109910a429266"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </td></tr>
+<tr class="memitem:ga05f840da0df413c17f5109910a429266"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga05f840da0df413c17f5109910a429266">TAT::operator-=</a> (<a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:ga05f840da0df413c17f5109910a429266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga98e9b75e2badc47ff3f0f87f5b7de229"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga98e9b75e2badc47ff3f0f87f5b7de229"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga98e9b75e2badc47ff3f0f87f5b7de229">TAT::operator-=</a> (<a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const ScalarType2 &amp;number_2)</td></tr>
+<tr class="separator:ga98e9b75e2badc47ff3f0f87f5b7de229"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9f0afdf0ed30b52d726d7c3c6713fa8"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:gae9f0afdf0ed30b52d726d7c3c6713fa8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gae9f0afdf0ed30b52d726d7c3c6713fa8">TAT::operator-=</a> (<a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;singular, const ScalarType2 &amp;number)</td></tr>
+<tr class="separator:gae9f0afdf0ed30b52d726d7c3c6713fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3d54e6abb04a6c0dd3f707adae783bc2"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </td></tr>
+<tr class="memitem:ga3d54e6abb04a6c0dd3f707adae783bc2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga3d54e6abb04a6c0dd3f707adae783bc2">TAT::operator*=</a> (<a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:ga3d54e6abb04a6c0dd3f707adae783bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b40e918f5d5667b7a5d1a1666f8080c"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga5b40e918f5d5667b7a5d1a1666f8080c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga5b40e918f5d5667b7a5d1a1666f8080c">TAT::operator*=</a> (<a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const ScalarType2 &amp;number_2)</td></tr>
+<tr class="separator:ga5b40e918f5d5667b7a5d1a1666f8080c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d1d3862fe9fde5b037d39d8d470a00e"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga4d1d3862fe9fde5b037d39d8d470a00e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga4d1d3862fe9fde5b037d39d8d470a00e">TAT::operator*=</a> (<a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;singular, const ScalarType2 &amp;number)</td></tr>
+<tr class="separator:ga4d1d3862fe9fde5b037d39d8d470a00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf16c231e8912b9e4a9cd78259a649cb"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </td></tr>
+<tr class="memitem:gadf16c231e8912b9e4a9cd78259a649cb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#gadf16c231e8912b9e4a9cd78259a649cb">TAT::operator/=</a> (<a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;tensor_2)</td></tr>
+<tr class="separator:gadf16c231e8912b9e4a9cd78259a649cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9397081a05cabe257ede5ecec6480da9"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga9397081a05cabe257ede5ecec6480da9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga9397081a05cabe257ede5ecec6480da9">TAT::operator/=</a> (<a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;tensor_1, const ScalarType2 &amp;number_2)</td></tr>
+<tr class="separator:ga9397081a05cabe257ede5ecec6480da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b3abc3f6c4fa13cffb1f78580b9bbfb"><td class="memTemplParams" colspan="2">template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:ga8b3abc3f6c4fa13cffb1f78580b9bbfb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Scalar.html#ga8b3abc3f6c4fa13cffb1f78580b9bbfb">TAT::operator/=</a> (<a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;singular, const ScalarType2 &amp;number)</td></tr>
+<tr class="separator:ga8b3abc3f6c4fa13cffb1f78580b9bbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="gadc47d02c3ea718a6c709e57ba8d8e5f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc47d02c3ea718a6c709e57ba8d8e5f0">&#9670;&nbsp;</a></span>TAT_DEFINE_SCALAR_OPERATOR <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TAT_DEFINE_SCALAR_OPERATOR</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">OP, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EVAL1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EVAL2&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga1254543cfcc0863c5e21c88ef090514c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1254543cfcc0863c5e21c88ef090514c">&#9670;&nbsp;</a></span>TAT_DEFINE_SCALAR_OPERATOR <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TAT_DEFINE_SCALAR_OPERATOR</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">OP, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EVAL1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EVAL2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">EVAL3&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="ga9c240b61015114f3537bd895ecbf1508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9c240b61015114f3537bd895ecbf1508">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const ScalarType1 &amp;&#160;</td>
+          <td class="paramname"><em>number_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga558d05e485e6b20db81e4aae53ff40a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga558d05e485e6b20db81e4aae53ff40a0">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gaf3a2d9c124d2b4e9f143a57c6f1f5207"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf3a2d9c124d2b4e9f143a57c6f1f5207">&#9670;&nbsp;</a></span>operator*() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga4d1d3862fe9fde5b037d39d8d470a00e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4d1d3862fe9fde5b037d39d8d470a00e">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator*= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>singular</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga5b40e918f5d5667b7a5d1a1666f8080c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5b40e918f5d5667b7a5d1a1666f8080c">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator*= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga3d54e6abb04a6c0dd3f707adae783bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3d54e6abb04a6c0dd3f707adae783bc2">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator*= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gab99ec2d624e8a258c0805971759c7c20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab99ec2d624e8a258c0805971759c7c20">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const ScalarType1 &amp;&#160;</td>
+          <td class="paramname"><em>number_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga7dd4828880a779ad810c1d8990aebc66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7dd4828880a779ad810c1d8990aebc66">&#9670;&nbsp;</a></span>operator+() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga7047ea126e6800a5dacd06910817b383"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7047ea126e6800a5dacd06910817b383">&#9670;&nbsp;</a></span>operator+() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gaba39b9523324845e58a1bd4586f6d467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaba39b9523324845e58a1bd4586f6d467">&#9670;&nbsp;</a></span>operator+=() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator+= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>singular</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gab266de7fd539aaec21c24232f0f9bdab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab266de7fd539aaec21c24232f0f9bdab">&#9670;&nbsp;</a></span>operator+=() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator+= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga1df74d72207e86e2a370fb50e81b0af9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1df74d72207e86e2a370fb50e81b0af9">&#9670;&nbsp;</a></span>operator+=() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator+= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga223cdc779ae84723dbb1f8dda141f7c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga223cdc779ae84723dbb1f8dda141f7c7">&#9670;&nbsp;</a></span>operator-() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const ScalarType1 &amp;&#160;</td>
+          <td class="paramname"><em>number_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gacefec6590aaea19299029cd8d328c20a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacefec6590aaea19299029cd8d328c20a">&#9670;&nbsp;</a></span>operator-() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gae22a1f0398536e2c864353309217b4c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae22a1f0398536e2c864353309217b4c0">&#9670;&nbsp;</a></span>operator-() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gae9f0afdf0ed30b52d726d7c3c6713fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae9f0afdf0ed30b52d726d7c3c6713fa8">&#9670;&nbsp;</a></span>operator-=() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator-= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>singular</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga98e9b75e2badc47ff3f0f87f5b7de229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga98e9b75e2badc47ff3f0f87f5b7de229">&#9670;&nbsp;</a></span>operator-=() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator-= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga05f840da0df413c17f5109910a429266"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga05f840da0df413c17f5109910a429266">&#9670;&nbsp;</a></span>operator-=() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator-= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga27618ca0abccaefce93b20933d77e71e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27618ca0abccaefce93b20933d77e71e">&#9670;&nbsp;</a></span>operator/() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType1&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator/ </td>
+          <td>(</td>
+          <td class="paramtype">const ScalarType1 &amp;&#160;</td>
+          <td class="paramname"><em>number_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gad40061b79237f5c0e63be06a3be101bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad40061b79237f5c0e63be06a3be101bf">&#9670;&nbsp;</a></span>operator/() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator/ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gabbf9c047ab208f29dfaa5358b04edea3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabbf9c047ab208f29dfaa5358b04edea3">&#9670;&nbsp;</a></span>operator/() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto TAT::operator/ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga8b3abc3f6c4fa13cffb1f78580b9bbfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8b3abc3f6c4fa13cffb1f78580b9bbfb">&#9670;&nbsp;</a></span>operator/=() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator/= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Singular.html">Singular</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>singular</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga9397081a05cabe257ede5ecec6480da9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9397081a05cabe257ede5ecec6480da9">&#9670;&nbsp;</a></span>operator/=() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name , typename  = std::enable_if_t&lt;is_scalar_v&lt;ScalarType2&gt;&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator/= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ScalarType2 &amp;&#160;</td>
+          <td class="paramname"><em>number_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="gadf16c231e8912b9e4a9cd78259a649cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadf16c231e8912b9e4a9cd78259a649cb">&#9670;&nbsp;</a></span>operator/=() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ScalarType1 , typename ScalarType2 , typename Symmetry , typename Name &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt;ScalarType1, Symmetry, Name&gt;&amp; TAT::operator/= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType1, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1Tensor.html">Tensor</a>&lt; ScalarType2, Symmetry, Name &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tensor_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

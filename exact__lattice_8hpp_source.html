@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: include/square/exact_lattice.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('exact__lattice_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">exact_lattice.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="exact__lattice_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#ifndef SQUARE_EXACT_LATTICE_HPP</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="exact__lattice_8hpp.html#a2f7408362db945c329e4089c1a0d75cb">   22</a></span>&#160;<span class="preprocessor">#define SQUARE_EXACT_LATTICE_HPP</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TAT_8hpp.html">TAT/TAT.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="abstract__lattice_8hpp.html">abstract_lattice.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="basic_8hpp.html">basic.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesquare.html">square</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;   <span class="keyword">struct </span>ExactLattice : AbstractLattice&lt;T&gt; {</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">   35</a></span>&#160;      <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a> <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keyword">using</span> <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;::M</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keyword">using</span> <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;::N</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keyword">using</span> <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;::dimension_physics</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keyword">using</span> <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;::hamiltonians</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structsquare_1_1ExactLattice.html#aa4558d3e58041b36c1900f07dd799f77">   42</a></span>&#160;      <a class="code" href="structsquare_1_1ExactLattice.html#aa4558d3e58041b36c1900f07dd799f77">ExactLattice</a>() : <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice</a>&lt;T&gt;(), <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>(){};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <a class="code" href="structsquare_1_1ExactLattice.html#aa4558d3e58041b36c1900f07dd799f77">ExactLattice</a>(<span class="keyword">const</span> <a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice&lt;T&gt;</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <a class="code" href="structsquare_1_1ExactLattice.html#aa4558d3e58041b36c1900f07dd799f77">ExactLattice</a>(<a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice&lt;T&gt;</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice&lt;T&gt;</a>&amp; <a class="code" href="structsquare_1_1ExactLattice.html#acd51bc7f2ff592a8335657c92665ae8f">operator=</a>(<span class="keyword">const</span> <a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice&lt;T&gt;</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice&lt;T&gt;</a>&amp; <a class="code" href="structsquare_1_1ExactLattice.html#acd51bc7f2ff592a8335657c92665ae8f">operator=</a>(<a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice&lt;T&gt;</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structsquare_1_1ExactLattice.html#a8a72be03c56341d128f800b93d38862e">   48</a></span>&#160;      <a class="code" href="structsquare_1_1ExactLattice.html#a8a72be03c56341d128f800b93d38862e">ExactLattice</a>(<span class="keywordtype">int</span> M, <span class="keywordtype">int</span> N, <a class="code" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">Size</a> d) : <a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice</a>&lt;T&gt;(M, N, d) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;         <span class="keyword">auto</span> name_list = std::vector&lt;Name&gt;();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; M; i++) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = 0; j &lt; N; j++) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;               name_list.push_back(<span class="stringliteral">&quot;P-&quot;</span> + std::to_string(i) + <span class="stringliteral">&quot;-&quot;</span> + std::to_string(j));</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;         }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;         <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a> = <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a>(std::move(name_list), std::vector&lt;Size&gt;(M * N, dimension_physics)).<a class="code" href="structTAT_1_1Tensor.html#ac7fa382fd250903d72418b8e10ed4a65">set</a>(random::normal&lt;T&gt;(0, 1));</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;         <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a> /= <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>.template norm&lt;-1&gt;();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keyword">explicit</span> <a class="code" href="structsquare_1_1ExactLattice.html#aa4558d3e58041b36c1900f07dd799f77">ExactLattice</a>(<span class="keyword">const</span> <a class="code" href="structsquare_1_1SimpleUpdateLattice.html">SimpleUpdateLattice&lt;T&gt;</a>&amp; other);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keyword">explicit</span> <a class="code" href="structsquare_1_1ExactLattice.html#aa4558d3e58041b36c1900f07dd799f77">ExactLattice</a>(<span class="keyword">const</span> <a class="code" href="structsquare_1_1SamplingGradientLattice.html">SamplingGradientLattice&lt;T&gt;</a>&amp; other);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structsquare_1_1ExactLattice.html#af3c16923edf24eb11a38006a45cf3424">   62</a></span>&#160;      <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> <a class="code" href="structsquare_1_1ExactLattice.html#af3c16923edf24eb11a38006a45cf3424">update</a>(<span class="keywordtype">int</span> total_step, <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> approximate_energy = -0.5) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;         <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">out_one</a>() &lt;&lt; <a class="code" href="namespacesquare.html#ad8a700729e4014ab30b7246403e57616">clear_line</a> &lt;&lt; <span class="stringliteral">&quot;Exact update done, total_step=&quot;</span> &lt;&lt; total_step &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;         <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> total_approximate_energy = std::abs(approximate_energy) * M * N;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;         <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> energy = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">auto</span> step = 0; step &lt; total_step; step++) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keyword">auto</span> temporary_vector = <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>.<a class="code" href="structTAT_1_1Tensor.html#a8419fd382c3d74ceafb7b9b06e0214ca">same_shape</a>().zero();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [positions, value] : hamiltonians) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;               <span class="keyword">auto</span> position_number = positions.size();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;               <span class="keyword">auto</span> map_in = std::map&lt;Name, Name&gt;();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;               <span class="keyword">auto</span> map_out = std::map&lt;Name, Name&gt;();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;               <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; position_number; i++) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                  <a class="code" href="structTAT_1_1FastName.html">Name</a> physics_name = <span class="stringliteral">&quot;P-&quot;</span> + std::to_string(std::get&lt;0&gt;(positions[i])) + <span class="stringliteral">&quot;-&quot;</span> + std::to_string(std::get&lt;1&gt;(positions[i]));</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                  map_in[<span class="stringliteral">&quot;I&quot;</span> + std::to_string(i)] = physics_name;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                  map_out[<span class="stringliteral">&quot;O&quot;</span> + std::to_string(i)] = physics_name;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;               }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;               temporary_vector += <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>.<a class="code" href="structTAT_1_1Tensor.html#a99633cbb2776da691ad804a23f8e7d99">contract_all_edge</a>(value-&gt;edge_rename(map_in)).edge_rename(map_out);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a> *= total_approximate_energy;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a> -= temporary_vector;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="comment">// v &lt;- a v - H v = (a - H) v =&gt; E = a - v&#39;/v</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> norm_max = <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>.template norm&lt;-1&gt;();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            energy = total_approximate_energy - norm_max;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a> /= norm_max;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">out_one</a>() &lt;&lt; <a class="code" href="namespacesquare.html#ad8a700729e4014ab30b7246403e57616">clear_line</a> &lt;&lt; <span class="stringliteral">&quot;Exact updating, total_step=&quot;</span> &lt;&lt; total_step &lt;&lt; <span class="stringliteral">&quot;, step=&quot;</span> &lt;&lt; (step + 1)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                               &lt;&lt; <span class="stringliteral">&quot;, Energy=&quot;</span> &lt;&lt; energy / (M * N) &lt;&lt; <span class="stringliteral">&quot;\r&quot;</span>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;         }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;         <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">out_one</a>() &lt;&lt; <a class="code" href="namespacesquare.html#ad8a700729e4014ab30b7246403e57616">clear_line</a> &lt;&lt; <span class="stringliteral">&quot;Exact update done, total_step=&quot;</span> &lt;&lt; total_step &lt;&lt; <span class="stringliteral">&quot;, Energy=&quot;</span> &lt;&lt; energy / (M * N) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         <span class="keywordflow">return</span> energy / (M * N);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="structsquare_1_1ExactLattice.html#a2999db865979e94a5fbc17a6b8dd4417">   92</a></span>&#160;      <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> <a class="code" href="structsquare_1_1ExactLattice.html#a2999db865979e94a5fbc17a6b8dd4417">denominator</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;         <span class="keywordflow">return</span> <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>.<a class="code" href="structTAT_1_1Tensor.html#a99633cbb2776da691ad804a23f8e7d99">contract_all_edge</a>(<a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>).template to&lt;real&lt;T&gt;&gt;();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> C&gt;</div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="structsquare_1_1ExactLattice.html#a403d159e0f51f1b86fd2b048cf283a12">   97</a></span>&#160;      <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> <a class="code" href="structsquare_1_1ExactLattice.html#a403d159e0f51f1b86fd2b048cf283a12">observe</a>(<span class="keyword">const</span> <a class="code" href="namespaceTAT_1_1pmr.html#a9a7e8d6310c5e03b7f1d016a4f5389d0">std::vector</a>&lt;std::tuple&lt;int, int&gt;&gt;&amp; positions, <span class="keyword">const</span> <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;C&gt;</a>&amp; observer, <span class="keywordtype">bool</span> calculate_denominator)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;         <span class="keyword">using</span> common = std::common_type_t&lt;C, T&gt;;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;         <span class="keyword">auto</span> common_vector = <a class="code" href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">vector</a>.template to&lt;common&gt;();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         <span class="keyword">auto</span> common_observer = observer.template to&lt;common&gt;();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         <span class="keyword">auto</span> position_number = positions.size();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         <span class="keyword">auto</span> map_in = std::map&lt;Name, Name&gt;();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;         <span class="keyword">auto</span> map_out = std::map&lt;Name, Name&gt;();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; position_number; i++) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <a class="code" href="structTAT_1_1FastName.html">Name</a> physics_name = <span class="stringliteral">&quot;P-&quot;</span> + std::to_string(std::get&lt;0&gt;(positions[i])) + <span class="stringliteral">&quot;-&quot;</span> + std::to_string(std::get&lt;1&gt;(positions[i]));</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            map_in[<span class="stringliteral">&quot;I&quot;</span> + std::to_string(i)] = physics_name;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            map_out[<span class="stringliteral">&quot;O&quot;</span> + std::to_string(i)] = physics_name;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;         }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;         <span class="keyword">auto</span> numerator = common_vector.contract_all_edge(common_observer.edge_rename(map_in))</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                .edge_rename(map_out)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                .contract_all_edge(common_vector)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                                .template to&lt;real&lt;T&gt;&gt;();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;         <span class="keywordflow">if</span> (calculate_denominator) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a>(numerator) / <a class="code" href="structsquare_1_1ExactLattice.html#a2999db865979e94a5fbc17a6b8dd4417">denominator</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;         } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a>(numerator);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;         }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="structsquare_1_1ExactLattice.html#a8be71a2b4e79b2b740865b54c9d85569">  120</a></span>&#160;      <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> <a class="code" href="structsquare_1_1ExactLattice.html#a8be71a2b4e79b2b740865b54c9d85569">observe_energy</a>() {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;         <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a> energy = 0;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [positions, observer] : hamiltonians) {</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            energy += <a class="code" href="structsquare_1_1ExactLattice.html#a403d159e0f51f1b86fd2b048cf283a12">observe</a>(positions, *observer, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         <span class="keywordflow">return</span> energy / <a class="code" href="structsquare_1_1ExactLattice.html#a2999db865979e94a5fbc17a6b8dd4417">denominator</a>() / (M * N);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;   };</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="namespacesquare.html#aa38d72c83c5b6a18c3d874d3f77eee0f">  130</a></span>&#160;   std::ostream&amp; <a class="code" href="namespacesquare.html#a70af1ca478536a6afef771b88e9cfb59">operator&lt;</a>(std::ostream&amp; out, <span class="keyword">const</span> <a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice&lt;T&gt;</a>&amp; lattice) {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;      <span class="keyword">using</span> TAT::operator&lt;;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;      out &lt; static_cast&lt;const AbstractLattice&lt;T&gt;&amp;&gt;(lattice);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;      out &lt; lattice.vector;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;      <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;   }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="namespacesquare.html#aadec8b315528896345b7b241e06ff07b">  138</a></span>&#160;   std::istream&amp; <a class="code" href="namespacesquare.html#a147c72691722096f4b6cbe729fc40f1d">operator&gt;</a>(std::istream&amp; in, <a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice&lt;T&gt;</a>&amp; lattice) {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;      <span class="keyword">using</span> TAT::operator&gt;;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;      in &gt; <span class="keyword">static_cast&lt;</span><a class="code" href="structsquare_1_1AbstractLattice.html">AbstractLattice&lt;T&gt;</a>&amp;<span class="keyword">&gt;</span>(lattice);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;      in &gt; lattice.vector;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      <span class="keywordflow">return</span> in;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;   }</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;} <span class="comment">// namespace square</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="astructsquare_1_1ExactLattice_html_a2999db865979e94a5fbc17a6b8dd4417"><div class="ttname"><a href="structsquare_1_1ExactLattice.html#a2999db865979e94a5fbc17a6b8dd4417">square::ExactLattice::denominator</a></div><div class="ttdeci">real&lt; T &gt; denominator() const</div><div class="ttdef"><b>Definition:</b> exact_lattice.hpp:92</div></div>
+<div class="ttc" id="aTAT_8hpp_html"><div class="ttname"><a href="TAT_8hpp.html">TAT.hpp</a></div></div>
+<div class="ttc" id="anamespacesquare_html_ab17da2a092bb5b4071fff09c8aa47dec"><div class="ttname"><a href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">square::Size</a></div><div class="ttdeci">TAT::Size Size</div><div class="ttdef"><b>Definition:</b> basic.hpp:36</div></div>
+<div class="ttc" id="anamespacesquare_html_ad8a700729e4014ab30b7246403e57616"><div class="ttname"><a href="namespacesquare.html#ad8a700729e4014ab30b7246403e57616">square::clear_line</a></div><div class="ttdeci">auto clear_line</div><div class="ttdef"><b>Definition:</b> basic.hpp:30</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html_a8be71a2b4e79b2b740865b54c9d85569"><div class="ttname"><a href="structsquare_1_1ExactLattice.html#a8be71a2b4e79b2b740865b54c9d85569">square::ExactLattice::observe_energy</a></div><div class="ttdeci">real&lt; T &gt; observe_energy()</div><div class="ttdef"><b>Definition:</b> exact_lattice.hpp:120</div></div>
+<div class="ttc" id="anamespacesquare_html_a70af1ca478536a6afef771b88e9cfb59"><div class="ttname"><a href="namespacesquare.html#a70af1ca478536a6afef771b88e9cfb59">square::operator&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;(std::ostream &amp;out, const AbstractLattice&lt; T &gt; &amp;lattice)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:76</div></div>
+<div class="ttc" id="anamespacesquare_html_a38e8aadaa8b92f8927c15bef40111b7a"><div class="ttname"><a href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">square::real</a></div><div class="ttdeci">TAT::real_base_t&lt; T &gt; real</div><div class="ttdef"><b>Definition:</b> basic.hpp:41</div></div>
+<div class="ttc" id="astructsquare_1_1SimpleUpdateLattice_html"><div class="ttname"><a href="structsquare_1_1SimpleUpdateLattice.html">square::SimpleUpdateLattice</a></div><div class="ttdef"><b>Definition:</b> basic.hpp:214</div></div>
+<div class="ttc" id="aabstract__lattice_8hpp_html"><div class="ttname"><a href="abstract__lattice_8hpp.html">abstract_lattice.hpp</a></div></div>
+<div class="ttc" id="anamespacesquare_html"><div class="ttname"><a href="namespacesquare.html">square</a></div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:32</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html_a7f2833a26b4f35f6c0407632dce08e2a"><div class="ttname"><a href="structsquare_1_1ExactLattice.html#a7f2833a26b4f35f6c0407632dce08e2a">square::ExactLattice::vector</a></div><div class="ttdeci">Tensor&lt; T &gt; vector</div><div class="ttdef"><b>Definition:</b> exact_lattice.hpp:35</div></div>
+<div class="ttc" id="abasic_8hpp_html"><div class="ttname"><a href="basic_8hpp.html">basic.hpp</a></div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_a99633cbb2776da691ad804a23f8e7d99"><div class="ttname"><a href="structTAT_1_1Tensor.html#a99633cbb2776da691ad804a23f8e7d99">TAT::Tensor::contract_all_edge</a></div><div class="ttdeci">Tensor&lt; ScalarType, Symmetry, Name &gt; contract_all_edge(const Tensor&lt; ScalarType, Symmetry, Name &gt; &amp;other) const</div><div class="ttdoc">将一个张量与另一个张量的所有相同名称的边进行缩并</div><div class="ttdef"><b>Definition:</b> tensor.hpp:591</div></div>
+<div class="ttc" id="astructTAT_1_1FastName_html"><div class="ttname"><a href="structTAT_1_1FastName.html">TAT::FastName</a></div><div class="ttdoc">用于给张量的边命名的类型FastName, 新建FastName的时候可以选定标号, 也可以选定字符串作为名称, FastName将自动保证标号和名称的一一对应</div><div class="ttdef"><b>Definition:</b> name.hpp:81</div></div>
+<div class="ttc" id="astructsquare_1_1AbstractLattice_html"><div class="ttname"><a href="structsquare_1_1AbstractLattice.html">square::AbstractLattice</a></div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:34</div></div>
+<div class="ttc" id="anamespaceTAT_1_1pmr_html_a9a7e8d6310c5e03b7f1d016a4f5389d0"><div class="ttname"><a href="namespaceTAT_1_1pmr.html#a9a7e8d6310c5e03b7f1d016a4f5389d0">TAT::pmr::vector</a></div><div class="ttdeci">std::vector&lt; T, polymorphic_allocator&lt; T &gt; &gt; vector</div><div class="ttdef"><b>Definition:</b> pmr_resource.hpp:234</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html_acd51bc7f2ff592a8335657c92665ae8f"><div class="ttname"><a href="structsquare_1_1ExactLattice.html#acd51bc7f2ff592a8335657c92665ae8f">square::ExactLattice::operator=</a></div><div class="ttdeci">ExactLattice&lt; T &gt; &amp; operator=(const ExactLattice&lt; T &gt; &amp;)=default</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_ac7fa382fd250903d72418b8e10ed4a65"><div class="ttname"><a href="structTAT_1_1Tensor.html#ac7fa382fd250903d72418b8e10ed4a65">TAT::Tensor::set</a></div><div class="ttdeci">Tensor&lt; ScalarType, Symmetry, Name &gt; &amp; set(Generator &amp;&amp;generator) &amp;</div><div class="ttdoc">通过一个生成器设置一个张量内的数据</div><div class="ttdef"><b>Definition:</b> tensor.hpp:307</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_aed5ce907b04b40e54a8fe01d1528ad7b"><div class="ttname"><a href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">TAT::mpi_t::out_one</a></div><div class="ttdeci">auto out_one(int rank_specified=0)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:250</div></div>
+<div class="ttc" id="agroup__MPI_html_ga8023345bfaa3e140a1b117a7aa5244d9"><div class="ttname"><a href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a></div><div class="ttdeci">mpi_t mpi</div><div class="ttdef"><b>Definition:</b> mpi.hpp:273</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html"><div class="ttname"><a href="structsquare_1_1ExactLattice.html">square::ExactLattice</a></div><div class="ttdef"><b>Definition:</b> basic.hpp:212</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html_a403d159e0f51f1b86fd2b048cf283a12"><div class="ttname"><a href="structsquare_1_1ExactLattice.html#a403d159e0f51f1b86fd2b048cf283a12">square::ExactLattice::observe</a></div><div class="ttdeci">real&lt; T &gt; observe(const std::vector&lt; std::tuple&lt; int, int &gt;&gt; &amp;positions, const Tensor&lt; C &gt; &amp;observer, bool calculate_denominator) const</div><div class="ttdef"><b>Definition:</b> exact_lattice.hpp:97</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html_af3c16923edf24eb11a38006a45cf3424"><div class="ttname"><a href="structsquare_1_1ExactLattice.html#af3c16923edf24eb11a38006a45cf3424">square::ExactLattice::update</a></div><div class="ttdeci">real&lt; T &gt; update(int total_step, real&lt; T &gt; approximate_energy=-0.5)</div><div class="ttdef"><b>Definition:</b> exact_lattice.hpp:62</div></div>
+<div class="ttc" id="anamespacesquare_html_a147c72691722096f4b6cbe729fc40f1d"><div class="ttname"><a href="namespacesquare.html#a147c72691722096f4b6cbe729fc40f1d">square::operator&gt;</a></div><div class="ttdeci">std::istream &amp; operator&gt;(std::istream &amp;in, AbstractLattice&lt; T &gt; &amp;lattice)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:106</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html_aa4558d3e58041b36c1900f07dd799f77"><div class="ttname"><a href="structsquare_1_1ExactLattice.html#aa4558d3e58041b36c1900f07dd799f77">square::ExactLattice::ExactLattice</a></div><div class="ttdeci">ExactLattice()</div><div class="ttdef"><b>Definition:</b> exact_lattice.hpp:42</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html"><div class="ttname"><a href="structTAT_1_1Tensor.html">TAT::Tensor&lt; T &gt;</a></div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_a8419fd382c3d74ceafb7b9b06e0214ca"><div class="ttname"><a href="structTAT_1_1Tensor.html#a8419fd382c3d74ceafb7b9b06e0214ca">TAT::Tensor::same_shape</a></div><div class="ttdeci">Tensor&lt; ScalarType, Symmetry, Name &gt; same_shape() const</div><div class="ttdoc">产生一个与自己形状一样的张量</div><div class="ttdef"><b>Definition:</b> tensor.hpp:258</div></div>
+<div class="ttc" id="astructsquare_1_1SamplingGradientLattice_html"><div class="ttname"><a href="structsquare_1_1SamplingGradientLattice.html">square::SamplingGradientLattice</a></div><div class="ttdef"><b>Definition:</b> basic.hpp:216</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html_a8a72be03c56341d128f800b93d38862e"><div class="ttname"><a href="structsquare_1_1ExactLattice.html#a8a72be03c56341d128f800b93d38862e">square::ExactLattice::ExactLattice</a></div><div class="ttdeci">ExactLattice(int M, int N, Size d)</div><div class="ttdef"><b>Definition:</b> exact_lattice.hpp:48</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_c48b0f5ba0ee61d0e23bde8cc5174d80.html">square</a></li><li class="navelem"><a class="el" href="exact__lattice_8hpp.html">exact_lattice.hpp</a></li>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

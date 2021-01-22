@@ -1,0 +1,717 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: TAT::pmr::monotonic_buffer_resource结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('structTAT_1_1pmr_1_1monotonic__buffer__resource.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-attribs">Public 属性</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="structTAT_1_1pmr_1_1monotonic__buffer__resource-members.html">所有成员列表</a>  </div>
+  <div class="headertitle">
+<div class="title">TAT::pmr::monotonic_buffer_resource结构体 参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="pmr__resource_8hpp_source.html">pmr_resource.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 TAT::pmr::monotonic_buffer_resource 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="structTAT_1_1pmr_1_1monotonic__buffer__resource.png" usemap="#TAT::pmr::monotonic_5Fbuffer_5Fresource_map" alt=""/>
+  <map id="TAT::pmr::monotonic_5Fbuffer_5Fresource_map" name="TAT::pmr::monotonic_5Fbuffer_5Fresource_map">
+<area href="structTAT_1_1pmr_1_1memory__resource.html" alt="TAT::pmr::memory_resource" shape="rect" coords="0,0,224,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a8b007bf54ec54386dd6fdd8b6ef66035"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a8b007bf54ec54386dd6fdd8b6ef66035">monotonic_buffer_resource</a> (void *buffer, std::size_t buffer_size)</td></tr>
+<tr class="separator:a8b007bf54ec54386dd6fdd8b6ef66035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad64cd33fe9a341395e15dabea61dc59e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#ad64cd33fe9a341395e15dabea61dc59e">monotonic_buffer_resource</a> (void *buffer, std::size_t buffer_size, <a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a> *upstream)</td></tr>
+<tr class="separator:ad64cd33fe9a341395e15dabea61dc59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d8cf2e8c084982f8306f79251059ff5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a9d8cf2e8c084982f8306f79251059ff5">monotonic_buffer_resource</a> (const <a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html">monotonic_buffer_resource</a> &amp;)=delete</td></tr>
+<tr class="separator:a9d8cf2e8c084982f8306f79251059ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a331f4e5f6a742637e5def2077bc6ea36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a331f4e5f6a742637e5def2077bc6ea36">increase_next_size</a> ()</td></tr>
+<tr class="separator:a331f4e5f6a742637e5def2077bc6ea36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b78901afcb9887bda783f2be5b841be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a7b78901afcb9887bda783f2be5b841be">increase_next_size_to</a> (std::size_t minimum_size)</td></tr>
+<tr class="separator:a7b78901afcb9887bda783f2be5b841be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca74b98dc49b41d05e5e29e149bf02cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#aca74b98dc49b41d05e5e29e149bf02cb">upstream_resource</a> () const</td></tr>
+<tr class="separator:aca74b98dc49b41d05e5e29e149bf02cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3339679f98fd821933ce0a601af88e37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a3339679f98fd821933ce0a601af88e37">~monotonic_buffer_resource</a> () override</td></tr>
+<tr class="separator:a3339679f98fd821933ce0a601af88e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8fb8f5707ed6028be0d65514614586"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a0a8fb8f5707ed6028be0d65514614586">release</a> ()</td></tr>
+<tr class="separator:a0a8fb8f5707ed6028be0d65514614586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ab9b2ca3a071c2c770039262f9186e2"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a6ab9b2ca3a071c2c770039262f9186e2">remaining_storage</a> (std::size_t alignment, std::size_t &amp;aligner)</td></tr>
+<tr class="separator:a6ab9b2ca3a071c2c770039262f9186e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93f1ec66c5f01b305853c023f71fa45a"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a93f1ec66c5f01b305853c023f71fa45a">allocate_from_current</a> (std::size_t aligner, std::size_t bytes)</td></tr>
+<tr class="separator:a93f1ec66c5f01b305853c023f71fa45a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25b96b4437c95dcad3de245de3e84f40"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a25b96b4437c95dcad3de245de3e84f40">do_allocate</a> (std::size_t bytes, std::size_t alignment) override</td></tr>
+<tr class="separator:a25b96b4437c95dcad3de245de3e84f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae659c410b1761adc8dba7eb1c8d9ce96"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#ae659c410b1761adc8dba7eb1c8d9ce96">do_deallocate</a> (void *, std::size_t, std::size_t) override</td></tr>
+<tr class="separator:ae659c410b1761adc8dba7eb1c8d9ce96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9540a0a2e1577cc149f7de1a1f983880"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a9540a0a2e1577cc149f7de1a1f983880">do_is_equal</a> (const <a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a> &amp;other) const noexcept override</td></tr>
+<tr class="separator:a9540a0a2e1577cc149f7de1a1f983880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_structTAT_1_1pmr_1_1memory__resource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structTAT_1_1pmr_1_1memory__resource')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">TAT::pmr::memory_resource</a></td></tr>
+<tr class="memitem:a4379dee1dde6446b6cb27634c104e64a inherit pub_methods_structTAT_1_1pmr_1_1memory__resource"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html#a4379dee1dde6446b6cb27634c104e64a">~memory_resource</a> ()</td></tr>
+<tr class="separator:a4379dee1dde6446b6cb27634c104e64a inherit pub_methods_structTAT_1_1pmr_1_1memory__resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c2f6b0d47810b6355f99c43ff79caef inherit pub_methods_structTAT_1_1pmr_1_1memory__resource"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html#a2c2f6b0d47810b6355f99c43ff79caef">allocate</a> (std::size_t bytes, std::size_t alignment=alignof(std::max_align_t))</td></tr>
+<tr class="separator:a2c2f6b0d47810b6355f99c43ff79caef inherit pub_methods_structTAT_1_1pmr_1_1memory__resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a470c5ae36207cc866ca188ddafdb90fa inherit pub_methods_structTAT_1_1pmr_1_1memory__resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html#a470c5ae36207cc866ca188ddafdb90fa">deallocate</a> (void *p, std::size_t bytes, std::size_t alignment=alignof(std::max_align_t))</td></tr>
+<tr class="separator:a470c5ae36207cc866ca188ddafdb90fa inherit pub_methods_structTAT_1_1pmr_1_1memory__resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a572c8f36ca1c245e3e81f47142a25d50 inherit pub_methods_structTAT_1_1pmr_1_1memory__resource"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html#a572c8f36ca1c245e3e81f47142a25d50">is_equal</a> (const <a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a> &amp;other) const noexcept</td></tr>
+<tr class="separator:a572c8f36ca1c245e3e81f47142a25d50 inherit pub_methods_structTAT_1_1pmr_1_1memory__resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public 属性</h2></td></tr>
+<tr class="memitem:a965864979a23d3686100b70b67ea6735"><td class="memItemLeft" align="right" valign="top">std::forward_list&lt; <a class="el" href="structTAT_1_1pmr_1_1buffer__t.html">buffer_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a965864979a23d3686100b70b67ea6735">m_buffer_list</a></td></tr>
+<tr class="separator:a965864979a23d3686100b70b67ea6735"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68094cf5ce65d6648c828859b8c3ad2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a68094cf5ce65d6648c828859b8c3ad2b">m_upstream</a></td></tr>
+<tr class="separator:a68094cf5ce65d6648c828859b8c3ad2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc98a47df3474f0f75715fac95881c18"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#abc98a47df3474f0f75715fac95881c18">m_current_buffer</a></td></tr>
+<tr class="separator:abc98a47df3474f0f75715fac95881c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5219ca0f928d0dfed0b1a42515921022"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a5219ca0f928d0dfed0b1a42515921022">m_current_buffer_size</a></td></tr>
+<tr class="separator:a5219ca0f928d0dfed0b1a42515921022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59b0a37a21dc80994690ad29870d0d77"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a59b0a37a21dc80994690ad29870d0d77">m_next_buffer_size</a></td></tr>
+<tr class="separator:a59b0a37a21dc80994690ad29870d0d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a309dd34d46672a7820199e5b4ead2cf0"><td class="memItemLeft" align="right" valign="top">void *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a309dd34d46672a7820199e5b4ead2cf0">m_initial_buffer</a></td></tr>
+<tr class="separator:a309dd34d46672a7820199e5b4ead2cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a398d863a3b431d0c95977c4864c1896b"><td class="memItemLeft" align="right" valign="top">const std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a398d863a3b431d0c95977c4864c1896b">m_initial_buffer_size</a></td></tr>
+<tr class="separator:a398d863a3b431d0c95977c4864c1896b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:a780a6a6fd1f07cd5384fedf439f93712"><td class="memItemLeft" align="right" valign="top">static const std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html#a780a6a6fd1f07cd5384fedf439f93712">default_next_buffer_size</a> = 32u * sizeof(void*)</td></tr>
+<tr class="separator:a780a6a6fd1f07cd5384fedf439f93712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a8b007bf54ec54386dd6fdd8b6ef66035"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b007bf54ec54386dd6fdd8b6ef66035">&#9670;&nbsp;</a></span>monotonic_buffer_resource() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TAT::pmr::monotonic_buffer_resource::monotonic_buffer_resource </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>buffer_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad64cd33fe9a341395e15dabea61dc59e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad64cd33fe9a341395e15dabea61dc59e">&#9670;&nbsp;</a></span>monotonic_buffer_resource() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TAT::pmr::monotonic_buffer_resource::monotonic_buffer_resource </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a> *&#160;</td>
+          <td class="paramname"><em>upstream</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d8cf2e8c084982f8306f79251059ff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d8cf2e8c084982f8306f79251059ff5">&#9670;&nbsp;</a></span>monotonic_buffer_resource() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TAT::pmr::monotonic_buffer_resource::monotonic_buffer_resource </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html">monotonic_buffer_resource</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3339679f98fd821933ce0a601af88e37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3339679f98fd821933ce0a601af88e37">&#9670;&nbsp;</a></span>~monotonic_buffer_resource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TAT::pmr::monotonic_buffer_resource::~monotonic_buffer_resource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a93f1ec66c5f01b305853c023f71fa45a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93f1ec66c5f01b305853c023f71fa45a">&#9670;&nbsp;</a></span>allocate_from_current()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* TAT::pmr::monotonic_buffer_resource::allocate_from_current </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>aligner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>bytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a25b96b4437c95dcad3de245de3e84f40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25b96b4437c95dcad3de245de3e84f40">&#9670;&nbsp;</a></span>do_allocate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* TAT::pmr::monotonic_buffer_resource::do_allocate </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>bytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>alignment</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="structTAT_1_1pmr_1_1memory__resource.html#ae36083d0dc2ff0b366beb847402c4fbb">TAT::pmr::memory_resource</a>.</p>
+
+</div>
+</div>
+<a id="ae659c410b1761adc8dba7eb1c8d9ce96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae659c410b1761adc8dba7eb1c8d9ce96">&#9670;&nbsp;</a></span>do_deallocate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void TAT::pmr::monotonic_buffer_resource::do_deallocate </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="structTAT_1_1pmr_1_1memory__resource.html#a199ba537cceb304e2d0488c64f09ef5b">TAT::pmr::memory_resource</a>.</p>
+
+</div>
+</div>
+<a id="a9540a0a2e1577cc149f7de1a1f983880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9540a0a2e1577cc149f7de1a1f983880">&#9670;&nbsp;</a></span>do_is_equal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool TAT::pmr::monotonic_buffer_resource::do_is_equal </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="structTAT_1_1pmr_1_1memory__resource.html#ac70ee52358287fdac8b8bb5201f67421">TAT::pmr::memory_resource</a>.</p>
+
+</div>
+</div>
+<a id="a331f4e5f6a742637e5def2077bc6ea36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a331f4e5f6a742637e5def2077bc6ea36">&#9670;&nbsp;</a></span>increase_next_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TAT::pmr::monotonic_buffer_resource::increase_next_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b78901afcb9887bda783f2be5b841be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b78901afcb9887bda783f2be5b841be">&#9670;&nbsp;</a></span>increase_next_size_to()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TAT::pmr::monotonic_buffer_resource::increase_next_size_to </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>minimum_size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a8fb8f5707ed6028be0d65514614586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a8fb8f5707ed6028be0d65514614586">&#9670;&nbsp;</a></span>release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TAT::pmr::monotonic_buffer_resource::release </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ab9b2ca3a071c2c770039262f9186e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ab9b2ca3a071c2c770039262f9186e2">&#9670;&nbsp;</a></span>remaining_storage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t TAT::pmr::monotonic_buffer_resource::remaining_storage </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>alignment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>aligner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aca74b98dc49b41d05e5e29e149bf02cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca74b98dc49b41d05e5e29e149bf02cb">&#9670;&nbsp;</a></span>upstream_resource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a>* TAT::pmr::monotonic_buffer_resource::upstream_resource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="a780a6a6fd1f07cd5384fedf439f93712"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a780a6a6fd1f07cd5384fedf439f93712">&#9670;&nbsp;</a></span>default_next_buffer_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::size_t TAT::pmr::monotonic_buffer_resource::default_next_buffer_size = 32u * sizeof(void*)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a965864979a23d3686100b70b67ea6735"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a965864979a23d3686100b70b67ea6735">&#9670;&nbsp;</a></span>m_buffer_list</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::forward_list&lt;<a class="el" href="structTAT_1_1pmr_1_1buffer__t.html">buffer_t</a>&gt; TAT::pmr::monotonic_buffer_resource::m_buffer_list</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abc98a47df3474f0f75715fac95881c18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc98a47df3474f0f75715fac95881c18">&#9670;&nbsp;</a></span>m_current_buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* TAT::pmr::monotonic_buffer_resource::m_current_buffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5219ca0f928d0dfed0b1a42515921022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5219ca0f928d0dfed0b1a42515921022">&#9670;&nbsp;</a></span>m_current_buffer_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t TAT::pmr::monotonic_buffer_resource::m_current_buffer_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a309dd34d46672a7820199e5b4ead2cf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a309dd34d46672a7820199e5b4ead2cf0">&#9670;&nbsp;</a></span>m_initial_buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* const TAT::pmr::monotonic_buffer_resource::m_initial_buffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a398d863a3b431d0c95977c4864c1896b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398d863a3b431d0c95977c4864c1896b">&#9670;&nbsp;</a></span>m_initial_buffer_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::size_t TAT::pmr::monotonic_buffer_resource::m_initial_buffer_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59b0a37a21dc80994690ad29870d0d77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59b0a37a21dc80994690ad29870d0d77">&#9670;&nbsp;</a></span>m_next_buffer_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t TAT::pmr::monotonic_buffer_resource::m_next_buffer_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a68094cf5ce65d6648c828859b8c3ad2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68094cf5ce65d6648c828859b8c3ad2b">&#9670;&nbsp;</a></span>m_upstream</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTAT_1_1pmr_1_1memory__resource.html">memory_resource</a>* TAT::pmr::monotonic_buffer_resource::m_upstream</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>include/TAT/<a class="el" href="pmr__resource_8hpp_source.html">pmr_resource.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceTAT.html">TAT</a></li><li class="navelem"><a class="el" href="namespaceTAT_1_1pmr.html">pmr</a></li><li class="navelem"><a class="el" href="structTAT_1_1pmr_1_1monotonic__buffer__resource.html">monotonic_buffer_resource</a></li>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:53 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

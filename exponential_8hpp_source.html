@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: include/TAT/exponential.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('exponential_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">exponential.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="exponential_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#ifndef TAT_EXPONENTIAL_HPP</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="exponential_8hpp.html#a2a86c397ec0496a99d5e5d15c63b357c">   22</a></span>&#160;<span class="preprocessor">#define TAT_EXPONENTIAL_HPP</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="contract_8hpp.html">contract.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tensor_8hpp.html">tensor.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="timer_8hpp.html">timer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="transpose_8hpp.html">transpose.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> sgesv_(<span class="keyword">const</span> <span class="keywordtype">int</span>* n, <span class="keyword">const</span> <span class="keywordtype">int</span>* nrhs, <span class="keywordtype">float</span>* A, <span class="keyword">const</span> <span class="keywordtype">int</span>* lda, <span class="keywordtype">int</span>* ipiv, <span class="keywordtype">float</span>* B, <span class="keyword">const</span> <span class="keywordtype">int</span>* ldb, <span class="keywordtype">int</span>* info);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> dgesv_(<span class="keyword">const</span> <span class="keywordtype">int</span>* n, <span class="keyword">const</span> <span class="keywordtype">int</span>* nrhs, <span class="keywordtype">double</span>* A, <span class="keyword">const</span> <span class="keywordtype">int</span>* lda, <span class="keywordtype">int</span>* ipiv, <span class="keywordtype">double</span>* B, <span class="keyword">const</span> <span class="keywordtype">int</span>* ldb, <span class="keywordtype">int</span>* info);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> cgesv_(<span class="keyword">const</span> <span class="keywordtype">int</span>* n, <span class="keyword">const</span> <span class="keywordtype">int</span>* nrhs, std::complex&lt;float&gt;* A, <span class="keyword">const</span> <span class="keywordtype">int</span>* lda, <span class="keywordtype">int</span>* ipiv, std::complex&lt;float&gt;* B, <span class="keyword">const</span> <span class="keywordtype">int</span>* ldb, <span class="keywordtype">int</span>* info);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">void</span> zgesv_(<span class="keyword">const</span> <span class="keywordtype">int</span>* n, <span class="keyword">const</span> <span class="keywordtype">int</span>* nrhs, std::complex&lt;double&gt;* A, <span class="keyword">const</span> <span class="keywordtype">int</span>* lda, <span class="keywordtype">int</span>* ipiv, std::complex&lt;double&gt;* B, <span class="keyword">const</span> <span class="keywordtype">int</span>* ldb, <span class="keywordtype">int</span>* info);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceTAT.html">TAT</a> {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType&gt;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;   constexpr void (*gesv)(<span class="keyword">const</span> <span class="keywordtype">int</span>* n, <span class="keyword">const</span> <span class="keywordtype">int</span>* nrhs, ScalarType* A, <span class="keyword">const</span> <span class="keywordtype">int</span>* lda, <span class="keywordtype">int</span>* ipiv, ScalarType* B, <span class="keyword">const</span> <span class="keywordtype">int</span>* ldb, <span class="keywordtype">int</span>* info) =</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;         <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;   <span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;   <span class="keyword">inline</span> <span class="keyword">auto</span> gesv&lt;float&gt; = sgesv_;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;   <span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;   <span class="keyword">inline</span> <span class="keyword">auto</span> gesv&lt;double&gt; = dgesv_;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;   <span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;   <span class="keyword">inline</span> <span class="keyword">auto</span> gesv&lt;std::complex&lt;float&gt;&gt; = cgesv_;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;   <span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;   <span class="keyword">inline</span> <span class="keyword">auto</span> gesv&lt;std::complex&lt;double&gt;&gt; = zgesv_;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType&gt;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;   <span class="keywordtype">void</span> linear_solve(<span class="keywordtype">int</span> n, ScalarType* A, <span class="keywordtype">int</span> nrhs, ScalarType* B, ScalarType* X) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="comment">// AX=B</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="comment">// A: n*n</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="comment">// B: n*nrhs</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      vector&lt;ScalarType&gt; AT(n * n);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      matrix_transpose(n, n, A, AT.data());</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      vector&lt;ScalarType&gt; BT(n * nrhs);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      matrix_transpose(n, nrhs, B, BT.data());</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      vector&lt;int&gt; ipiv(n);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordtype">int</span> result;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      gesv&lt;ScalarType&gt;(&amp;n, &amp;nrhs, AT.data(), &amp;n, ipiv.data(), BT.data(), &amp;n, &amp;result);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">if</span> (result != 0) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;         TAT_warning_or_error_when_lapack_error(<span class="stringliteral">&quot;error in GESV&quot;</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      matrix_transpose(nrhs, n, BT.data(), X);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;   }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType&gt;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;   <span class="keyword">auto</span> max_of_abs(<span class="keyword">const</span> ScalarType* data, <a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">Size</a> n) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      real_base_t&lt;ScalarType&gt; result = 0;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordflow">for</span> (<a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">Size</a> i = 0; i &lt; n * n; i++) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;         <span class="keyword">auto</span> here = std::abs(data[i]);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         result = result &lt; here ? here : result;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;   }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType&gt;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;   <span class="keywordtype">void</span> initialize_identity_matrix(ScalarType* data, <a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">Size</a> n) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keywordflow">for</span> (<a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">Size</a> i = 0; i &lt; n - 1; i++) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;         *(data++) = 1;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;         <span class="keywordflow">for</span> (<a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">Size</a> j = 0; j &lt; n; j++) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            *(data++) = 0;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      *data = 1;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;   }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType&gt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;   <span class="keywordtype">void</span> matrix_exponential(<a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">Size</a> n, ScalarType* A, ScalarType* F, <span class="keywordtype">int</span> q) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keywordtype">int</span> int_n = n;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="comment">// j = max(0, 1+floor(log2(|A|_inf)))</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      <span class="keyword">auto</span> j = std::max(0, 1 + <span class="keywordtype">int</span>(std::log2(max_of_abs(A, n))));</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="comment">// A = A/2^j</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      ScalarType parameter = ScalarType(1) / ScalarType(1 &lt;&lt; j);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      <span class="keywordflow">for</span> (<a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">Size</a> i = 0; i &lt; n * n; i++) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         A[i] *= parameter;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      <span class="comment">// D=I, N=I, X=I, c=1</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      vector&lt;ScalarType&gt; D(n * n);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      initialize_identity_matrix(D.data(), n);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      vector&lt;ScalarType&gt; N(n * n);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      initialize_identity_matrix(N.data(), n);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      vector&lt;ScalarType&gt; X1(n * n);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      initialize_identity_matrix(X1.data(), n);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      vector&lt;ScalarType&gt; X2(n * n);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      ScalarType c = 1;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="comment">// for k=1:q</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <span class="keyword">const</span> ScalarType alpha = 1;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      <span class="keyword">const</span> ScalarType beta = 0;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> k = 1; k &lt;= q; k++) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;         <span class="comment">// c = (c*(q-k+1))/((2*q-k+1)*k)</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;         c = (c * ScalarType(q - k + 1)) / ScalarType((2 * q - k + 1) * k);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;         <span class="comment">// X = A@X, N=N+c*X, D=D+(-1)^k*c*X</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;         <span class="keyword">auto</span>&amp; X_old = k % 2 == 1 ? X1 : X2;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;         <span class="keyword">auto</span>&amp; X_new = k % 2 == 0 ? X1 : X2;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;         <span class="comment">// new = A @ old</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;         <span class="comment">// new.T = old.T @ A.T</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         gemm&lt;ScalarType&gt;(<span class="stringliteral">&quot;N&quot;</span>, <span class="stringliteral">&quot;N&quot;</span>, &amp;int_n, &amp;int_n, &amp;int_n, &amp;alpha, X_old.data(), &amp;int_n, A, &amp;int_n, &amp;beta, X_new.data(), &amp;int_n);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         ScalarType d = k % 2 == 0 ? c : -c;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;         <span class="keywordflow">for</span> (<a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">Size</a> i = 0; i &lt; n * n; i++) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keyword">auto</span> x = X_new[i];</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            N[i] += c * x;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            D[i] += d * x;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;         }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;      }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;      <span class="comment">// solve D@F=N for F</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;      vector&lt;ScalarType&gt; F1(n * n);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;      vector&lt;ScalarType&gt; F2(n * n);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;      <span class="keyword">auto</span>* R = j == 0 ? F : F1.data();</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;      <span class="comment">// D@R=N</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      linear_solve&lt;ScalarType&gt;(n, D.data(), n, N.data(), R);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      <span class="comment">// for k=1:j</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> k = 1; k &lt;= j; k++) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;         <span class="comment">// F = F@F</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;         <span class="keyword">const</span> <span class="keyword">auto</span>* F_old = k % 2 == 1 ? F1.data() : F2.data();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;         <span class="keyword">auto</span>* F_new = k == j ? F : k % 2 == 0 ? F1.data() : F2.data();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;         <span class="comment">// new = old * old</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;         <span class="comment">// new.T = old.T * old.T</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;         gemm&lt;ScalarType&gt;(<span class="stringliteral">&quot;N&quot;</span>, <span class="stringliteral">&quot;N&quot;</span>, &amp;int_n, &amp;int_n, &amp;int_n, &amp;alpha, F_old, &amp;int_n, F_old, &amp;int_n, &amp;beta, F_new, &amp;int_n);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;      }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;   }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Symmetry, <span class="keyword">typename</span> Name&gt;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> SetNameAndName&gt;</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="structTAT_1_1Tensor.html#a4b4e9c6d714d4b6c04712a7afae9b85c">  152</a></span>&#160;   <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;ScalarType, Symmetry, Name&gt;</a> <a class="code" href="structTAT_1_1Tensor.html#a4b4e9c6d714d4b6c04712a7afae9b85c">Tensor&lt;ScalarType, Symmetry, Name&gt;::exponential</a>(<span class="keyword">const</span> SetNameAndName&amp; pairs, <span class="keywordtype">int</span> step)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;      <span class="keyword">auto</span> timer_guard = exponential_guard();</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      <span class="keyword">auto</span> pmr_guard = <a class="code" href="structTAT_1_1scope__resource.html">scope_resource&lt;&gt;</a>();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;      <a class="code" href="group__Miscellaneous.html#ga59fa5a93972a6b9079e60c4b8c237eeb">Rank</a> rank = names.size();</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      <a class="code" href="group__Miscellaneous.html#ga59fa5a93972a6b9079e60c4b8c237eeb">Rank</a> half_rank = rank / 2;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;      <span class="keyword">auto</span> merge_map = <a class="code" href="namespaceTAT_1_1pmr.html#ac746848942f6f83b133482f63b1fd320">pmr::map&lt;Name, pmr::vector&lt;Name&gt;</a>&gt;();</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      <span class="keyword">auto</span>&amp; merge_1 = merge_map[<a class="code" href="structTAT_1_1InternalName.html">InternalName&lt;Name&gt;::Exp_1</a>];</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      merge_1.resize(half_rank);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;      <span class="keyword">auto</span>&amp; merge_2 = merge_map[<a class="code" href="structTAT_1_1InternalName.html">InternalName&lt;Name&gt;::Exp_2</a>];</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;      merge_2.resize(half_rank);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      <span class="keyword">auto</span> split_map_result = <a class="code" href="namespaceTAT_1_1pmr.html#ac746848942f6f83b133482f63b1fd320">pmr::map&lt;Name, pmr::vector&lt;std::tuple&lt;Name, BoseEdge&lt;Symmetry&gt;</a>&gt;&gt;&gt;();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;      <span class="keyword">auto</span>&amp; split_1 = split_map_result[<a class="code" href="structTAT_1_1InternalName.html">InternalName&lt;Name&gt;::Exp_1</a>];</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;      split_1.resize(half_rank);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      <span class="keyword">auto</span>&amp; split_2 = split_map_result[<a class="code" href="structTAT_1_1InternalName.html">InternalName&lt;Name&gt;::Exp_2</a>];</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      split_2.resize(half_rank);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;      <span class="keyword">auto</span> valid_index = <a class="code" href="namespaceTAT_1_1pmr.html#a9a7e8d6310c5e03b7f1d016a4f5389d0">pmr::vector&lt;bool&gt;</a>(rank, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      <a class="code" href="group__Miscellaneous.html#ga59fa5a93972a6b9079e60c4b8c237eeb">Rank</a> current_index = half_rank;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;      <span class="keywordflow">for</span> (<a class="code" href="group__Miscellaneous.html#ga59fa5a93972a6b9079e60c4b8c237eeb">Rank</a> i = rank; i-- &gt; 0;) {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;         <span class="keywordflow">if</span> (valid_index[i]) {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; name_to_found = names[i];</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [a, b] : pairs) {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;               <span class="keywordflow">if</span> (a == name_to_found) {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                  <span class="keyword">auto</span> ia = name_to_index.at(a);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                  <span class="keyword">auto</span> ib = name_to_index.at(b);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                  valid_index[ib] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                  current_index--;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                  merge_1[current_index] = a;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                  merge_2[current_index] = b;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                  split_1[current_index] = {a, core-&gt;edges[ia].map};</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                  split_2[current_index] = {b, core-&gt;edges[ib].map};</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                  <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;               }</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;               <span class="keywordflow">if</span> (b == name_to_found) {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                  <span class="keyword">auto</span> ia = name_to_index.at(a);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                  <span class="keyword">auto</span> ib = name_to_index.at(b);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                  valid_index[ia] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                  current_index--;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                  merge_1[current_index] = a;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                  merge_2[current_index] = b;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                  split_1[current_index] = {a, core-&gt;edges[ia].map};</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                  split_2[current_index] = {b, core-&gt;edges[ib].map};</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                  <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;               }</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;         }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;      }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;      <span class="keyword">auto</span> reverse_set = <a class="code" href="namespaceTAT_1_1pmr.html#a585ff764333557a89bfa554774c2d16c">pmr::set&lt;Name&gt;</a>();</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;      <span class="keywordflow">if</span> constexpr (is_fermi_symmetry_v&lt;Symmetry&gt;) {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;         <span class="keywordflow">for</span> (<a class="code" href="group__Miscellaneous.html#ga59fa5a93972a6b9079e60c4b8c237eeb">Rank</a> i = 0; i &lt; rank; i++) {</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keywordflow">if</span> (core-&gt;edges[i].arrow) {</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;               reverse_set.insert(names[i]);</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            }</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;         }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;      }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;      <span class="keyword">auto</span> merged_names = <a class="code" href="namespaceTAT_1_1pmr.html#a9a7e8d6310c5e03b7f1d016a4f5389d0">pmr::vector&lt;Name&gt;</a>();</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;      merged_names.reserve(2);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;      <span class="keyword">auto</span> result_names = <a class="code" href="namespaceTAT_1_1pmr.html#a9a7e8d6310c5e03b7f1d016a4f5389d0">pmr::vector&lt;Name&gt;</a>();</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;      result_names.reserve(rank);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;      <span class="keywordflow">if</span> (names.empty() || names.back() == merge_1.back()) {</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;         <span class="comment">// 2 1</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;         merged_names.push_back(<a class="code" href="structTAT_1_1InternalName.html">InternalName&lt;Name&gt;::Exp_2</a>);</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;         merged_names.push_back(<a class="code" href="structTAT_1_1InternalName.html">InternalName&lt;Name&gt;::Exp_1</a>);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : merge_2) {</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            result_names.push_back(i);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;         }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : merge_1) {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            result_names.push_back(i);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;         }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;         <span class="comment">// 1 2</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;         merged_names.push_back(<a class="code" href="structTAT_1_1InternalName.html">InternalName&lt;Name&gt;::Exp_1</a>);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;         merged_names.push_back(<a class="code" href="structTAT_1_1InternalName.html">InternalName&lt;Name&gt;::Exp_2</a>);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : merge_1) {</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            result_names.push_back(i);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;         }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;         <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : merge_2) {</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            result_names.push_back(i);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;         }</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;      }</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;      <span class="keyword">auto</span> tensor_merged = edge_operator({}, {}, reverse_set, merge_map, merged_names);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;      <span class="keyword">auto</span> result = tensor_merged.same_shape();</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [symmetries, data_source] : tensor_merged.core-&gt;blocks) {</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;         <span class="keyword">auto</span>&amp; data_destination = result.core-&gt;blocks.at(symmetries);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;         <span class="keyword">auto</span> n = tensor_merged.core-&gt;edges[0].map.at(symmetries[0]);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;         matrix_exponential(n, data_source.data(), data_destination.data(), step);</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;      }</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;      <span class="keywordflow">return</span> result.edge_operator({}, split_map_result, reverse_set, {}, result_names);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;   }</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;} <span class="comment">// namespace TAT</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="anamespaceTAT_1_1pmr_html_a585ff764333557a89bfa554774c2d16c"><div class="ttname"><a href="namespaceTAT_1_1pmr.html#a585ff764333557a89bfa554774c2d16c">TAT::pmr::set</a></div><div class="ttdeci">std::set&lt; Key, Compare, polymorphic_allocator&lt; Key &gt; &gt; set</div><div class="ttdef"><b>Definition:</b> pmr_resource.hpp:243</div></div>
+<div class="ttc" id="agroup__Miscellaneous_html_ga59fa5a93972a6b9079e60c4b8c237eeb"><div class="ttname"><a href="group__Miscellaneous.html#ga59fa5a93972a6b9079e60c4b8c237eeb">TAT::Rank</a></div><div class="ttdeci">std::uint16_t Rank</div><div class="ttdoc">张量的秩的类型</div><div class="ttdef"><b>Definition:</b> basic_type.hpp:45</div></div>
+<div class="ttc" id="acontract_8hpp_html"><div class="ttname"><a href="contract_8hpp.html">contract.hpp</a></div></div>
+<div class="ttc" id="atranspose_8hpp_html"><div class="ttname"><a href="transpose_8hpp.html">transpose.hpp</a></div></div>
+<div class="ttc" id="anamespaceTAT_1_1pmr_html_ac746848942f6f83b133482f63b1fd320"><div class="ttname"><a href="namespaceTAT_1_1pmr.html#ac746848942f6f83b133482f63b1fd320">TAT::pmr::map</a></div><div class="ttdeci">std::map&lt; Key, T, Compare, polymorphic_allocator&lt; std::pair&lt; const Key, T &gt; &gt;&gt; map</div><div class="ttdef"><b>Definition:</b> pmr_resource.hpp:240</div></div>
+<div class="ttc" id="agroup__Miscellaneous_html_ga165aa7ea040b184dc85762582d2b5a9c"><div class="ttname"><a href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">TAT::Size</a></div><div class="ttdeci">std::uint64_t Size</div><div class="ttdoc">张量数据维度大小和数据本身大小的类型</div><div class="ttdef"><b>Definition:</b> basic_type.hpp:53</div></div>
+<div class="ttc" id="atimer_8hpp_html"><div class="ttname"><a href="timer_8hpp.html">timer.hpp</a></div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_a4b4e9c6d714d4b6c04712a7afae9b85c"><div class="ttname"><a href="structTAT_1_1Tensor.html#a4b4e9c6d714d4b6c04712a7afae9b85c">TAT::Tensor::exponential</a></div><div class="ttdeci">Tensor&lt; ScalarType, Symmetry, Name &gt; exponential(const SetNameAndName &amp;pairs, int step=2) const</div><div class="ttdoc">看作矩阵后求出矩阵指数</div><div class="ttdef"><b>Definition:</b> exponential.hpp:152</div></div>
+<div class="ttc" id="astructTAT_1_1InternalName_html"><div class="ttname"><a href="structTAT_1_1InternalName.html">TAT::InternalName</a></div><div class="ttdoc">对于每个将要被使用做Name的类型, 需要设置一部分保留类型</div><div class="ttdef"><b>Definition:</b> name.hpp:138</div></div>
+<div class="ttc" id="anamespaceTAT_1_1pmr_html_a9a7e8d6310c5e03b7f1d016a4f5389d0"><div class="ttname"><a href="namespaceTAT_1_1pmr.html#a9a7e8d6310c5e03b7f1d016a4f5389d0">TAT::pmr::vector</a></div><div class="ttdeci">std::vector&lt; T, polymorphic_allocator&lt; T &gt; &gt; vector</div><div class="ttdef"><b>Definition:</b> pmr_resource.hpp:234</div></div>
+<div class="ttc" id="astructTAT_1_1scope__resource_html"><div class="ttname"><a href="structTAT_1_1scope__resource.html">TAT::scope_resource</a></div><div class="ttdef"><b>Definition:</b> pmr_resource.hpp:252</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html"><div class="ttname"><a href="structTAT_1_1Tensor.html">TAT::Tensor</a></div><div class="ttdoc">张量类型</div><div class="ttdef"><b>Definition:</b> tensor.hpp:122</div></div>
+<div class="ttc" id="anamespaceTAT_html"><div class="ttname"><a href="namespaceTAT.html">TAT</a></div><div class="ttdoc">TAT is A Tensor library</div><div class="ttdef"><b>Definition:</b> basic_type.hpp:28</div></div>
+<div class="ttc" id="atensor_8hpp_html"><div class="ttname"><a href="tensor_8hpp.html">tensor.hpp</a></div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d1f80ff82539b6697abb4a4794b81257.html">TAT</a></li><li class="navelem"><a class="el" href="exponential_8hpp.html">exponential.hpp</a></li>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

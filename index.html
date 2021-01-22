@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: Welcome to the TAT Documents</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">Welcome to the <a class="el" href="namespaceTAT.html" title="TAT is A Tensor library">TAT</a> Documents </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a href="https://github.com/hzhangxyz/TAT/tags"><img src="https://img.shields.io/github/v/tag/hzhangxyz/TAT?style=flat-square" alt="version" class="inline"/></a> <a href="https://github.com/hzhangxyz/TAT/blob/TAT/LICENSE.md"><img src="https://img.shields.io/github/license/hzhangxyz/TAT?style=flat-square" alt="license" class="inline"/></a> <a href="https://github.com/hzhangxyz/TAT/actions?query=workflow%3Acheck"><img src="https://img.shields.io/github/workflow/status/hzhangxyz/TAT/check?style=flat-square" alt="build" class="inline"/></a> <a href="https://hzhangxyz.github.io/TAT/index.html"><img src="https://img.shields.io/github/workflow/status/hzhangxyz/TAT/doxygen?color=%237f7fff&amp;label=doc&amp;style=flat-square" alt="document" class="inline"/></a></p>
+<p><a href="https://github.com/hzhangxyz/TAT">TAT</a> is a header-only c++ tensor library with support for Abelian <a href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.82.050301">symmetry</a> for tensor network</p>
+<p>The name "TAT" is a recursive acronym for "TAT is A Tensor library!", and it should be all uppercase</p>
+<h1>Prerequisites</h1>
+<ul>
+<li>c++ compiler with c++17 support(such as gcc7+, clang5+, msvc19.14+)</li>
+<li>lapack/blas or mkl</li>
+<li><a href="https://github.com/pybind/pybind11">pybind11</a>(optional for python binding)</li>
+<li>mpi(optional for parallel computing)</li>
+</ul>
+<h1>Usage</h1>
+<p>Just include the file <code><a class="el" href="TAT_8hpp.html">include/TAT/TAT.hpp</a></code> and link lapack/blas or mkl at link time</p>
+<p>For good practice, pass argument <code>-I$path_to_TAT_root/include</code> to compiler and use <code>#include &lt;<a class="el" href="TAT_8hpp.html">TAT/TAT.hpp</a>&gt;</code> in your source file</p>
+<p>For mpi support, you need to define macro <code>TAT_USE_MPI</code> and use mpi compiler such as <code>mpic++</code>(recommend) or pass correct flag to normal compiler(for expert)</p>
+<p>Please check comment in file <code><a class="el" href="TAT_8hpp.html">TAT.hpp</a></code> for some other macro options</p>
+<p>Please notice that this library need proper compiler optimization option(<code>-O2</code>, <code>-O3</code>, <code>-Ofast</code>) for good performace</p>
+<p>You can also use <a class="el" href="namespaceTAT.html" title="TAT is A Tensor library">TAT</a> as a cmake subdirectory, just use <code>add_subdirectory(path_to_TAT_root)</code> and <code>target_link_libraries(your_target TAT)</code> in your <code>CMakeLists.txt</code></p>
+<h1>Python binding</h1>
+<p>Python binding is configured in <code>CMakeLists.txt</code>, use cmake and build target <code>PyTAT</code></p>
+<p>For other customed python module name, define <code>TAT_PYTHON_MODULE</code> as cmake variable</p>
+<p>If you are familiar with <a href="https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually">pybind11</a>, you can compile <a href="/python/TAT.cpp"><code>python/TAT.cpp</code></a> directly with correct flag</p>
+<p>Please notice that for some old mpi version(for example, openmpi 2.1.1 in ubuntu 18.04 LTS), you need to load mpi dynamic shared library manually before <code>import <a class="el" href="namespaceTAT.html" title="TAT is A Tensor library">TAT</a></code>, The way to load it manually is <code>import ctypes</code> and <code>ctypes.CDLL("libmpi.so", mode=ctypes.RTLD_GLOBAL)</code></p>
+<h1>Use with <a href="https://emscripten.org/">emscripten</a></h1>
+<p>If you want to run a program using <a class="el" href="namespaceTAT.html" title="TAT is A Tensor library">TAT</a> in browser, which is very useful for demonstration</p>
+<p>You can simply compile <a class="el" href="namespaceTAT.html" title="TAT is A Tensor library">TAT</a> with <code>em++</code>(no mpi support, no doubt), and link <code>liblapack.a</code>, <code>libblas.a</code>, <code>libf2c.a</code> compiled from <a href="https://www.netlib.org/clapack/">clapack-3.2.1</a></p>
+<p>You can download them from <a href="https://github.com/hzhangxyz/TAT/releases/tag/v0.0.6">here</a> or compile by yourself</p>
+<p>If you are using cmake, you need to put these three files into directory <code>emscripten</code>, then run <code>emcmake cmake $path_to_TAT_root</code> which will configure it automatically</p>
+<h1>Installation (for Arch Linux users only)</h1>
+<p>Download PKGBUILD into any empty directory and run <code>makepkg</code> to build your package</p>
+<p>Then use <code>pacman -U TAT-xxx-x86_64.pkg.tar.zst</code> to install</p>
+<h1>Links</h1>
+<ul>
+<li><a href="https://github.com/crimestop/net">a tensor network library</a></li>
+<li><a href="https://gitee.com/hzhangxyz/TAT">gitee mirror of TAT</a> </li>
+</ul>
+</div></div><!-- PageDoc -->
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:53 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

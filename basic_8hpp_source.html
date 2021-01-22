@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TAT: include/square/basic.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TAT
+   &#160;<span id="projectnumber">0.1.4</span>
+   </div>
+   <div id="projectbrief">TAT is A Tensor library</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('basic_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">basic.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="basic_8hpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#ifndef SQUARE_BASIC_HPP</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="basic_8hpp.html#aeafc91acd2274e1b6e631a1f98dfa723">   22</a></span>&#160;<span class="preprocessor">#define SQUARE_BASIC_HPP</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="TAT_8hpp.html">TAT/TAT.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesquare.html">square</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="namespacesquare.html#ad8a700729e4014ab30b7246403e57616">   30</a></span>&#160;   <span class="keyword">auto</span> <a class="code" href="namespacesquare.html#ad8a700729e4014ab30b7246403e57616">clear_line</a> = <span class="stringliteral">&quot;\u001b[2K&quot;</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classsquare_1_1NotImplementedError.html">   32</a></span>&#160;   <span class="keyword">class </span><a class="code" href="classsquare_1_1NotImplementedError.html">NotImplementedError</a> : <span class="keyword">public</span> std::logic_error {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keyword">using</span> std::logic_error::logic_error;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;   };</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">   36</a></span>&#160;   <span class="keyword">using</span> <a class="code" href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">Size</a> = <a class="code" href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">TAT::Size</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespacesquare.html#a99ed7df90aa2e44afa0d7471513d7ab9">   37</a></span>&#160;   <span class="keyword">using</span> <a class="code" href="structTAT_1_1FastName.html">Name</a> = <a class="code" href="group__Name.html#ga0032f910fcdb4853bc83a17a7d1f48d9">TAT::DefaultName</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespacesquare.html#a097d4ce61174a8e16b8a1d0b1e7490ea">   39</a></span>&#160;   <span class="keyword">using</span> <a class="code" href="structTAT_1_1Tensor.html">Tensor</a> = <a class="code" href="structTAT_1_1Tensor.html">TAT::Tensor&lt;T&gt;</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">   41</a></span>&#160;   <span class="keyword">using</span> <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real</a> = <a class="code" href="group__Miscellaneous.html#ga03fb813e3f2c8c1633ebe103894051a3">TAT::real_base_t&lt;T&gt;</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespacesquare.html#ae753208dc3d3ec838d9e9bf592b076a6">   43</a></span>&#160;   <span class="keyword">using</span> <a class="code" href="namespacesquare.html#ae753208dc3d3ec838d9e9bf592b076a6">complex</a> = std::complex&lt;real&lt;T&gt;&gt;;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="namespacesquare.html#a00cbe99c7ed4a5a633eef43982daf538">   45</a></span>&#160;   <span class="keyword">using</span> <a class="code" href="namespacesquare.html#a00cbe99c7ed4a5a633eef43982daf538">real_complex</a> = std::conditional_t&lt;TAT::is_complex_v&lt;T&gt;, <a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a>, <a class="code" href="namespacesquare.html#ae753208dc3d3ec838d9e9bf592b076a6">complex&lt;T&gt;</a>&gt;;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> O, <span class="keyword">typename</span> I&gt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacesquare.html#afa7b91f65f14fdadff83351914a5e991">   48</a></span>&#160;   O <a class="code" href="namespacesquare.html#afa7b91f65f14fdadff83351914a5e991">scalar_to</a>(I input) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordflow">if</span> constexpr (TAT::is_complex_v&lt;I&gt; &amp;&amp; TAT::is_real_v&lt;O&gt;) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;         <span class="keywordflow">return</span> input.real();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;         <span class="keywordflow">return</span> input;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;   }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespacesquare.html#a8a744d7de73075bda2fc43bde3f79737">   57</a></span>&#160;   T <a class="code" href="namespacesquare.html#a8a744d7de73075bda2fc43bde3f79737">conj</a>(T input) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">if</span> constexpr (TAT::is_complex_v&lt;T&gt;) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;         <span class="keywordflow">return</span> input.conj();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;         <span class="keywordflow">return</span> input;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;   }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html">   66</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structsquare_1_1Common.html">Common</a> {</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html#a161739613e313e2bc1ff18be6dddae94">   67</a></span>&#160;      <span class="keyword">using</span> <a class="code" href="structsquare_1_1Common.html#a161739613e313e2bc1ff18be6dddae94">C</a> = <a class="code" href="namespacesquare.html#ae753208dc3d3ec838d9e9bf592b076a6">complex&lt;T&gt;</a>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html#a14aab6273f4662c9dd01d8cd5a58eb82">   69</a></span>&#160;      <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; <a class="code" href="structsquare_1_1Common.html#a14aab6273f4662c9dd01d8cd5a58eb82">Sx</a>() {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;         <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; result = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;         <span class="keywordflow">if</span> (!result) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keyword">auto</span> tensor = <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a>({<span class="stringliteral">&quot;I0&quot;</span>, <span class="stringliteral">&quot;O0&quot;</span>}, {2, 2});</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            tensor.<a class="code" href="structTAT_1_1Tensor.html#a25052984c028c2913d77fc0ed079f02d">zero</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            tensor.at({{<span class="stringliteral">&quot;I0&quot;</span>, 0}, {<span class="stringliteral">&quot;O0&quot;</span>, 1}}) = +0.5;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            tensor.at({{<span class="stringliteral">&quot;I0&quot;</span>, 1}, {<span class="stringliteral">&quot;O0&quot;</span>, 0}}) = +0.5;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            result = std::make_shared&lt;const Tensor&lt;T&gt;&gt;(std::move(tensor));</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;         }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html#acfe02ce284b716dd10ad2e8222a8d7f1">   81</a></span>&#160;      <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;C&gt;&gt; <a class="code" href="structsquare_1_1Common.html#acfe02ce284b716dd10ad2e8222a8d7f1">Sy</a>() {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;         <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;C&gt;&gt; result = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;         <span class="keywordflow">if</span> (!result) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keyword">auto</span> tensor = <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;C&gt;</a>({<span class="stringliteral">&quot;I0&quot;</span>, <span class="stringliteral">&quot;O0&quot;</span>}, {2, 2});</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            tensor.<a class="code" href="structTAT_1_1Tensor.html#a25052984c028c2913d77fc0ed079f02d">zero</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            tensor.at({{<span class="stringliteral">&quot;I0&quot;</span>, 0}, {<span class="stringliteral">&quot;O0&quot;</span>, 1}}) = <a class="code" href="structsquare_1_1Common.html#a161739613e313e2bc1ff18be6dddae94">C</a>{0, -0.5};</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            tensor.at({{<span class="stringliteral">&quot;I0&quot;</span>, 1}, {<span class="stringliteral">&quot;O0&quot;</span>, 0}}) = <a class="code" href="structsquare_1_1Common.html#a161739613e313e2bc1ff18be6dddae94">C</a>{0, +0.5};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            result = std::make_shared&lt;const Tensor&lt;C&gt;&gt;(std::move(tensor));</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;         }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html#ad057115ad77a7b20d76a8cdc46af276d">   93</a></span>&#160;      <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; <a class="code" href="structsquare_1_1Common.html#ad057115ad77a7b20d76a8cdc46af276d">Sz</a>() {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;         <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; result = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;         <span class="keywordflow">if</span> (!result) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keyword">auto</span> tensor = <a class="code" href="structTAT_1_1Tensor.html">Tensor&lt;T&gt;</a>({<span class="stringliteral">&quot;I0&quot;</span>, <span class="stringliteral">&quot;O0&quot;</span>}, {2, 2});</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            tensor.<a class="code" href="structTAT_1_1Tensor.html#a25052984c028c2913d77fc0ed079f02d">zero</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            tensor.at({{<span class="stringliteral">&quot;I0&quot;</span>, 0}, {<span class="stringliteral">&quot;O0&quot;</span>, 0}}) = +0.5;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            tensor.at({{<span class="stringliteral">&quot;I0&quot;</span>, 1}, {<span class="stringliteral">&quot;O0&quot;</span>, 1}}) = -0.5;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            result = std::make_shared&lt;const Tensor&lt;T&gt;&gt;(std::move(tensor));</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html#a3fb5069debb56cff67791faaf55e4ad1">  105</a></span>&#160;      <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; <a class="code" href="structsquare_1_1Common.html#a3fb5069debb56cff67791faaf55e4ad1">SxSx</a>() {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; result = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;         <span class="keywordflow">if</span> (!result) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keyword">auto</span> single = <a class="code" href="structsquare_1_1Common.html#a14aab6273f4662c9dd01d8cd5a58eb82">Sx</a>();</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            result = std::make_shared&lt;const Tensor&lt;T&gt;&gt;(single-&gt;edge_rename({{<span class="stringliteral">&quot;I0&quot;</span>, <span class="stringliteral">&quot;I1&quot;</span>}, {<span class="stringliteral">&quot;O0&quot;</span>, <span class="stringliteral">&quot;O1&quot;</span>}}).contract(*single, {}));</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;         }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html#a5e0bd2b089faadc2d1a9a76a7690ab5a">  114</a></span>&#160;      <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; <a class="code" href="structsquare_1_1Common.html#a5e0bd2b089faadc2d1a9a76a7690ab5a">SySy</a>() {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;         <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; result = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;         <span class="keywordflow">if</span> (!result) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keyword">auto</span> single = <a class="code" href="structsquare_1_1Common.html#acfe02ce284b716dd10ad2e8222a8d7f1">Sy</a>();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            result = std::make_shared&lt;const Tensor&lt;T&gt;&gt;(single-&gt;edge_rename({{<span class="stringliteral">&quot;I0&quot;</span>, <span class="stringliteral">&quot;I1&quot;</span>}, {<span class="stringliteral">&quot;O0&quot;</span>, <span class="stringliteral">&quot;O1&quot;</span>}}).contract(*single, {}).<span class="keyword">template</span> to&lt;T&gt;());</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;         }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html#a29873bd394f9d047165d32262fcae856">  123</a></span>&#160;      <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; <a class="code" href="structsquare_1_1Common.html#a29873bd394f9d047165d32262fcae856">SzSz</a>() {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;         <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; result = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;         <span class="keywordflow">if</span> (!result) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keyword">auto</span> single = <a class="code" href="structsquare_1_1Common.html#ad057115ad77a7b20d76a8cdc46af276d">Sz</a>();</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            result = std::make_shared&lt;const Tensor&lt;T&gt;&gt;(single-&gt;edge_rename({{<span class="stringliteral">&quot;I0&quot;</span>, <span class="stringliteral">&quot;I1&quot;</span>}, {<span class="stringliteral">&quot;O0&quot;</span>, <span class="stringliteral">&quot;O1&quot;</span>}}).contract(*single, {}));</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;         }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="structsquare_1_1Common.html#a54017a74db514b5404bad58aca9f22f8">  132</a></span>&#160;      <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; <a class="code" href="structsquare_1_1Common.html#a54017a74db514b5404bad58aca9f22f8">SS</a>() {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;         <span class="keyword">static</span> std::shared_ptr&lt;const Tensor&lt;T&gt;&gt; result = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;         <span class="keywordflow">if</span> (!result) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            result = std::make_shared&lt;const Tensor&lt;T&gt;&gt;(*<a class="code" href="structsquare_1_1Common.html#a3fb5069debb56cff67791faaf55e4ad1">SxSx</a>() + *<a class="code" href="structsquare_1_1Common.html#a5e0bd2b089faadc2d1a9a76a7690ab5a">SySy</a>() + *<a class="code" href="structsquare_1_1Common.html#a29873bd394f9d047165d32262fcae856">SzSz</a>());</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;         }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;         <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;   };</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="namespacesquare_1_1random.html">  141</a></span>&#160;   <span class="keyword">namespace </span>random {</div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">  142</a></span>&#160;      <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a> = std::default_random_engine();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="namespacesquare_1_1random.html#ab04b2a43a16e14ad11b7bffe7f6acc79">  149</a></span>&#160;      std::uint32_t <a class="code" href="namespacesquare_1_1random.html#ab04b2a43a16e14ad11b7bffe7f6acc79">get_seed</a>(std::uint32_t <a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a> = 0) {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;         <span class="keywordflow">if</span> (<a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a>.rank == 0) {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a> == 0) {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;               <a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a> = std::random_device()();</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;         }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;         MPI_Bcast(&amp;<a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a>, <span class="comment">/*count*/</span> 1, MPI_UINT32_T, <span class="comment">/*root*/</span> 0, MPI_COMM_WORLD);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;         <span class="keywordflow">return</span> <a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">  166</a></span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a>(std::uint32_t <a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a>) {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;         <span class="keywordflow">if</span> (<a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a> == 0) {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a> = <a class="code" href="namespacesquare_1_1random.html#ab04b2a43a16e14ad11b7bffe7f6acc79">get_seed</a>();</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;         }</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;         <a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>.seed(<a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a>);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;         <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">out_one</a>() &lt;&lt; <span class="stringliteral">&quot;Set the random seed to &quot;</span> &lt;&lt; <a class="code" href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">seed</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;      }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="namespacesquare_1_1random.html#aaab32f8111f82f2c02f7ad71e1eb23d2">  174</a></span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespacesquare_1_1random.html#aaab32f8111f82f2c02f7ad71e1eb23d2">split_seed</a>() {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;         <span class="keyword">auto</span> new_seed = std::uniform_int_distribution&lt;std::uint32_t&gt;(1)(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;         <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">out_one</a>() &lt;&lt; <span class="stringliteral">&quot;Split random seed\n&quot;</span>;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;         <a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>.seed(new_seed + <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a>.rank);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;      }</div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="namespacesquare_1_1random.html#a6489d40a27b05df2fa7c34cccc01acaa">  179</a></span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespacesquare_1_1random.html#a6489d40a27b05df2fa7c34cccc01acaa">merge_seed</a>() {</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;         <span class="keyword">auto</span> new_seed = std::uniform_int_distribution&lt;std::uint32_t&gt;(1)(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;         <a class="code" href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a>.<a class="code" href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">out_one</a>() &lt;&lt; <span class="stringliteral">&quot;Merge random seed\n&quot;</span>;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;         <a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>.seed(<a class="code" href="namespacesquare_1_1random.html#ab04b2a43a16e14ad11b7bffe7f6acc79">get_seed</a>(new_seed));</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;      }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="namespacesquare_1_1random.html#ae57b47d71f5a759dd15ed302935b6e53">  186</a></span>&#160;      <span class="keyword">auto</span> <a class="code" href="namespacesquare_1_1random.html#ae57b47d71f5a759dd15ed302935b6e53">normal</a>(T mean, T stddev) {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;         <span class="keywordflow">if</span> constexpr (TAT::is_complex_v&lt;T&gt;) {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordflow">return</span> [distribution_real = std::normal_distribution&lt;real&lt;T&gt;&gt;(mean.real(), stddev.real()),</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    distribution_imag = std::normal_distribution&lt;<a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a>&gt;(mean.imag(), stddev.imag())]() <span class="keyword">mutable</span> -&gt; T {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;               <span class="keywordflow">return</span> {distribution_real(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>), distribution_imag(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>)};</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            };</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;         } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="keywordflow">return</span> [distribution = std::normal_distribution&lt;T&gt;(mean, stddev)]() <span class="keyword">mutable</span> { <span class="keywordflow">return</span> distribution(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>); };</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;         }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;      }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="namespacesquare_1_1random.html#ab142b8b22fed846ad0efc7c1f2fdd34b">  197</a></span>&#160;      <span class="keyword">auto</span> <a class="code" href="namespacesquare_1_1random.html#ab142b8b22fed846ad0efc7c1f2fdd34b">uniform</a>(T min, T max) {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;         <span class="keywordflow">if</span> constexpr (std::is_integral_v&lt;T&gt;) {</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            <span class="keywordflow">return</span> [distribution = std::uniform_int_distribution&lt;T&gt;(min, max)]() <span class="keyword">mutable</span> { <span class="keywordflow">return</span> distribution(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>); };</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (TAT::is_complex_v&lt;T&gt;) {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            <span class="keywordflow">return</span> [distribution_real = std::uniform_real_distribution&lt;real&lt;T&gt;&gt;(min.real(), max.real()),</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                    distribution_imag = std::uniform_real_distribution&lt;<a class="code" href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">real&lt;T&gt;</a>&gt;(min.imag(), max.imag())]() <span class="keyword">mutable</span> -&gt; T {</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;               <span class="keywordflow">return</span> {distribution_real(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>), distribution_imag(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>)};</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            };</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;         } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <span class="keywordflow">return</span> [distribution = std::uniform_real_distribution&lt;T&gt;(min, max)]() <span class="keyword">mutable</span> { <span class="keywordflow">return</span> distribution(<a class="code" href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">engine</a>); };</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;         }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;      }</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;   } <span class="comment">// namespace random</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="structsquare_1_1ExactLattice.html">  212</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structsquare_1_1ExactLattice.html">ExactLattice</a>;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="structsquare_1_1SimpleUpdateLattice.html">  214</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structsquare_1_1SimpleUpdateLattice.html">SimpleUpdateLattice</a>;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="structsquare_1_1SamplingGradientLattice.html">  216</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structsquare_1_1SamplingGradientLattice.html">SamplingGradientLattice</a>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00219"></a><span class="lineno"><a class="line" href="namespacesquare.html#a19188428514051f5914d19064e147a4d">  219</a></span>&#160;   std::istream&amp;&amp; <a class="code" href="namespacesquare.html#a147c72691722096f4b6cbe729fc40f1d">operator&gt;</a>(std::istream&amp;&amp; in, T&amp; v) {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;      in &gt; v;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;      <span class="keywordflow">return</span> std::move(in);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;   }</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="namespacesquare.html#a86dbaebaa96f18971af469e9d33f69b4">  224</a></span>&#160;   std::ostream&amp;&amp; <a class="code" href="namespacesquare.html#a70af1ca478536a6afef771b88e9cfb59">operator&lt;</a>(std::ostream&amp;&amp; out, <span class="keyword">const</span> T&amp; v) {</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;      out &lt; v;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;      <span class="keywordflow">return</span> std::move(out);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;   }</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;   <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;   MPI_Datatype <a class="code" href="namespacesquare.html#ae283af84961b546f15926e4d43e71a61">get_mpi_type</a>();</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;   <span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="namespacesquare.html#ad6949e5f811381511986ec4f28ba0fd5">  233</a></span>&#160;   MPI_Datatype <a class="code" href="namespacesquare.html#ad6949e5f811381511986ec4f28ba0fd5">get_mpi_type&lt;float&gt;</a>() {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;      <span class="keywordflow">return</span> MPI_FLOAT;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;   }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;   <span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="namespacesquare.html#aa4febfa6f781fbad19a2236d13c3e158">  237</a></span>&#160;   MPI_Datatype <a class="code" href="namespacesquare.html#aa4febfa6f781fbad19a2236d13c3e158">get_mpi_type&lt;double&gt;</a>() {</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;      <span class="keywordflow">return</span> MPI_DOUBLE;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;   }</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;   <span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00241"></a><span class="lineno"><a class="line" href="namespacesquare.html#a1f4b91a779f9fe644504b4d1b3c6c744">  241</a></span>&#160;   MPI_Datatype get_mpi_type&lt;complex&lt;float&gt;&gt;() {</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;      <span class="keywordflow">return</span> MPI_C_FLOAT_COMPLEX;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;   }</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;   <span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="namespacesquare.html#a7ef8d61172799622e004d44a42c2ed34">  245</a></span>&#160;   MPI_Datatype get_mpi_type&lt;complex&lt;double&gt;&gt;() {</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;      <span class="keywordflow">return</span> MPI_C_DOUBLE_COMPLEX;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;   }</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;} <span class="comment">// namespace square</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aTAT_8hpp_html"><div class="ttname"><a href="TAT_8hpp.html">TAT.hpp</a></div></div>
+<div class="ttc" id="anamespacesquare_html_ab17da2a092bb5b4071fff09c8aa47dec"><div class="ttname"><a href="namespacesquare.html#ab17da2a092bb5b4071fff09c8aa47dec">square::Size</a></div><div class="ttdeci">TAT::Size Size</div><div class="ttdef"><b>Definition:</b> basic.hpp:36</div></div>
+<div class="ttc" id="anamespacesquare_html_ad8a700729e4014ab30b7246403e57616"><div class="ttname"><a href="namespacesquare.html#ad8a700729e4014ab30b7246403e57616">square::clear_line</a></div><div class="ttdeci">auto clear_line</div><div class="ttdef"><b>Definition:</b> basic.hpp:30</div></div>
+<div class="ttc" id="astructsquare_1_1Common_html_a54017a74db514b5404bad58aca9f22f8"><div class="ttname"><a href="structsquare_1_1Common.html#a54017a74db514b5404bad58aca9f22f8">square::Common::SS</a></div><div class="ttdeci">static std::shared_ptr&lt; const Tensor&lt; T &gt; &gt; SS()</div><div class="ttdef"><b>Definition:</b> basic.hpp:132</div></div>
+<div class="ttc" id="anamespacesquare_html_a70af1ca478536a6afef771b88e9cfb59"><div class="ttname"><a href="namespacesquare.html#a70af1ca478536a6afef771b88e9cfb59">square::operator&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;(std::ostream &amp;out, const AbstractLattice&lt; T &gt; &amp;lattice)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:76</div></div>
+<div class="ttc" id="anamespacesquare_html_a38e8aadaa8b92f8927c15bef40111b7a"><div class="ttname"><a href="namespacesquare.html#a38e8aadaa8b92f8927c15bef40111b7a">square::real</a></div><div class="ttdeci">TAT::real_base_t&lt; T &gt; real</div><div class="ttdef"><b>Definition:</b> basic.hpp:41</div></div>
+<div class="ttc" id="astructsquare_1_1SimpleUpdateLattice_html"><div class="ttname"><a href="structsquare_1_1SimpleUpdateLattice.html">square::SimpleUpdateLattice</a></div><div class="ttdef"><b>Definition:</b> basic.hpp:214</div></div>
+<div class="ttc" id="aclasssquare_1_1NotImplementedError_html"><div class="ttname"><a href="classsquare_1_1NotImplementedError.html">square::NotImplementedError</a></div><div class="ttdef"><b>Definition:</b> basic.hpp:32</div></div>
+<div class="ttc" id="anamespacesquare_html"><div class="ttname"><a href="namespacesquare.html">square</a></div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:32</div></div>
+<div class="ttc" id="anamespacesquare_html_a00cbe99c7ed4a5a633eef43982daf538"><div class="ttname"><a href="namespacesquare.html#a00cbe99c7ed4a5a633eef43982daf538">square::real_complex</a></div><div class="ttdeci">std::conditional_t&lt; TAT::is_complex_v&lt; T &gt;, real&lt; T &gt;, complex&lt; T &gt; &gt; real_complex</div><div class="ttdef"><b>Definition:</b> basic.hpp:45</div></div>
+<div class="ttc" id="astructsquare_1_1Common_html_a29873bd394f9d047165d32262fcae856"><div class="ttname"><a href="structsquare_1_1Common.html#a29873bd394f9d047165d32262fcae856">square::Common::SzSz</a></div><div class="ttdeci">static std::shared_ptr&lt; const Tensor&lt; T &gt; &gt; SzSz()</div><div class="ttdef"><b>Definition:</b> basic.hpp:123</div></div>
+<div class="ttc" id="anamespacesquare_html_a8a744d7de73075bda2fc43bde3f79737"><div class="ttname"><a href="namespacesquare.html#a8a744d7de73075bda2fc43bde3f79737">square::conj</a></div><div class="ttdeci">T conj(T input)</div><div class="ttdef"><b>Definition:</b> basic.hpp:57</div></div>
+<div class="ttc" id="anamespacesquare_1_1random_html_a5e9d3c0be5b86a2356d083e989f6ad51"><div class="ttname"><a href="namespacesquare_1_1random.html#a5e9d3c0be5b86a2356d083e989f6ad51">square::random::engine</a></div><div class="ttdeci">auto engine</div><div class="ttdef"><b>Definition:</b> basic.hpp:142</div></div>
+<div class="ttc" id="anamespacesquare_html_ae753208dc3d3ec838d9e9bf592b076a6"><div class="ttname"><a href="namespacesquare.html#ae753208dc3d3ec838d9e9bf592b076a6">square::complex</a></div><div class="ttdeci">std::complex&lt; real&lt; T &gt; &gt; complex</div><div class="ttdef"><b>Definition:</b> basic.hpp:43</div></div>
+<div class="ttc" id="agroup__Miscellaneous_html_ga165aa7ea040b184dc85762582d2b5a9c"><div class="ttname"><a href="group__Miscellaneous.html#ga165aa7ea040b184dc85762582d2b5a9c">TAT::Size</a></div><div class="ttdeci">std::uint64_t Size</div><div class="ttdoc">张量数据维度大小和数据本身大小的类型</div><div class="ttdef"><b>Definition:</b> basic_type.hpp:53</div></div>
+<div class="ttc" id="anamespacesquare_1_1random_html_aaab32f8111f82f2c02f7ad71e1eb23d2"><div class="ttname"><a href="namespacesquare_1_1random.html#aaab32f8111f82f2c02f7ad71e1eb23d2">square::random::split_seed</a></div><div class="ttdeci">void split_seed()</div><div class="ttdef"><b>Definition:</b> basic.hpp:174</div></div>
+<div class="ttc" id="anamespacesquare_1_1random_html_ab04b2a43a16e14ad11b7bffe7f6acc79"><div class="ttname"><a href="namespacesquare_1_1random.html#ab04b2a43a16e14ad11b7bffe7f6acc79">square::random::get_seed</a></div><div class="ttdeci">std::uint32_t get_seed(std::uint32_t seed=0)</div><div class="ttdoc">获取随机数种子</div><div class="ttdef"><b>Definition:</b> basic.hpp:149</div></div>
+<div class="ttc" id="astructTAT_1_1FastName_html"><div class="ttname"><a href="structTAT_1_1FastName.html">TAT::FastName</a></div><div class="ttdoc">用于给张量的边命名的类型FastName, 新建FastName的时候可以选定标号, 也可以选定字符串作为名称, FastName将自动保证标号和名称的一一对应</div><div class="ttdef"><b>Definition:</b> name.hpp:81</div></div>
+<div class="ttc" id="anamespacesquare_1_1random_html_a6489d40a27b05df2fa7c34cccc01acaa"><div class="ttname"><a href="namespacesquare_1_1random.html#a6489d40a27b05df2fa7c34cccc01acaa">square::random::merge_seed</a></div><div class="ttdeci">void merge_seed()</div><div class="ttdef"><b>Definition:</b> basic.hpp:179</div></div>
+<div class="ttc" id="astructsquare_1_1Common_html_a5e0bd2b089faadc2d1a9a76a7690ab5a"><div class="ttname"><a href="structsquare_1_1Common.html#a5e0bd2b089faadc2d1a9a76a7690ab5a">square::Common::SySy</a></div><div class="ttdeci">static std::shared_ptr&lt; const Tensor&lt; T &gt; &gt; SySy()</div><div class="ttdef"><b>Definition:</b> basic.hpp:114</div></div>
+<div class="ttc" id="astructsquare_1_1Common_html_acfe02ce284b716dd10ad2e8222a8d7f1"><div class="ttname"><a href="structsquare_1_1Common.html#acfe02ce284b716dd10ad2e8222a8d7f1">square::Common::Sy</a></div><div class="ttdeci">static std::shared_ptr&lt; const Tensor&lt; C &gt; &gt; Sy()</div><div class="ttdef"><b>Definition:</b> basic.hpp:81</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html_a25052984c028c2913d77fc0ed079f02d"><div class="ttname"><a href="structTAT_1_1Tensor.html#a25052984c028c2913d77fc0ed079f02d">TAT::Tensor::zero</a></div><div class="ttdeci">Tensor&lt; ScalarType, Symmetry, Name &gt; &amp; zero() &amp;</div><div class="ttdoc">将张量内的数据全部设置为零</div><div class="ttdef"><b>Definition:</b> tensor.hpp:321</div></div>
+<div class="ttc" id="anamespacesquare_html_aa4febfa6f781fbad19a2236d13c3e158"><div class="ttname"><a href="namespacesquare.html#aa4febfa6f781fbad19a2236d13c3e158">square::get_mpi_type&lt; double &gt;</a></div><div class="ttdeci">MPI_Datatype get_mpi_type&lt; double &gt;()</div><div class="ttdef"><b>Definition:</b> basic.hpp:237</div></div>
+<div class="ttc" id="anamespacesquare_1_1random_html_ae57b47d71f5a759dd15ed302935b6e53"><div class="ttname"><a href="namespacesquare_1_1random.html#ae57b47d71f5a759dd15ed302935b6e53">square::random::normal</a></div><div class="ttdeci">auto normal(T mean, T stddev)</div><div class="ttdef"><b>Definition:</b> basic.hpp:186</div></div>
+<div class="ttc" id="anamespacesquare_1_1random_html_ab142b8b22fed846ad0efc7c1f2fdd34b"><div class="ttname"><a href="namespacesquare_1_1random.html#ab142b8b22fed846ad0efc7c1f2fdd34b">square::random::uniform</a></div><div class="ttdeci">auto uniform(T min, T max)</div><div class="ttdef"><b>Definition:</b> basic.hpp:197</div></div>
+<div class="ttc" id="agroup__Name_html_ga0032f910fcdb4853bc83a17a7d1f48d9"><div class="ttname"><a href="group__Name.html#ga0032f910fcdb4853bc83a17a7d1f48d9">TAT::DefaultName</a></div><div class="ttdeci">FastName DefaultName</div><div class="ttdoc">Tensor默认使用的Name, 如果没有定义宏TAT_USE_SIMPLE_NAME则为FastName, 否则为std::string</div><div class="ttdef"><b>Definition:</b> name.hpp:129</div></div>
+<div class="ttc" id="astructsquare_1_1Common_html_a3fb5069debb56cff67791faaf55e4ad1"><div class="ttname"><a href="structsquare_1_1Common.html#a3fb5069debb56cff67791faaf55e4ad1">square::Common::SxSx</a></div><div class="ttdeci">static std::shared_ptr&lt; const Tensor&lt; T &gt; &gt; SxSx()</div><div class="ttdef"><b>Definition:</b> basic.hpp:105</div></div>
+<div class="ttc" id="astructTAT_1_1mpi__t_html_aed5ce907b04b40e54a8fe01d1528ad7b"><div class="ttname"><a href="structTAT_1_1mpi__t.html#aed5ce907b04b40e54a8fe01d1528ad7b">TAT::mpi_t::out_one</a></div><div class="ttdeci">auto out_one(int rank_specified=0)</div><div class="ttdef"><b>Definition:</b> mpi.hpp:250</div></div>
+<div class="ttc" id="agroup__MPI_html_ga8023345bfaa3e140a1b117a7aa5244d9"><div class="ttname"><a href="group__MPI.html#ga8023345bfaa3e140a1b117a7aa5244d9">TAT::mpi</a></div><div class="ttdeci">mpi_t mpi</div><div class="ttdef"><b>Definition:</b> mpi.hpp:273</div></div>
+<div class="ttc" id="astructsquare_1_1ExactLattice_html"><div class="ttname"><a href="structsquare_1_1ExactLattice.html">square::ExactLattice</a></div><div class="ttdef"><b>Definition:</b> basic.hpp:212</div></div>
+<div class="ttc" id="astructsquare_1_1Common_html_ad057115ad77a7b20d76a8cdc46af276d"><div class="ttname"><a href="structsquare_1_1Common.html#ad057115ad77a7b20d76a8cdc46af276d">square::Common::Sz</a></div><div class="ttdeci">static std::shared_ptr&lt; const Tensor&lt; T &gt; &gt; Sz()</div><div class="ttdef"><b>Definition:</b> basic.hpp:93</div></div>
+<div class="ttc" id="anamespacesquare_html_a147c72691722096f4b6cbe729fc40f1d"><div class="ttname"><a href="namespacesquare.html#a147c72691722096f4b6cbe729fc40f1d">square::operator&gt;</a></div><div class="ttdeci">std::istream &amp; operator&gt;(std::istream &amp;in, AbstractLattice&lt; T &gt; &amp;lattice)</div><div class="ttdef"><b>Definition:</b> abstract_lattice.hpp:106</div></div>
+<div class="ttc" id="anamespacesquare_1_1random_html_a13926d5b5d0d19b08fbcfd39b6b78b9d"><div class="ttname"><a href="namespacesquare_1_1random.html#a13926d5b5d0d19b08fbcfd39b6b78b9d">square::random::seed</a></div><div class="ttdeci">void seed(std::uint32_t seed)</div><div class="ttdoc">设置随机数种子</div><div class="ttdef"><b>Definition:</b> basic.hpp:166</div></div>
+<div class="ttc" id="astructTAT_1_1Tensor_html"><div class="ttname"><a href="structTAT_1_1Tensor.html">TAT::Tensor&lt; T &gt;</a></div></div>
+<div class="ttc" id="astructsquare_1_1Common_html_a14aab6273f4662c9dd01d8cd5a58eb82"><div class="ttname"><a href="structsquare_1_1Common.html#a14aab6273f4662c9dd01d8cd5a58eb82">square::Common::Sx</a></div><div class="ttdeci">static std::shared_ptr&lt; const Tensor&lt; T &gt; &gt; Sx()</div><div class="ttdef"><b>Definition:</b> basic.hpp:69</div></div>
+<div class="ttc" id="astructsquare_1_1SamplingGradientLattice_html"><div class="ttname"><a href="structsquare_1_1SamplingGradientLattice.html">square::SamplingGradientLattice</a></div><div class="ttdef"><b>Definition:</b> basic.hpp:216</div></div>
+<div class="ttc" id="astructsquare_1_1Common_html_a161739613e313e2bc1ff18be6dddae94"><div class="ttname"><a href="structsquare_1_1Common.html#a161739613e313e2bc1ff18be6dddae94">square::Common::C</a></div><div class="ttdeci">complex&lt; T &gt; C</div><div class="ttdef"><b>Definition:</b> basic.hpp:67</div></div>
+<div class="ttc" id="astructsquare_1_1Common_html"><div class="ttname"><a href="structsquare_1_1Common.html">square::Common</a></div><div class="ttdef"><b>Definition:</b> basic.hpp:66</div></div>
+<div class="ttc" id="anamespacesquare_html_ad6949e5f811381511986ec4f28ba0fd5"><div class="ttname"><a href="namespacesquare.html#ad6949e5f811381511986ec4f28ba0fd5">square::get_mpi_type&lt; float &gt;</a></div><div class="ttdeci">MPI_Datatype get_mpi_type&lt; float &gt;()</div><div class="ttdef"><b>Definition:</b> basic.hpp:233</div></div>
+<div class="ttc" id="agroup__Miscellaneous_html_ga03fb813e3f2c8c1633ebe103894051a3"><div class="ttname"><a href="group__Miscellaneous.html#ga03fb813e3f2c8c1633ebe103894051a3">TAT::real_base_t</a></div><div class="ttdeci">typename real_base&lt; T &gt;::type real_base_t</div><div class="ttdef"><b>Definition:</b> basic_type.hpp:97</div></div>
+<div class="ttc" id="anamespacesquare_html_ae283af84961b546f15926e4d43e71a61"><div class="ttname"><a href="namespacesquare.html#ae283af84961b546f15926e4d43e71a61">square::get_mpi_type</a></div><div class="ttdeci">MPI_Datatype get_mpi_type()</div></div>
+<div class="ttc" id="anamespacesquare_html_afa7b91f65f14fdadff83351914a5e991"><div class="ttname"><a href="namespacesquare.html#afa7b91f65f14fdadff83351914a5e991">square::scalar_to</a></div><div class="ttdeci">O scalar_to(I input)</div><div class="ttdef"><b>Definition:</b> basic.hpp:48</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_c48b0f5ba0ee61d0e23bde8cc5174d80.html">square</a></li><li class="navelem"><a class="el" href="basic_8hpp.html">basic.hpp</a></li>
+    <li class="footer">生成于 2021年 一月 22日 星期五 13:53:52 , 为 TAT使用 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>
