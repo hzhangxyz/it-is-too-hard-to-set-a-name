@@ -26,7 +26,7 @@ target_compile_features(TAT INTERFACE cxx_std_20)
 # PYBIND11_PYTHON_VERSION, PYTHON_EXECUTABLE
 option(TAT_USE_MPI "Use mpi for TAT" ON)
 set(TAT_PYTHON_MODULE TAT CACHE STRING "Set python binding module name")
-set(TAT_FORCE_VERSION 0.1.4 CACHE STRING "Force set TAT version")
+set(TAT_FORCE_VERSION 0.2.0 CACHE STRING "Force set TAT version")
 
 # 下面几个宏仅仅用于记录编译信息
 target_compile_definitions(TAT INTERFACE TAT_VERSION="${TAT_FORCE_VERSION}")
