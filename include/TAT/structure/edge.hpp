@@ -26,6 +26,8 @@
 #include <ranges>
 #include <set>
 
+#include "../TAT.hpp"
+#include "../utility/concepts_and_fake_map_set.hpp"
 #include "symmetry.hpp"
 
 namespace TAT {
@@ -34,6 +36,8 @@ namespace TAT {
     */
    template<is_symmetry Symmetry, bool is_pointer = false>
    struct edge_map_t {
+      static constexpr bool is_not_pointer = !is_pointer;
+
       using pair_initializer_list_t = std::initializer_list<std::pair<Symmetry, Size>>;
       using symmetry_initializer_list_t = std::initializer_list<Symmetry>;
 
@@ -49,30 +53,29 @@ namespace TAT {
       ~edge_map_t() = default;
 
       // map不可以由非const的initializer list创建
-      template<std::ranges::range MapSymmetrySize = pair_initializer_list_t>
-            requires(!is_pointer) && requires(std::ranges::range_value_t<MapSymmetrySize> pair) {
-         pair.first;
-         pair.second;
-      }
+      template<map_like_range_of<Symmetry, Size> MapSymmetrySize = pair_initializer_list_t>
+         requires(is_not_pointer)
       edge_map_t(MapSymmetrySize&& map_) : map(map_.begin(), map_.end()) {
-         if constexpr (!requires(MapSymmetrySize map, Symmetry s) { map.find(s); }) {
-            std::ranges::sort(map, [](const auto& a, const auto& b) { return a.first < b.first; });
+         if constexpr (!findable<MapSymmetrySize, Symmetry>) {
+            std::ranges::sort(map, [](const auto& a, const auto& b) {
+               return a.first < b.first;
+            });
          }
       }
 
       /**
        * 由一些对称性的集合构造, 意味着每一个对称性对应的维度都为1
        */
-      template<std::ranges::range SetSymmetry = symmetry_initializer_list_t>
-            requires(!is_pointer) && (!requires(std::ranges::range_value_t<SetSymmetry> pair) {
-               pair.first;
-               pair.second;
-            })edge_map_t(const SetSymmetry& symmetries) {
+      template<range_of<Symmetry> SetSymmetry = symmetry_initializer_list_t>
+         requires(is_not_pointer)
+      edge_map_t(const SetSymmetry& symmetries) {
          for (const auto& symmetry : symmetries) {
             map.emplace_back(symmetry, 1);
          }
-         if constexpr (!requires(SetSymmetry set, Symmetry s) { set.find(s); }) {
-            std::ranges::sort(map, [](const auto& a, const auto& b) { return a.first < b.first; });
+         if constexpr (!findable<SetSymmetry, Symmetry>) {
+            std::ranges::sort(map, [](const auto& a, const auto& b) {
+               return a.first < b.first;
+            });
          }
       }
 
@@ -80,15 +83,20 @@ namespace TAT {
        * 构造一个平凡的边, 仅含一个对称性
        */
       template<typename = void>
-      requires(!is_pointer) edge_map_t(const Size dimension) : map({{Symmetry(), dimension}}) {}
+         requires(is_not_pointer)
+      edge_map_t(const Size dimension) : map({{Symmetry(), dimension}}) {}
 
       template<typename = void>
-      requires is_pointer edge_map_t(const map_t& map_) : map(map_) {}
+         requires(is_pointer)
+      edge_map_t(const map_t& map_) : map(map_) {}
    };
 
-   // 可能并不需要
+   // used only when sampling merged edge, use this to modify order of edges
+   // map is always increasing, this variable only works when looping edge
    struct edge_nosymmetry_conjugated_t {
       static constexpr bool conjugated = false;
+      edge_nosymmetry_conjugated_t() {}
+      edge_nosymmetry_conjugated_t(bool) {}
    };
    struct edge_symmetry_conjugated_t {
       bool conjugated;
@@ -100,6 +108,8 @@ namespace TAT {
 
    struct edge_bose_arrow_t {
       static constexpr Arrow arrow = 0;
+      edge_bose_arrow_t() {}
+      edge_bose_arrow_t(Arrow) {}
    };
    struct edge_fermi_arrow_t {
       Arrow arrow;
@@ -133,15 +143,28 @@ namespace TAT {
 
       // 这里不可以用typename ... Args不然会和initialzier list产生歧义
       // 不知道为啥移动构造会走这一条，所以加个sfinae
+      // TODO move arrow to the last argument
       template<typename Arg>
-      requires(!std::same_as<std::remove_cvref_t<Arg>, Edge<Symmetry, is_pointer>>) Edge(Arg&& arg) : base_map_t(std::forward<Arg>(arg)) {}
-      Edge(const typename base_map_t::pair_initializer_list_t& map_) : base_map_t(map_) {}
-      Edge(const typename base_map_t::symmetry_initializer_list_t& symmetries) : base_map_t(symmetries) {}
+         requires(!std::is_same_v<std::remove_cvref_t<Arg>, Edge<Symmetry, is_pointer>>)
+      Edge(Arg&& arg, bool conjugated = false) : base_map_t(std::forward<Arg>(arg)), base_conjugated_t(conjugated) {}
+      Edge(const typename base_map_t::pair_initializer_list_t& map_, bool conjugated = false) : base_map_t(map_), base_conjugated_t(conjugated) {}
+      Edge(const typename base_map_t::symmetry_initializer_list_t& symmetries, bool conjugated = false) :
+            base_map_t(symmetries),
+            base_conjugated_t(conjugated) {}
 
       template<typename Arg>
-      Edge(Arrow arrow, Arg&& arg) : base_map_t(std::forward<Arg>(arg)), base_arrow_t(arrow) {}
-      Edge(Arrow arrow, const typename base_map_t::pair_initializer_list_t& map) : base_map_t(map), base_arrow_t(arrow) {}
-      Edge(Arrow arrow, const typename base_map_t::symmetry_initializer_list_t& symmetries) : base_map_t(symmetries), base_arrow_t(arrow) {}
+      Edge(Arrow arrow, Arg&& arg, bool conjugated = false) :
+            base_map_t(std::forward<Arg>(arg)),
+            base_conjugated_t(conjugated),
+            base_arrow_t(arrow) {}
+      Edge(Arrow arrow, const typename base_map_t::pair_initializer_list_t& map, bool conjugated = false) :
+            base_map_t(map),
+            base_conjugated_t(conjugated),
+            base_arrow_t(arrow) {}
+      Edge(Arrow arrow, const typename base_map_t::symmetry_initializer_list_t& symmetries, bool conjugated = false) :
+            base_map_t(symmetries),
+            base_conjugated_t(conjugated),
+            base_arrow_t(arrow) {}
 
       /**
        * 由费米子数自动构造箭头方向, 虽然这个不一定需要一致, 仅仅在只含有一个Fermi对称性时有效
@@ -170,7 +193,7 @@ namespace TAT {
       static constexpr bool i_am_an_edge = !is_pointer;
       static constexpr bool i_am_an_edge_pointer = is_pointer;
    };
-   template<is_symmetry Symmetry, bool is_pointer = false>
+   template<is_symmetry Symmetry, bool is_pointer>
    bool operator==(const Edge<Symmetry, is_pointer>& edge_1, const Edge<Symmetry, is_pointer>& edge_2) {
       return edge_1.arrow == edge_2.arrow && edge_1.conjugated == edge_2.conjugated && std::ranges::equal(edge_1.map, edge_2.map);
    }
@@ -214,11 +237,6 @@ namespace TAT {
          typename Rank0,
          typename Dims0,
          typename Operate>
-   requires requires(Rank0&& rank0, Dims0&& dims0, Operate&& operate, std::vector<typename Edge::map_t::const_iterator> list, Rank number) {
-      rank0();
-      dims0();
-      operate(list, number);
-   }
    void loop_edge(const Edge* edges, const Rank rank, Rank0&& rank0, Dims0&& dims0, Operate&& operate) {
       if (rank == 0) [[unlikely]] {
          rank0();
@@ -233,7 +251,6 @@ namespace TAT {
             dims0();
             return;
          }
-         // 如果没有conjugated，指向当前位置，如果conjugated，指向当前位置的下一个位置
          symmetry_iterator_list.push_back((check_conjugated && edges[i].conjugated) ? std::prev(map.end()) : map.begin());
       }
       Rank minimum_changed = 0;
@@ -257,7 +274,8 @@ namespace TAT {
 
    /// \private
    template<template<typename> class Allocator = std::allocator, bool check_conjugated = false, std::ranges::contiguous_range Edges>
-   requires is_general_edge<std::ranges::range_value_t<Edges>> [[nodiscard]] auto initialize_block_symmetries_with_check(const Edges& edges) {
+      requires is_general_edge<std::ranges::range_value_t<Edges>>
+   [[nodiscard]] auto initialize_block_symmetries_with_check(const Edges& edges) {
       using Symmetry = typename Edges::value_type::symmetry_t;
       Rank rank = edges.size();
       // 对称性列表和大小
@@ -268,7 +286,9 @@ namespace TAT {
       loop_edge<Allocator, check_conjugated>(
             edges.data(),
             rank,
-            [&] { result.emplace_back(std::piecewise_construct, std::tuple{}, std::tuple{1}); },
+            [&] {
+               result.emplace_back(std::piecewise_construct, std::tuple{}, std::tuple{1});
+            },
             [] {},
             [&](const auto& symmetry_iterator_list, Rank minimum_changed) {
                auto symmetry_summary = Symmetry();
@@ -286,26 +306,6 @@ namespace TAT {
                return minimum_changed;
             });
       return result;
-   }
-
-   /// \private
-   template<typename Symmetry>
-   [[nodiscard]] auto get_edge_from_edge_symmetry_and_arrow(const std::span<Symmetry>& edge_symmetry, const std::span<Arrow>& edge_arrow, Rank rank) {
-      // 在one中使用
-      if constexpr (Symmetry::length == 0) {
-         return std::vector<Edge<Symmetry>>(rank, {1});
-      } else {
-         auto result = std::vector<Edge<Symmetry>>();
-         result.reserve(rank);
-         for (auto i = 0; i < rank; i++) {
-            if constexpr (Symmetry::is_fermi_symmetry) {
-               result.push_back({edge_arrow[i], {{edge_symmetry[i], 1}}});
-            } else {
-               result.push_back({{{edge_symmetry[i], 1}}});
-            }
-         }
-         return result;
-      }
    }
    /**@}*/
 } // namespace TAT

@@ -1,0 +1,437 @@
+* [[https://github.com/hzhangxyz/TAT][TAT]] · [[https://github.com/hzhangxyz/TAT/tags][https://img.shields.io/github/v/tag/hzhangxyz/TAT.svg?style=flat-square]] [[/LICENSE.md][https://img.shields.io/github/license/hzhangxyz/TAT.svg?style=flat-square]] [[https://github.com/hzhangxyz/TAT/actions?query=workflow%3Acheck][https://img.shields.io/github/workflow/status/hzhangxyz/TAT/check.svg?style=flat-square]] [[https://hzhangxyz.github.io/TAT/index.html][https://img.shields.io/github/workflow/status/hzhangxyz/TAT/doxygen.svg?color=%237f7fff&label=doc&style=flat-square]]
+  
+  TAT is a header-only c++ tensor library with support for Abelian [[https://journals.aps.org/pra/abstract/10.1103/PhysRevA.82.050301][symmetry tensor]] and [[https://journals.aps.org/prb/abstract/10.1103/PhysRevB.99.195153][fermi tensor]]
+
+  The name "TAT" is a recursive acronym for "TAT is A Tensor library!", and it should be all uppercase
+
+** Prerequisites
+
+   * c++ compiler with c++17 support(such as gcc7+, clang5+, msvc19.14+)
+   * lapack/blas or mkl
+   * mpi(optional for parallel computing)
+   * [[https://github.com/pybind/pybind11][pybind11]](optional for python binding)
+   * [[https://github.com/numpy/numpy][numpy]](optional in python binding to export data into numpy array)
+
+   There is also some dependents library used by some of examples/demos/tests.
+
+   * [[https://github.com/kongaskristjan/fire-hpp][fire-hpp]]
+   * [[https://github.com/google/python-fire][fire]]
+   * [[https://github.com/coady/multimethod][multimethpd]]
+
+** Usage
+
+   Just include the file [[/include/TAT/TAT.hpp][ =include/TAT/TAT.hpp= ]] and link lapack/blas or mkl at link time
+
+   For good practice, pass argument =-I$path_to_TAT_root/include= to compiler and use =#include <TAT/TAT.hpp>= in your source file
+
+   For mpi support, you need to define macro =TAT_USE_MPI= and use mpi compiler such as =mpic++= (recommend) or pass correct flag to normal compiler(for expert)
+
+   Please check comment in file [[/include/TAT/TAT.hpp#L38][ =TAT.hpp= ]] for some other macro options
+
+   Please notice that this library need proper compiler optimization option(=-O2=, =-O3=, =-Ofast=) for good performace
+
+   You can also use TAT as a cmake subdirectory, just use =add_subdirectory(path_to_TAT_root)= or =find_package(TAT)= and then =target_link_libraries(your_target TAT)= in your =CMakeLists.txt=
+
+** Python binding
+
+   Python binding is configured in [[/FindTAT.cmake#L109][ =CMakeLists.txt= ]], use cmake and build target =PyTAT=
+
+   For other customed python module name, define =TAT_PYTHON_MODULE= as cmake variable
+
+   If you are familiar with [[https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually][pybind11]], you can compile [[/PyTAT/PyTAT.cpp][ =PyTAT/PyTAT.cpp= ]] directly with correct flag
+
+   Refer to [[/PyTAT/README.md][this]] for document of python binding
+
+** Use with [[https://emscripten.org/][emscripten]]
+
+   If you want to run a program using TAT in browser, which is very useful for demonstration
+
+   You can simply compile TAT with =em++= (no mpi support, no doubt), and link =liblapack.a=, =libblas.a=, =libf2c.a= compiled from [[https://www.netlib.org/clapack/][clapack-3.2.1]]
+
+   You can download them from [[https://github.com/hzhangxyz/TAT/releases/tag/v0.0.6][here]] or compile by yourself
+
+   If you are using cmake, you need to put these three files into directory =emscripten=, then run =emcmake cmake $path_to_TAT_root= which will configure it automatically
+
+** Documents
+   
+  #+begin_src emacs-lisp :exports none
+    (defun ek/babel-ansi ()
+      (when-let ((beg (org-babel-where-is-src-block-result nil nil)))
+        (save-excursion
+          (goto-char beg)
+          (when (looking-at org-babel-result-regexp)
+            (let ((end (org-babel-result-end))
+                  (ansi-color-context-region nil))
+              (ansi-color-apply-on-region beg end))))))
+    (add-hook 'org-babel-after-execute-hook 'ek/babel-ansi)
+  #+end_src
+
+  #+RESULTS:
+  | ek/babel-ansi | spacemacs/ob-fix-inline-images |
+
+*** No Symmetry Tensor
+
+    No Symmetry Tensor is a tensor without any symmetry,
+    which is just a normal tensor, so let us begin from this
+    In =TAT=, use
+
+    #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports code
+      using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+    #+end_src
+
+    to get =Tensor= as no symmetry tensor with basic scalar type as =double=.
+
+**** Create tensor
+
+     To create a no symmetry tensor, pass names and dimension for each dimension of the tensor
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       auto A = TAT::Tensor<double, TAT::NoSymmetry>({"i", "j"}, {3, 4});
+       std::cout << A << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[i,j],edges:[3,4],blocks:[0,0,0,0,0,0,0,0,0,0,0,0]}
+
+     the code above create a rank-2 tensor named =A= which two edges are =i= and =j=,
+     and their dimensions are =3= and =4=, then print tensor =A= to =std::cout=.
+
+     Please notice that TAT will NOT initialize content of tensor when create it.
+
+**** Access element of tensor
+
+     You can easily access elements of tensor by a map from name of edge to index
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       // Create a tensor and initialize it to zero
+       auto A = TAT::Tensor<double, TAT::NoSymmetry>({"i", "j"}, {3, 4}).zero();
+       // Set an element of tensor A to 3
+       A.at({{"i", 2}, {"j", 2}}) = 3;
+       // print tensor A
+       std::cout << A << "\n";
+       // print the element set as 3
+       std::cout << A.at({{"j", 2}, {"i", 2}}) << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[i,j],edges:[3,4],blocks:[0,0,0,0,0,0,0,0,0,0,3,0]}
+     : 3
+
+**** Scalar operators
+
+     You can do scalar operators directly
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       // Create two rank-1 tensors
+       auto A = TAT::Tensor<double, TAT::NoSymmetry>({"i"}, {4});
+       auto B = TAT::Tensor<double, TAT::NoSymmetry>({"i"}, {4});
+       A.at({{"i", 0}}) = 1;
+       A.at({{"i", 1}}) = 2;
+       A.at({{"i", 2}}) = 3;
+       A.at({{"i", 3}}) = 4;
+       B.at({{"i", 0}}) = 10;
+       B.at({{"i", 1}}) = 20;
+       B.at({{"i", 2}}) = 30;
+       B.at({{"i", 3}}) = 40;
+
+       // Add two tensor
+       std::cout << A + B << "\n";
+
+       // A number over a tensor
+       std::cout << 1 / A << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[i],edges:[4],blocks:[11,22,33,44]}
+     : {names:[i],edges:[4],blocks:[1,0.5,0.333333,0.25]}
+
+**** Rank-0 tensor and number
+
+     You can convert between rank-0 tensor and number directly
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       // Directly initialize a tensor with a number
+       auto A = TAT::Tensor<double, TAT::NoSymmetry>(233);
+
+       // Convert rank-0 tensor to number
+       double a = double(A);
+
+       std::cout << a << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : 233
+
+**** Explicitly copy
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports code
+       auto A = TAT::Tensor<double, TAT::NoSymmetry>(233);
+       // By default, assigning a tensor to another tensor
+       // will let two tensor share the same data blocks
+       auto B = A;
+       // data of B is not changed when execute `A.at({}) = 1`
+       // but data copy happened implicitly and a warning will
+       // be thrown.
+       A.at({}) = 1;
+
+       auto C = TAT::Tensor<double, TAT::NoSymmetry>(233);
+       // Explicitly copy of tensor C
+       auto D = C.copy();
+       // No warning will be thrown
+       C.at({}) = 1;
+     #+end_src
+
+**** Create same shape tensor
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       auto A = TAT::Tensor<double, TAT::NoSymmetry>({"i", "j"}, {2, 2});
+       A.at({{"i", 0}, {"j", 0}}) = 1;
+       A.at({{"i", 0}, {"j", 1}}) = 2;
+       A.at({{"i", 1}, {"j", 0}}) = 3;
+       A.at({{"i", 1}, {"j", 1}}) = 4;
+       // tensor B copy the shape of A but not content of A
+       auto B = A.same_shape();
+       std::cout << B << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[i,j],edges:[2,2],blocks:[0,0,0,0]}
+
+**** Map and transform
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+       auto A = Tensor({"i", "j"}, {2, 2});
+       // Another easy test data setter for tensor
+       // which will fill meanless test data into tensor
+       A.range();
+       // Every element is transformed by a function inplacely
+       A.transform([](auto x){ return x * x; });
+       std::cout << A << "\n";
+
+       // Every element is transformed by a function outplacely
+       auto B = A.map([](auto x){ return x + 1; });
+       std::cout << B << "\n";
+       std::cout << A << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[i,j],edges:[2,2],blocks:[0,1,4,9]}
+     : {names:[i,j],edges:[2,2],blocks:[1,2,5,10]}
+     : {names:[i,j],edges:[2,2],blocks:[0,1,4,9]}
+
+**** Type conversion
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports code
+       // decltype(A) is TAT::Tensor<double, TAT::NoSymmetry>
+       auto A = TAT::Tensor<double, TAT::NoSymmetry>(233);
+       // Convert A to an complex tensor
+       // decltype(B) is  TAT::Tensor<std::complex<double>, TAT::NoSymmetry>
+       auto B = A.to<std::complex<double>>();
+     #+end_src
+
+**** Norm
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       auto A = TAT::Tensor<double, TAT::NoSymmetry>({"i"}, {10}).range();
+       // Get maximum norm
+       std::cout << A.norm<-1>() <<"\n";
+       // Get 0 norm
+       std::cout << A.norm<0>() <<"\n";
+       // Get 1 norm
+       std::cout << A.norm<1>() <<"\n";
+       // Get 2 norm
+       std::cout << A.norm<2>() <<"\n";
+     #+end_src
+
+     #+RESULTS:
+     : 9
+     : 10
+     : 45
+     : 16.8819
+
+**** Contract
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+       auto A = Tensor({"i", "j", "k"}, {2, 3, 4}).range();
+       auto B = Tensor({"a", "b", "c", "d"}, {2, 5, 3, 6}).range();
+       // Contract edge i of A and edge a of B, edge j of A and edge c of B
+       auto C = A.contract(B, {{"i", "a"}, {"j", "c"}});
+       std::cout << C << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[k,b,d],edges:[4,5,6],blocks:[4776,4836,4896,4956,5016,5076,5856,5916,5976,6036,6096,6156,6936,6996,7056,7116,7176,7236,8016,8076,8136,8196,8256,8316,9096,9156,9216,9276,9336,9396,5082,5148,5214,5280,5346,5412,6270,6336,6402,6468,6534,6600,7458,7524,7590,7656,7722,7788,8646,8712,8778,8844,8910,8976,9834,9900,9966,10032,10098,10164,5388,5460,5532,5604,5676,5748,6684,6756,6828,6900,6972,7044,7980,8052,8124,8196,8268,8340,9276,9348,9420,9492,9564,9636,10572,10644,10716,10788,10860,10932,5694,5772,5850,5928,6006,6084,7098,7176,7254,7332,7410,7488,8502,8580,8658,8736,8814,8892,9906,9984,10062,10140,10218,10296,11310,11388,11466,11544,11622,11700]}
+
+**** Merge and split edge
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+       auto A = Tensor({"i", "j", "k"}, {2, 3, 4}).range();
+       // Merge edge i and edge j into a single edge a,
+       // and Merge no edge to get a trivial edge b
+       auto B = A.merge_edge({{"a", {"i", "j"}}, {"b", {}}});
+       std::cout << B << "\n";
+
+       // Split edge a back to edge i and edge j, and split
+       // trivial edge b to no edge
+       auto C = B.split_edge({{"b", {}}, {"a", {{"i", 2}, {"j", 3}}}});
+       std::cout << C << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[b,a,k],edges:[1,6,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+     : {names:[i,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+
+**** Edge rename and transpose
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+       auto A = Tensor({"i", "j", "k"}, {2, 3, 4}).range();
+       // Rename edge i to edge x
+       auto B = A.edge_rename({{"i", "x"}});
+       std::cout << B << "\n";
+       // `edge_rename` is an outplace operator
+       std::cout << A << "\n";
+
+       // Transpose tensor A with specific order
+       auto C = A.transpose({"k", "j", "i"});
+       std::cout << C << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[x,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+     : {names:[i,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+     : {names:[k,j,i],edges:[4,3,2],blocks:[0,12,4,16,8,20,1,13,5,17,9,21,2,14,6,18,10,22,3,15,7,19,11,23]}
+
+**** SVD and QR decomposition
+
+***** QR decomposition
+
+      #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+        using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+        auto A = Tensor({"i", "j", "k"}, {2, 3, 4}).range();
+        // Do QR decomposition, specify Q matrix edge is edge k
+        // You can also write is as `Q, R = A.qr('r', {"i", "j"}, "Q", "R")`
+        // The last two argument is the name of new edges generated
+        // by QR decomposition
+        auto [Q, R] = A.qr('q', {"k"}, "Q", "R");
+        // Q is an unitary matrix, which edge name is Q and k
+        std::cout << Q.edge_rename({{"Q", "Q1"}}).contract(Q.edge_rename({{"Q", "Q2"}}), {{"k", "k"}}) << "\n";
+        // Q R - A is 0
+        std::cout << (Q.contract(R, {{"Q", "R"}}) - A).norm<-1>() << "\n";
+      #+end_src
+
+      #+RESULTS:
+      : {names:[Q1,Q2],edges:[4,4],blocks:[1,1.37131e-16,-6.69686e-17,-9.2407e-18,1.37131e-16,1,1.41169e-16,-3.05143e-17,-6.69686e-17,1.41169e-16,1,-1.86861e-16,-9.2407e-18,-3.05143e-17,-1.86861e-16,1]}
+      : 7.10543e-15
+
+***** SVD decomposition
+
+      #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+        using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+        auto A = Tensor({"i", "j", "k"}, {2, 3, 4}).range();
+        // Do SVD decomposition with cut=3, if cut not specified,
+        // svd will not cut the edge.
+        // The first argument is edge set of matrix U, SVD does not
+        // supply function to specify edge set of matrix V like what
+        // is done in QR since SVD is symmetric between U and V.
+        // The later two argument is new edges generated
+        auto [U, S, V] = A.svd({"k"}, "U", "V", 3);
+        // U is an rank-3 unitary matrix
+        std::cout << U.edge_rename({{"U", "U1"}}).contract(U.edge_rename({{"U", "U2"}}), {{"k", "k"}}) << "\n";
+        // U S V - A is a small value
+        // please notice that S is an diagnalized matrix so contract is
+        // not support, use multiple which is designed for this
+        // situation instead. Its interface is
+        // `matrix_U.multiple(Singular, matrix_U_edge_name, 'u')` or
+        // `matrix_V.multiple(Singular, matrix_V_edge_name, 'v')`,
+        // multiple is an outplace operator
+        std::cout << (U.multiple(S, "U", 'u').contract(V, {{"U", "V"}}) - A).norm<-1>() << "\n";
+
+        // Here A is a real tensor, if it is complex tensor, you may
+        // need outplace operator `U.conjugate()` to get conjugate
+        // tensor of unitary matrix
+      #+end_src
+
+      #+RESULTS:
+      : {names:[U1,U2],edges:[3,3],blocks:[1,1.02864e-16,9.12414e-17,1.02864e-16,1,2.17799e-16,9.12414e-17,2.17799e-16,1]}
+      : 7.10543e-15
+
+**** Identity, exponential and trace
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+       // Please notice that identity is INPLACE operator
+       // For any i, j, k, l, we have
+       // `A[{"i":i, "j":j, "k":k, "l":l}] = delta(i,l) * delta(j,k)`
+       auto A = Tensor({"i","j","k","l"},{2,3,3,2}).identity({{"i", "l"}, {"j", "k"}});
+
+       // calculate matrix exponential B = exp(A)
+       // second argument is iteration steps, with default value 2
+       auto B = A.exponential({{"i", "l"}, {"j", "k"}}, 4);
+       std::cout << B << "\n";
+
+       // Calculate trace or partial trace of a tenso
+       // Here it calculate `A[{"i":i, "j":j, "k":k, "l":l}] * delta(i,l) * delta(j,k)`
+       auto C = A.trace({{"i", "l"}, {"j", "k"}});
+       std::cout << C << "\n";
+     #+end_src
+
+     #+RESULTS:
+     : {names:[j,i,k,l],edges:[3,2,3,2],blocks:[2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828]}
+     : {names:[],edges:[],blocks:[6]}
+
+**** IO
+
+     You can direclty read/write/load/dump tensor from/to a stream.
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
+       auto A = Tensor({"i","j","k","l"},{2,3,3,2}).identity({{"i", "l"}, {"j", "k"}});
+       std::stringstream text_stream;
+       // use operator<< to write to a stream
+       text_stream << A;
+       std::cout << text_stream.str() << "\n";
+       Tensor B;
+       // use operatoor>> to read from a stream
+       text_stream >> B;
+
+       std::stringstream binary_stream;
+       // use operator< to dump to a stream
+       binary_stream < A;
+       Tensor C;
+       // use operator> to load from a stream
+       binary_stream > C;
+     #+end_src
+
+     #+RESULTS:
+     : {names:[i,j,k,l],edges:[2,3,3,2],blocks:[1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1]}
+
+**** Fill random number into tensor
+
+     c++ have its own way to generate random number, see [[https://en.cppreference.com/w/cpp/numeric/random][this]].
+     So TAT will use this to generate random tensor.
+
+     =Tensor::set= is an inplace operator with one function as its argument,
+     its will call this function to get every element of the tensor.
+     It will be used to get random tensor with help of c++ own random library.
+
+     #+begin_src C++ :flags "-std=c++20 -Iinclude" :includes "TAT/TAT.hpp" :libs "-llapack -lblas" :results output :exports both
+       std::random_device rd;
+       auto seed = rd();
+       std::default_random_engine engine(seed);
+       std::normal_distribution<double> dist{0, 1};
+       auto A = Tensor({"i", "j", "k"}, {2, 3, 4}).set([&](){ return dist(engine); });
+       std::cout << A << "\n";
+     #+end_src
+
+*** Symmetry Tensor
+
+*** Fermi Tensor
+
+** Links
+   
+   * [[https://github.com/crimestop/net][a tensor network library]]
+   * [[https://gitee.com/hzhangxyz/TAT][gitee mirror of TAT]]

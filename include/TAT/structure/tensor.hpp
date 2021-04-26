@@ -34,11 +34,9 @@
 #include "core.hpp"
 #include "edge.hpp"
 #include "name.hpp"
-#include "singular.hpp"
 #include "symmetry.hpp"
 
 namespace TAT {
-
 #ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS
    template<typename Name>
    auto construct_name_to_index(const std::span<Name>& names) {
@@ -47,19 +45,21 @@ namespace TAT {
       for (Rank name_index = 0; name_index < names.size(); name_index++) {
          result.emplace_back(names[name_index], name_index);
       }
-      std::ranges::sort(result, [](const auto& a, const auto& b) { return a.first < b.first; });
+      std::ranges::sort(result, [](const auto& a, const auto& b) {
+         return a.first < b.first;
+      });
       return result;
    }
 
    template<typename Name>
    bool check_valid_name(const std::span<Name>& names, const Rank& rank) {
-      if (names.size() != rank) {
+      if (names.size() != rank) [[unlikely]] {
          TAT_error("Wrong name list length which no equals to expected length");
          return false;
       }
       for (auto i = names.begin(); i != names.end(); ++i) {
          for (auto j = std::next(i); j != names.end(); ++j) {
-            if (*i == *j) {
+            if (*i == *j) [[unlikely]] {
                TAT_error("Duplicated names in name list");
                return false;
             }
@@ -67,43 +67,7 @@ namespace TAT {
       }
       return true;
    }
-
-   template<typename Range, typename Key, typename Value>
-   concept map_like_range_of =
-         std::ranges::range<Range>&& std::same_as<std::remove_cvref_t<typename std::ranges::range_value_t<Range>::first_type>, Key>&&
-               std::same_as<typename std::ranges::range_value_t<Range>::second_type, Value>;
 #endif
-
-   template<typename Container>
-   auto do_sort(Container&& c) {
-      // c一定是右值
-      if constexpr (requires {
-                       typename std::ranges::range_value_t<Container>::first_type;
-                       typename std::ranges::range_value_t<Container>::second_type;
-                    }) {
-         // map like
-         std::ranges::sort(c, [](const auto& a, const auto& b) { return a.first < b.first; });
-      } else {
-         // set like
-         std::ranges::sort(c);
-      }
-      return c;
-   }
-
-   template<typename Result, typename Container>
-   decltype(auto) may_need_sort(Container&& c) {
-      if constexpr (requires { &std::remove_cvref_t<Container>::find; }) {
-         return std::forward<Container>(c);
-      } else {
-         if constexpr (requires(Container && l) { std::ranges::sort(l); }) {
-            // 可以修改
-            return do_sort(std::move(c));
-         } else {
-            // 不可以修改
-            return do_sort(Result(c.begin(), c.end()));
-         }
-      }
-   }
 
    template<typename T, typename Name, typename Symmetry>
    concept split_configuration_item = requires(T list, typename std::remove_cvref_t<T>::value_type item) {
@@ -115,21 +79,12 @@ namespace TAT {
    template<typename T, typename Name, typename Symmetry>
    concept split_configuration = requires(T split_map, Name name) {
       requires std::ranges::range<T>;
-      { map_at(split_map, name) }
-      ->split_configuration_item<Name, Symmetry>;
+      { map_at(split_map, name) } -> split_configuration_item<Name, Symmetry>;
    };
 
    template<typename T, typename Name>
    concept merge_configuration = requires(T merge_map, Name name) {
-      { map_at(merge_map, name) }
-      ->range_of<Name>;
-   };
-
-   template<typename T, typename Name>
-   concept pair_range_of = requires(T set, typename std::remove_cvref_t<T>::value_type item) {
-      requires std::ranges::range<T>;
-      Name(std::get<0>(item));
-      Name(std::get<1>(item));
+      { map_at(merge_map, name) } -> range_of<Name>;
    };
 
    /**
@@ -230,6 +185,27 @@ namespace TAT {
          core->storage.front() = number;
       }
 
+    private:
+      [[nodiscard]] static auto
+      get_edge_from_edge_symmetry_and_arrow(const std::span<Symmetry>& edge_symmetry, const std::span<Arrow>& edge_arrow, Rank rank) {
+         // 在one中使用
+         if constexpr (Symmetry::length == 0) {
+            return std::vector<Edge<Symmetry>>(rank, {1});
+         } else {
+            auto result = std::vector<Edge<Symmetry>>();
+            result.reserve(rank);
+            for (auto i = 0; i < rank; i++) {
+               if constexpr (Symmetry::is_fermi_symmetry) {
+                  result.push_back({edge_arrow[i], {{edge_symmetry[i], 1}}});
+               } else {
+                  result.push_back({{{edge_symmetry[i], 1}}});
+               }
+            }
+            return result;
+         }
+      }
+
+    public:
       /**
        * 创建高秩但是元素只有一个的张量
        * \param number 秩为零的张量拥有的唯一一个元素的值
@@ -256,7 +232,7 @@ namespace TAT {
        * 秩为一的张量转化为其中唯一一个元素的标量类型
        */
       explicit operator ScalarType() const {
-         if (!scalar_like()) {
+         if (!scalar_like()) [[unlikely]] {
             TAT_error("Try to get the only element of the tensor which contains more than one element");
          }
          return core->storage.front();
@@ -271,23 +247,25 @@ namespace TAT {
       template<map_like_range_of<Name, EdgePointWithArrow> ExpandConfigure = std::vector<std::pair<Name, EdgePointWithArrow>>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name>
       expand(ExpandConfigure&& configure, const Name& old_name = InternalName<Name>::No_Old_Name) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource<small_buffer_size>();
          return expand_implement(may_need_sort<pmr::vector<std::pair<Name, EdgePointWithArrow>>>(std::forward<ExpandConfigure>(configure)), old_name);
       }
 
       template<map_like_range_of<Name, EdgePoint> ShrinkConfigure = std::vector<std::pair<Name, EdgePoint>>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name>
       shrink(ShrinkConfigure&& configure, const Name& new_name = InternalName<Name>::No_New_Name, Arrow arrow = false) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource<small_buffer_size>();
          return shrink_implement(may_need_sort<pmr::vector<std::pair<Name, EdgePoint>>>(std::forward<ShrinkConfigure>(configure)), new_name, arrow);
       }
 
+    private:
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name>
       expand_implement(const auto& configure, const Name& old_name = InternalName<Name>::No_Old_Name) const;
 
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name>
       shrink_implement(const auto& configure, const Name& new_name = InternalName<Name>::No_New_Name, Arrow arrow = false) const;
 
+    public:
       /**
        * 产生一个与自己形状一样的张量
        * \return 一个未初始化数据内容的张量
@@ -318,7 +296,7 @@ namespace TAT {
        */
       template<typename Function>
       Tensor<ScalarType, Symmetry, Name>& transform(Function&& function) & {
-         if (core.use_count() != 1) {
+         if (core.use_count() != 1) [[unlikely]] {
             core = std::make_shared<Core<ScalarType, Symmetry>>(*core);
             TAT_warning_or_error_when_copy_shared("Set tensor shared, copy happened here");
          }
@@ -338,7 +316,9 @@ namespace TAT {
        */
       template<typename Generator>
       Tensor<ScalarType, Symmetry, Name>& set(Generator&& generator) & {
-         transform([&](ScalarType _) { return generator(); });
+         transform([&](ScalarType _) {
+            return generator();
+         });
          return *this;
       }
       template<typename Generator>
@@ -352,7 +332,9 @@ namespace TAT {
        * \see set
        */
       Tensor<ScalarType, Symmetry, Name>& zero() & {
-         return transform([](ScalarType) { return 0; });
+         return transform([](ScalarType) {
+            return 0;
+         });
       }
       Tensor<ScalarType, Symmetry, Name>&& zero() && {
          return std::move(zero());
@@ -386,7 +368,7 @@ namespace TAT {
 
       template<map_like_range_of<Name, EdgePoint> MapNameEdgePoint = std::initializer_list<std::pair<Name, EdgePoint>>>
       [[nodiscard]] ScalarType& at(MapNameEdgePoint&& position) & {
-         if (core.use_count() != 1) {
+         if (core.use_count() != 1) [[unlikely]] {
             core = std::make_shared<Core<ScalarType, Symmetry>>(*core);
             TAT_warning_or_error_when_copy_shared(
                   "Get reference which may change of shared tensor, copy happened here, use const_at to get const reference");
@@ -396,18 +378,21 @@ namespace TAT {
 
       template<map_like_range_of<Name, EdgePoint> MapNameEdgePoint = std::initializer_list<std::pair<Name, EdgePoint>>>
       [[nodiscard]] const ScalarType& const_at(MapNameEdgePoint&& position) const& {
+         auto pmr_guard = scope_resource<small_buffer_size>();
          return get_item(may_need_sort<std::vector<std::pair<Name, EdgePoint>>>(position));
       }
 
-      /// \private
+    private:
       [[nodiscard]] const ScalarType& get_item(const auto& position) const&;
 
+    public:
       /**
        * 不同标量类型的张量之间的转换函数
        * \tparam OtherScalarType 目标张量的基础标量类型
        * \return 转换后的张量
        */
-      template<typename OtherScalarType, typename = std::enable_if_t<is_scalar<OtherScalarType>>>
+      template<typename OtherScalarType>
+         requires is_scalar<OtherScalarType>
       [[nodiscard]] Tensor<OtherScalarType, Symmetry, Name> to() const {
          if constexpr (std::is_same_v<ScalarType, OtherScalarType>) {
             auto result = Tensor<ScalarType, Symmetry, Name>{};
@@ -523,6 +508,7 @@ namespace TAT {
                std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>()); // last argument only used in svd
       }
 
+    public:
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name> edge_operator_implement(
             const auto& rename_map,
             const auto& split_map,
@@ -536,6 +522,7 @@ namespace TAT {
             const auto& parity_exclude_name_merge,
             const auto& edge_and_symmetries_to_cut_before_all = {}) const;
 
+    public:
       /**
        * 对张量边的名称进行重命名
        * \param dictionary 重命名方案的映射表
@@ -543,16 +530,18 @@ namespace TAT {
        * \note 虽然功能蕴含于edge_operator中, 但是edge_rename操作很常用, 所以并没有调用会稍微慢的edge_operator, 而是实现一个小功能的edge_rename
        */
       template<typename MapNameName = std::initializer_list<std::pair<Name, Name>>>
-      requires std::same_as<std::remove_cvref_t<typename std::ranges::range_value_t<MapNameName>::first_type>, Name>&&
-            is_name<typename std::ranges::range_value_t<MapNameName>::second_type> [[nodiscard]] auto
-            edge_rename(MapNameName&& dictionary) const {
+         requires std::same_as<std::remove_cvref_t<typename std::ranges::range_value_t<MapNameName>::first_type>, Name> &&
+               is_name<typename std::ranges::range_value_t<MapNameName>::second_type>
+      [[nodiscard]] auto edge_rename(MapNameName&& dictionary) const {
          using ResultName = typename std::ranges::range_value_t<MapNameName>::second_type;
          return edge_rename_implement<ResultName>(may_need_sort<pmr::vector<std::pair<Name, ResultName>>>(std::forward<MapNameName>(dictionary)));
       }
 
+    private:
       template<typename ResultName>
       auto edge_rename_implement(const auto& dictionary) const;
 
+    public:
       /**
        * 对张量进行转置
        * \param target_names 转置后的目标边的名称顺序
@@ -562,17 +551,17 @@ namespace TAT {
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name> transpose(VectorName&& target_names) const {
          auto pmr_guard = scope_resource<default_buffer_size>();
          return edge_operator_implement(
-               std::initializer_list<std::pair<Name, Name>>(),
-               std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
-               std::initializer_list<Name>(),
-               std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+               empty_list<std::pair<Name, Name>>(),
+               empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+               empty_list<Name>(),
+               empty_list<std::pair<Name, std::initializer_list<Name>>>(),
                forward_vector<std::vector<Name>>(std::forward<VectorName>(target_names)),
                false,
-               std::initializer_list<Name>(),
-               std::initializer_list<Name>(),
-               std::initializer_list<Name>(),
-               std::initializer_list<Name>(),
-               std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+               empty_list<Name>(),
+               empty_list<Name>(),
+               empty_list<Name>(),
+               empty_list<Name>(),
+               empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       }
 
       /**
@@ -587,17 +576,17 @@ namespace TAT {
       reverse_edge(ReversedName&& reversed_name, bool apply_parity = false, ExcludeName&& parity_exclude_name = {}) const {
          auto pmr_guard = scope_resource<default_buffer_size>();
          return edge_operator_implement(
-               std::initializer_list<std::pair<Name, Name>>(),
-               std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+               empty_list<std::pair<Name, Name>>(),
+               empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
                may_need_sort<pmr::vector<Name>>(std::forward<ReversedName>(reversed_name)),
-               std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+               empty_list<std::pair<Name, std::initializer_list<Name>>>(),
                names,
                apply_parity,
-               std::initializer_list<Name>(),
+               empty_list<Name>(),
                may_need_sort<pmr::vector<Name>>(std::forward<ExcludeName>(parity_exclude_name)),
-               std::initializer_list<Name>(),
-               std::initializer_list<Name>(),
-               std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+               empty_list<Name>(),
+               empty_list<Name>(),
+               empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       }
 
       /**
@@ -626,9 +615,11 @@ namespace TAT {
                may_need_sort<pmr::vector<Name>>(std::forward<ParityExcludeNameAfterTranspose>(parity_exclude_name_reverse)));
       }
 
+    private:
       Tensor<ScalarType, Symmetry, Name>
       merge_edge_implement(auto merge, const bool apply_parity, const auto& parity_exclude_name_merge, const auto& parity_exclude_name_reverse) const;
 
+    public:
       /**
        * 分裂张量的一些边
        * \param split 分裂的边的名称的映射表
@@ -649,8 +640,10 @@ namespace TAT {
                may_need_sort<pmr::vector<Name>>(std::forward<ParityExcludeNameSplit>(parity_exclude_name_split)));
       }
 
+    private:
       Tensor<ScalarType, Symmetry, Name> split_edge_implement(auto split, const bool apply_parity, const auto& parity_exclude_name_split) const;
 
+    public:
       // 可以考虑不转置成矩阵直接乘积的可能, 但这个最多优化N^2的常数次, 只需要转置不调用多次就不会产生太大的问题
       /**
        * 两个张量的缩并运算
@@ -723,7 +716,7 @@ namespace TAT {
        */
       template<pair_range_of<Name> SetNameAndName = std::initializer_list<std::tuple<Name, Name>>>
       Tensor<ScalarType, Symmetry, Name>& identity(SetNameAndName&& pairs) & {
-         auto pmr_guard = scope_resource<1 << 10>();
+         auto pmr_guard = scope_resource<small_buffer_size>();
          return identity_implement(may_need_sort<pmr::vector<std::ranges::range_value_t<SetNameAndName>>>(std::forward<SetNameAndName>(pairs)));
       }
 
@@ -732,8 +725,10 @@ namespace TAT {
          return std::move(identity(std::forward<SetNameAndName>(pairs)));
       }
 
+    private:
       Tensor<ScalarType, Symmetry, Name>& identity_implement(const auto& pairs) &;
 
+    public:
       /**
        * 看作矩阵后求出矩阵指数
        * \param pairs 边的配对方案
@@ -743,11 +738,14 @@ namespace TAT {
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name> exponential(SetNameAndName&& pairs, int step = 2) const {
          auto pmr_guard = scope_resource<default_buffer_size>();
          return exponential_implement(
-               may_need_sort<pmr::vector<std::ranges::range_value_t<SetNameAndName>>>(std::forward<SetNameAndName>(pairs)), step);
+               may_need_sort<pmr::vector<std::ranges::range_value_t<SetNameAndName>>>(std::forward<SetNameAndName>(pairs)),
+               step);
       }
 
+    private:
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name> exponential_implement(const auto& pairs, int step) const;
 
+    public:
       /**
        * 生成张量的共轭张量
        * \note 如果为对称性张量, 量子数取反, 如果为费米张量, 箭头取反, 如果为复张量, 元素取共轭
@@ -760,15 +758,11 @@ namespace TAT {
          return trace_implement(may_need_sort<pmr::vector<std::ranges::range_value_t<SetNameAndName>>>(std::forward<SetNameAndName>(trace_names)));
       }
 
+    private:
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name> trace_implement(const auto& trace_names) const;
 
-      using SingularType =
-#ifdef TAT_USE_SINGULAR_MATRIX
-            Tensor<ScalarType, Symmetry, Name>
-#else
-            Singular<ScalarType, Symmetry, Name>
-#endif
-            ;
+    public:
+      using SingularType = Tensor<ScalarType, Symmetry, Name>;
       /**
        * 张量svd的结果类型
        * \note S的的对称性是有方向的, 用来标注如何对齐, 向U对齐
@@ -825,6 +819,7 @@ namespace TAT {
                singular_name_v);
       }
 
+    private:
       [[nodiscard]] svd_result svd_implement(
             const auto& free_name_set_u,
             const Name& common_name_u,
@@ -833,6 +828,7 @@ namespace TAT {
             const Name& singular_name_u,
             const Name& singular_name_v) const;
 
+    public:
       /**
        * 对张量进行qr分解
        * \param free_name_direction free_name_set取的方向, 为'Q'或'R'
@@ -846,12 +842,17 @@ namespace TAT {
       [[nodiscard]] qr_result qr(char free_name_direction, SetName&& free_name_set, const Name& common_name_q, const Name& common_name_r) const {
          auto pmr_guard = scope_resource<default_buffer_size>();
          return qr_implement(
-               free_name_direction, may_need_sort<pmr::vector<Name>>(std::forward<SetName>(free_name_set)), common_name_q, common_name_r);
+               free_name_direction,
+               may_need_sort<pmr::vector<Name>>(std::forward<SetName>(free_name_set)),
+               common_name_q,
+               common_name_r);
       }
 
+    private:
       [[nodiscard]] qr_result
       qr_implement(char free_name_direction, const auto& free_name_set, const Name& common_name_q, const Name& common_name_r) const;
 
+    public:
       const Tensor<ScalarType, Symmetry, Name>& meta_put(std::ostream&) const;
       const Tensor<ScalarType, Symmetry, Name>& data_put(std::ostream&) const;
       Tensor<ScalarType, Symmetry, Name>& meta_get(std::istream&);

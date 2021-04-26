@@ -35,6 +35,10 @@ target_compile_definitions(TAT INTERFACE TAT_COMPILER_INFORMATION="${CMAKE_CXX_C
 
 # msvc必须加个utf8的参数
 target_compile_options(TAT INTERFACE "$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+target_compile_options(TAT INTERFACE "$<$<CXX_COMPILER_ID:MSVC>:/Zc:__cplusplus>")
+
+# add ignore unknown attribute for clang
+target_compile_options(TAT INTERFACE "$<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-attributes>")
 
 # 尝试启用mpi, 如果无法启用, 也没关系
 if(CMAKE_CXX_COMPILER MATCHES "mpi")

@@ -95,17 +95,17 @@ namespace TAT {
       }
       std::reverse(target_name.begin(), target_name.end());
       return edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
-            std::initializer_list<Name>(),
+            empty_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<Name>(),
             merge,
             std::move(target_name),
             apply_parity,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
             std::forward<decltype(parity_exclude_name_reverse)>(parity_exclude_name_reverse),
             std::forward<decltype(parity_exclude_name_merge)>(parity_exclude_name_merge),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
    }
 
    template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
@@ -133,17 +133,17 @@ namespace TAT {
          }
       }
       return edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, Name>>(),
             split,
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<Name>>>(),
             std::move(target_name),
             apply_parity,
             std::forward<decltype(parity_exclude_name_split)>(parity_exclude_name_split),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
    }
 } // namespace TAT
 #endif

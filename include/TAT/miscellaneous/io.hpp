@@ -96,13 +96,13 @@ namespace TAT {
       return std::move(in);
    }
 
-   template<typename T, typename = std::enable_if_t<std::is_trivially_destructible_v<T>>>
-   std::ostream& operator<(std::ostream& out, const T& data) {
+   template<typename T>
+   requires std::is_trivially_destructible_v<T> std::ostream& operator<(std::ostream& out, const T& data) {
       out.write(reinterpret_cast<const char*>(&data), sizeof(T));
       return out;
    }
-   template<typename T, typename = std::enable_if_t<std::is_trivially_destructible_v<T>>>
-   std::istream& operator>(std::istream& in, T& data) {
+   template<typename T>
+   requires std::is_trivially_destructible_v<T> std::istream& operator>(std::istream& in, T& data) {
       in.read(reinterpret_cast<char*>(&data), sizeof(T));
       return in;
    }
@@ -214,7 +214,8 @@ namespace TAT {
       return in;
    }
 
-   template<typename Key, typename Value, typename = std::enable_if_t<is_symmetry<Key> || is_symmetry_vector_v<Key>>>
+   template<typename Key, typename Value>
+      requires(is_symmetry<Key> || is_symmetry_vector_v<Key>)
    std::ostream& operator<(std::ostream& out, const std::map<Key, Value>& map) {
       Size size = map.size();
       out < size;
@@ -224,7 +225,8 @@ namespace TAT {
       return out;
    }
 
-   template<typename Key, typename Value, typename = std::enable_if_t<is_symmetry<Key> || is_symmetry_vector_v<Key>>>
+   template<typename Key, typename Value>
+      requires(is_symmetry<Key> || is_symmetry_vector_v<Key>)
    std::istream& operator>(std::istream& in, std::map<Key, Value>& map) {
       map.clear();
       Size size;
@@ -237,7 +239,8 @@ namespace TAT {
       return in;
    }
 
-   template<typename T, typename A, typename = std::enable_if_t<is_scalar<T> || is_edge<T> || is_symmetry<T> || is_name<T>>>
+   template<typename T, typename A>
+      requires(is_scalar<T> || is_edge<T> || is_symmetry<T> || is_name<T>)
    std::ostream& operator<<(std::ostream& out, const std::vector<T, A>& list) {
       out << '[';
       auto not_first = false;
@@ -258,7 +261,8 @@ namespace TAT {
       return out;
    }
 
-   template<typename T, typename A, typename = std::enable_if_t<is_scalar<T> || is_edge<T> || is_symmetry<T> || is_name<T>>>
+   template<typename T, typename A>
+      requires(is_scalar<T> || is_edge<T> || is_symmetry<T> || is_name<T>)
    std::istream& operator>>(std::istream& in, std::vector<T, A>& list) {
       list.clear();
       ignore_until(in, '[');
@@ -501,57 +505,7 @@ namespace TAT {
    }
 
    template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
-   std::ostream& operator<<(std::ostream& out, const Singular<ScalarType, Symmetry, Name>& singular) {
-      const auto& value = singular.value; // std::map<Symmetry, vector<real_scalar<ScalarType>>>
-      if constexpr (Symmetry::length == 0) {
-         out << value.begin()->second;
-      } else {
-         out << '{';
-         bool not_first = false;
-         for (const auto& [key, value] : value) {
-            if (not_first) {
-               out << ',';
-            } else {
-               not_first = true;
-            }
-            out << console_yellow << key << console_origin << ':' << value;
-         }
-         out << '}';
-      }
-      return out;
-   }
-
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
-   std::istream& operator>>(std::istream& in, Singular<ScalarType, Symmetry, Name>& singular) {
-      auto& value = singular.value;
-      if constexpr (Symmetry::length == 0) {
-         in >> value[{}];
-      } else {
-         value.clear();
-         ignore_until(in, '{');
-         if (in.peek() != '}') {
-            do {
-               Symmetry symmetry;
-               in >> symmetry;
-               ignore_until(in, ':');
-               in >> value[symmetry];
-            } while (in.get() == ','); // 读了map最后的'}'
-         } else {
-            in.get(); // 读了map最后的'}'
-         }
-      }
-      return in;
-   }
-
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
    std::string Tensor<ScalarType, Symmetry, Name>::show() const {
-      std::ostringstream out;
-      out << *this;
-      return out.str();
-   }
-
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
-   std::string Singular<ScalarType, Symmetry, Name>::show() const {
       std::ostringstream out;
       out << *this;
       return out.str();
@@ -584,23 +538,6 @@ namespace TAT {
    }
 
    template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
-   std::ostream& operator<(std::ostream& out, const Singular<ScalarType, Symmetry, Name>& singular) {
-      if constexpr (Symmetry::length == 0) {
-         out < singular.value.begin()->second;
-      } else {
-         out < singular.value;
-      }
-      return out;
-   }
-
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
-   std::string Singular<ScalarType, Symmetry, Name>::dump() const {
-      std::ostringstream out;
-      out < *this;
-      return out.str();
-   }
-
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
    Tensor<ScalarType, Symmetry, Name>& Tensor<ScalarType, Symmetry, Name>::meta_get(std::istream& in) {
       in > names;
       name_to_index = construct_name_to_index<Name>(names);
@@ -625,24 +562,6 @@ namespace TAT {
 
    template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
    Tensor<ScalarType, Symmetry, Name>& Tensor<ScalarType, Symmetry, Name>::load(const std::string& input) & {
-      std::istringstream in(input);
-      in > *this;
-      return *this;
-   }
-
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
-   std::istream& operator>(std::istream& in, Singular<ScalarType, Symmetry, Name>& singular) {
-      if constexpr (Symmetry::length == 0) {
-         // singular.value.clear(); 不需要
-         in > singular.value[{}];
-      } else {
-         in > singular.value;
-      }
-      return in;
-   }
-
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
-   Singular<ScalarType, Symmetry, Name>& Singular<ScalarType, Symmetry, Name>::load(const std::string& input) & {
       std::istringstream in(input);
       in > *this;
       return *this;

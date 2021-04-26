@@ -124,7 +124,7 @@ namespace TAT {
    struct timer {
       struct timer_guard {};
       auto operator()() {
-         return nullptr;
+         return timer_guard{};
       }
       timer(const char*) {}
    };

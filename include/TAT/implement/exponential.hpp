@@ -31,10 +31,10 @@
 
 #ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS
 extern "C" {
-void sgesv_(const int* n, const int* nrhs, float* A, const int* lda, int* ipiv, float* B, const int* ldb, int* info);
-void dgesv_(const int* n, const int* nrhs, double* A, const int* lda, int* ipiv, double* B, const int* ldb, int* info);
-void cgesv_(const int* n, const int* nrhs, std::complex<float>* A, const int* lda, int* ipiv, std::complex<float>* B, const int* ldb, int* info);
-void zgesv_(const int* n, const int* nrhs, std::complex<double>* A, const int* lda, int* ipiv, std::complex<double>* B, const int* ldb, int* info);
+   void sgesv_(const int* n, const int* nrhs, float* A, const int* lda, int* ipiv, float* B, const int* ldb, int* info);
+   void dgesv_(const int* n, const int* nrhs, double* A, const int* lda, int* ipiv, double* B, const int* ldb, int* info);
+   void cgesv_(const int* n, const int* nrhs, std::complex<float>* A, const int* lda, int* ipiv, std::complex<float>* B, const int* ldb, int* info);
+   void zgesv_(const int* n, const int* nrhs, std::complex<double>* A, const int* lda, int* ipiv, std::complex<double>* B, const int* ldb, int* info);
 }
 #endif
 
@@ -231,17 +231,17 @@ namespace TAT {
          }
       }
       auto tensor_merged = edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
             reverse_set,
             merge_map,
             std::move(merged_names),
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       auto result = tensor_merged.same_shape();
       for (auto& [symmetries, data_source] : tensor_merged.core->blocks) {
          auto& data_destination = map_at(result.core->blocks, symmetries);
@@ -249,17 +249,17 @@ namespace TAT {
          matrix_exponential(n, data_source.data(), data_destination.data(), step);
       }
       return result.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, Name>>(),
             split_map_result,
             reverse_set,
-            std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+            empty_list<std::pair<Name, std::initializer_list<Name>>>(),
             std::move(result_names),
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
    }
 } // namespace TAT
 #endif

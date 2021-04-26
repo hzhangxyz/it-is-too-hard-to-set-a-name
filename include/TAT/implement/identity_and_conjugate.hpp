@@ -1,5 +1,5 @@
 /**
- * \file identity.hpp
+ * \file identity_and_conjugate.hpp
  *
  * Copyright (C) 2020-2021 Hao Zhang<zh970205@mail.ustc.edu.cn>
  *
@@ -18,10 +18,11 @@
  */
 
 #pragma once
-#ifndef TAT_IDENTITY_HPP
-#define TAT_IDENTITY_HPP
+#ifndef TAT_IDENTITY_AND_CONJUGATE_HPP
+#define TAT_IDENTITY_AND_CONJUGATE_HPP
 
 #include "../structure/tensor.hpp"
+#include "../utility/pmr_resource.hpp"
 #include "../utility/timer.hpp"
 
 namespace TAT {
@@ -30,7 +31,7 @@ namespace TAT {
    template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
    Tensor<ScalarType, Symmetry, Name> Tensor<ScalarType, Symmetry, Name>::conjugate() const {
       auto timer_guard = conjugate_guard();
-      auto pmr_guard = scope_resource<1 << 10>();
+      auto pmr_guard = scope_resource<small_buffer_size>();
       if constexpr (Symmetry::length == 0 && is_real<ScalarType>) {
          return *this;
       }
@@ -152,9 +153,9 @@ namespace TAT {
          auto leading = pmr::vector<Size>(rank);
          for (Rank i = rank; i-- > 0;) {
             dimension[i] = map_at(core->edges[i].map, symmetries[i]);
-            if (i == rank - 1) [[unlikely]] {
+            if (i == rank - 1) {
                leading[i] = 1;
-            } else [[likely]] {
+            } else {
                leading[i] = leading[i + 1] * dimension[i + 1];
             }
          }

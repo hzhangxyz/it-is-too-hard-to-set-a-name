@@ -229,10 +229,9 @@ namespace TAT {
       }
 
       template<serializable Type, typename Func>
-      requires requires(const Type& a, const Type& b, Func&& f) {
-         { f(a, b) }
-         ->std::same_as<Type>;
-      }
+         requires requires(const Type& a, const Type& b, Func&& f) {
+            { f(a, b) } -> std::same_as<Type>;
+         }
       Type reduce(const Type& value, const int root, Func&& function) const {
          auto timer_guard = mpi_reduce_guard();
          if (size == 1) [[unlikely]] {

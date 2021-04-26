@@ -28,68 +28,68 @@
 
 #ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS
 extern "C" {
-void sgesvd_(
-      const char* job_u,
-      const char* job_vt,
-      const int* m,
-      const int* n,
-      const float* a,
-      const int* ld_a,
-      float* s,
-      float* u,
-      const int* ld_u,
-      float* vt,
-      const int* ld_vt,
-      float* work,
-      const int* lwork,
-      int* info);
-void dgesvd_(
-      const char* job_u,
-      const char* job_vt,
-      const int* m,
-      const int* n,
-      const double* a,
-      const int* ld_a,
-      double* s,
-      double* u,
-      const int* ld_u,
-      double* vt,
-      const int* ld_vt,
-      double* work,
-      const int* lwork,
-      int* info);
-void cgesvd_(
-      const char* job_u,
-      const char* job_vt,
-      const int* m,
-      const int* n,
-      const std::complex<float>* a,
-      const int* ld_a,
-      float* s,
-      std::complex<float>* u,
-      const int* ld_u,
-      std::complex<float>* vt,
-      const int* ld_vt,
-      std::complex<float>* work,
-      const int* lwork,
-      float* rwork,
-      int* info);
-void zgesvd_(
-      const char* job_u,
-      const char* job_vt,
-      const int* m,
-      const int* n,
-      const std::complex<double>* a,
-      const int* ld_a,
-      double* s,
-      std::complex<double>* u,
-      const int* ld_u,
-      std::complex<double>* vt,
-      const int* ld_vt,
-      std::complex<double>* work,
-      const int* lwork,
-      double* rwork,
-      int* info);
+   void sgesvd_(
+         const char* job_u,
+         const char* job_vt,
+         const int* m,
+         const int* n,
+         const float* a,
+         const int* ld_a,
+         float* s,
+         float* u,
+         const int* ld_u,
+         float* vt,
+         const int* ld_vt,
+         float* work,
+         const int* lwork,
+         int* info);
+   void dgesvd_(
+         const char* job_u,
+         const char* job_vt,
+         const int* m,
+         const int* n,
+         const double* a,
+         const int* ld_a,
+         double* s,
+         double* u,
+         const int* ld_u,
+         double* vt,
+         const int* ld_vt,
+         double* work,
+         const int* lwork,
+         int* info);
+   void cgesvd_(
+         const char* job_u,
+         const char* job_vt,
+         const int* m,
+         const int* n,
+         const std::complex<float>* a,
+         const int* ld_a,
+         float* s,
+         std::complex<float>* u,
+         const int* ld_u,
+         std::complex<float>* vt,
+         const int* ld_vt,
+         std::complex<float>* work,
+         const int* lwork,
+         float* rwork,
+         int* info);
+   void zgesvd_(
+         const char* job_u,
+         const char* job_vt,
+         const int* m,
+         const int* n,
+         const std::complex<double>* a,
+         const int* ld_a,
+         double* s,
+         std::complex<double>* u,
+         const int* ld_u,
+         std::complex<double>* vt,
+         const int* ld_vt,
+         std::complex<double>* work,
+         const int* lwork,
+         double* rwork,
+         int* info);
 }
 #endif
 
@@ -313,19 +313,20 @@ namespace TAT {
       result_name_u.push_back(common_name_u);
       const bool put_v_right = free_name_v.empty() || free_name_v.back() == names.back();
       auto tensor_merged = edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
             reversed_set_origin,
             pmr::map<Name, pmr::vector<Name>>{
-                  {InternalName<Name>::SVD_U, std::move(free_name_u)}, {InternalName<Name>::SVD_V, std::move(free_name_v)}},
+                  {InternalName<Name>::SVD_U, std::move(free_name_u)},
+                  {InternalName<Name>::SVD_V, std::move(free_name_v)}},
             put_v_right ? std::vector<Name>{InternalName<Name>::SVD_U, InternalName<Name>::SVD_V} :
                           std::vector<Name>{InternalName<Name>::SVD_V, InternalName<Name>::SVD_U},
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       // tensor -> SVD_U -O- SVD_V
       // call GESVD
       auto common_edge_1 = Edge<Symmetry>();
@@ -410,37 +411,30 @@ namespace TAT {
       }
       // 这里会自动cut
       auto u = tensor_u.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, Name>>(),
             pmr::map<Name, pmr::vector<std::tuple<Name, edge_map_t<Symmetry, true>>>>{{InternalName<Name>::SVD_U, std::move(free_names_and_edges_u)}},
             reversed_set_u,
-            std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+            empty_list<std::pair<Name, std::initializer_list<Name>>>(),
             std::move(result_name_u),
             false,
-            std::initializer_list<Name>(),
+            empty_list<Name>(),
             put_v_right ? pmr::set<Name>{} : pmr::set<Name>{common_name_u},
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
             pmr::map<Name, pmr::map<Symmetry, Size>>{{common_name_u, std::move(remain_dimension_u)}});
       auto v = tensor_v.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, Name>>(),
             pmr::map<Name, pmr::vector<std::tuple<Name, edge_map_t<Symmetry, true>>>>{{InternalName<Name>::SVD_V, std::move(free_names_and_edges_v)}},
             reversed_set_v,
-            std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+            empty_list<std::pair<Name, std::initializer_list<Name>>>(),
             std::move(result_name_v),
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
             pmr::map<Name, pmr::map<Symmetry, Size>>{{common_name_v, std::move(remain_dimension_v)}});
-      return {
-            std::move(u),
-#ifdef TAT_USE_SINGULAR_MATRIX
-            singular_to_tensor<ScalarType, Symmetry, Name>(result_s, singular_name_u, singular_name_v),
-#else
-            {{std::move_iterator(result_s.begin()), std::move_iterator(result_s.end())}},
-#endif
-            std::move(v)};
+      return {std::move(u), singular_to_tensor<ScalarType, Symmetry, Name>(result_s, singular_name_u, singular_name_v), std::move(v)};
    }
 } // namespace TAT
 #endif

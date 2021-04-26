@@ -29,13 +29,33 @@ namespace TAT {
             .def(py::self != py::self)
             .def(py::init<fastname_dataset_t::fast_name_id_t>(), py::arg("id"), "Name with specified id directly")
             .def_readonly("id", &DefaultName::id)
-            .def("__hash__", [](const DefaultName& name) { return py::hash(py::cast(name.id)); })
-            .def_static("load", [](const py::bytes& bytes) { return load_fastname_dataset(std::string(bytes)); })
-            .def_static("dump", []() { return py::bytes(dump_fastname_dataset()); })
-            .def_property_readonly("name", [](const DefaultName& name) { return static_cast<const std::string&>(name); })
+            .def("__hash__",
+                 [](const DefaultName& name) {
+                    return py::hash(py::cast(name.id));
+                 })
+            .def_static(
+                  "load",
+                  [](const py::bytes& bytes) {
+                     return load_fastname_dataset(std::string(bytes));
+                  })
+            .def_static(
+                  "dump",
+                  []() {
+                     return py::bytes(dump_fastname_dataset());
+                  })
+            .def_property_readonly(
+                  "name",
+                  [](const DefaultName& name) {
+                     return static_cast<const std::string&>(name);
+                  })
             .def(implicit_init<DefaultName, const char*>(), py::arg("name"), "Name with specified name")
-            .def("__repr__", [](const DefaultName& name) { return "Name[" + static_cast<const std::string&>(name) + "]"; })
-            .def("__str__", [](const DefaultName& name) { return static_cast<const std::string&>(name); });
+            .def("__repr__",
+                 [](const DefaultName& name) {
+                    return "Name[" + static_cast<const std::string&>(name) + "]";
+                 })
+            .def("__str__", [](const DefaultName& name) {
+               return static_cast<const std::string&>(name);
+            });
 #endif
    }
 } // namespace TAT

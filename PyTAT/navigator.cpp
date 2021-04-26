@@ -25,7 +25,9 @@ namespace TAT {
             return py::none();
          }
          auto text = py::str(py::make_tuple(args, kwargs));
-         auto contain = [&text](const char* string) { return py::cast<bool>(text.attr("__contains__")(string)); };
+         auto contain = [&text](const char* string) {
+            return py::cast<bool>(text.attr("__contains__")(string));
+         };
          if (contain("mpi") || contain("MPI")) {
             return tat_m.attr("mpi");
          }

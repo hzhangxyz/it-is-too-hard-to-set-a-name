@@ -93,8 +93,9 @@ namespace TAT {
       FastName(const fastname_dataset_t::fast_name_id_t id) : id(id) {}
 
       template<typename String>
-      requires(requires(String&& s) { std::string(std::forward<String>(s)); } && !std::same_as<std::remove_cvref_t<String>, FastName>)
-            FastName(String&& name) {
+         requires(std::is_convertible_v<String, std::string> && !std::is_same_v<std::remove_cvref_t<String>, FastName>)
+      FastName(String&& name) {
+         // use template to avoid type convension here
          if (const auto found = fastname_dataset.name_to_id.find(name); found == fastname_dataset.name_to_id.end()) [[unlikely]] {
             fastname_dataset.id_to_name.emplace_back(name);
             id = fastname_dataset.name_to_id[name] = fastname_dataset.fastname_number++;
@@ -153,7 +154,7 @@ namespace TAT {
    };
 #ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS
 #define TAT_DEFINE_DEFAULT_INTERNAL_NAME(x, n) \
-   template<typename Name>                     \
+   template<typename Name> \
    const Name InternalName<Name>::x = InternalName<Name>::Default_##n;
    TAT_DEFINE_DEFAULT_INTERNAL_NAME(Contract_0, 0)
    TAT_DEFINE_DEFAULT_INTERNAL_NAME(Contract_1, 1)
@@ -170,10 +171,10 @@ namespace TAT {
    TAT_DEFINE_DEFAULT_INTERNAL_NAME(Exp_1, 1)
    TAT_DEFINE_DEFAULT_INTERNAL_NAME(Exp_2, 2)
 #undef TAT_DEFINE_DEFAULT_INTERNAL_NAME
-#define TAT_DEFINE_INTERNAL_NAME(x)                          \
-   template<>                                                \
+#define TAT_DEFINE_INTERNAL_NAME(x) \
+   template<> \
    inline const FastName InternalName<FastName>::x = "," #x; \
-   template<>                                                \
+   template<> \
    inline const std::string InternalName<std::string>::x = "," #x;
    TAT_DEFINE_INTERNAL_NAME(Contract_0)
    TAT_DEFINE_INTERNAL_NAME(Contract_1)

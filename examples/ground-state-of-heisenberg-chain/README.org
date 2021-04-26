@@ -1,0 +1,761 @@
+#+title: Ground State of Heisenberg Chain
+#+author: Hao Zhang
+#+email: zh970205@mail.ustc.edu.cn
+
+#+begin_src emacs-lisp :exports none
+  (defun ek/babel-ansi ()
+    (when-let ((beg (org-babel-where-is-src-block-result nil nil)))
+      (save-excursion
+        (goto-char beg)
+        (when (looking-at org-babel-result-regexp)
+          (let ((end (org-babel-result-end))
+                (ansi-color-context-region nil))
+            (ansi-color-apply-on-region beg end))))))
+  (add-hook 'org-babel-after-execute-hook 'ek/babel-ansi)
+#+end_src
+
+#+RESULTS:
+| ek/babel-ansi | spacemacs/ob-fix-inline-images |
+
+The system is a length $n$ spin $\frac{1}{2}$ quantum system with open boundary condition. Heisenberg Hamiltonian is  $H=\sum_{\langle i, j \rangle} S_i^x S_j^x + S_i^y S_j^y+ S_i^z S_j^z$ where $\langle i, j \rangle$ means site $i$ and site $j$ is nearest neighbor.
+
+* Exact Diagonalization
+
+  Use single tensor $T_{s_1 s_2 \cdots s_n}$ to describe the system's state, which dimension is $2^n$.
+  In order to get minimum eigen value and eigen state of Heisenberg Hamiltonian, we use an algorithm called power iteration.
+
+** Power Iteration
+
+   For a matrix $H$, [[https://en.wikipedia.org/wiki/Power_iteration][power iteration]] is an algorithm to get its absolutly maximum eigen value and corresponding eigen state.
+
+   #+begin_src python :exports code
+     def power_iteration(H: Matrix):
+        state: Vector = random_state(dimension=H.dimension)
+        norm: float
+        for loop_count in range(max_loop_count):
+           state = apply(H, state)
+           state, norm = normalize(state)
+           if converge():
+              break
+        return {"eigen_state": state, "eigen_value": norm}
+   #+end_src
+
+   #+RESULTS:
+
+** For Heisenberg system
+
+   Hamiltonian have both positive and negative eigen value, to use power iteration, we need to do some operator to let the minimum
+   eigen value become absolutly maximum eigen value. In later imaginary time evolution, we use $\mathrm{e}^{-\Delta t H}$ which maps
+   all eigen value to positive value and smaller eigen value to larger. Here we use a simpler operator $E_p - H$ where $E_p$ is a
+   positive approximate energy, ensuring $E_p > \frac{E_{min}+E_{max}}{2}$, we choose it as $E_p = n \times 0.5$
+
+** Implementation
+
+   #+name: exact-diagnalization-common
+   #+begin_src python
+     # import needed library
+     import TAT
+     Tensor = TAT.Normal.D.Tensor
+
+     # construct heisenberg hamiltonian
+     hamiltonian = Tensor(["i0", "i1", "o0", "o1"], [2, 2, 2, 2]).zero()
+     hamiltonian[{"i0": 0, "i1": 0, "o0": 0, "o1": 0}] = +0.25
+     hamiltonian[{"i0": 0, "i1": 1, "o0": 0, "o1": 1}] = -0.25
+     hamiltonian[{"i0": 1, "i1": 0, "o0": 1, "o1": 0}] = -0.25
+     hamiltonian[{"i0": 1, "i1": 1, "o0": 1, "o1": 1}] = +0.25
+     hamiltonian[{"i0": 1, "i1": 0, "o0": 0, "o1": 1}] = +0.50
+     hamiltonian[{"i0": 0, "i1": 1, "o0": 1, "o1": 0}] = +0.50
+
+     def heisenberg_chain_exact_diagnalization(length, loop_times, callback=lambda state, energy: None):
+        # initialize random state
+        legs = ["s"+str(index) for index in range(length)]
+        state = Tensor(legs, [2 for _ in range(length)]).randn()
+
+        # loop loop_times times
+        for _ in range(loop_times):
+           # state <- (length/2 - H)@state = (length/2 - H_{01} - H_{12} - ... H_{(n-2),(n-1)})@state
+           new_state = state * (length / 2.)
+           for index in range(length - 1):
+              # H_{i,(i+1)}
+              leg0 = "s"+str(index)
+              leg1 = "s"+str(index+1)
+              new_state -= state.contract(hamiltonian, {(leg0, "i0"),(leg1, "i1")}).edge_rename({"o0": leg0, "o1": leg1})
+
+           # normalize
+           norm = new_state.norm_max()
+           state = new_state / norm
+
+           energy = (length /2. - norm) / length
+           callback(state, energy)
+        return state, energy
+   #+end_src
+
+   This program do power iteration for =loop_times= from a random state for length =length= system, it will call =callback= every step and return state and energy at last.
+
+** Result
+
+*** Energy
+
+    #+name: exact-diagnalization-energy
+    #+begin_src python :results output raw :noweb no-export
+      <<exact-diagnalization-common>>
+
+      TAT.random.seed(233)
+      heisenberg_chain_exact_diagnalization(length=10, loop_times=200, callback=lambda _, energy: print("| %.8f |"%energy))
+    #+end_src
+
+    #+name: exact-diagnalization-energy-result
+    #+RESULTS: exact-diagnalization-energy
+    | -1.34424912 |
+    | -0.13702357 |
+    | -0.18019274 |
+    | -0.28176709 |
+    | -0.42257098 |
+    | -0.40941693 |
+    | -0.40267106 |
+    | -0.39949727 |
+    | -0.39835826 |
+    | -0.39837517 |
+    | -0.39903006 |
+    | -0.40001359 |
+    | -0.40114113 |
+    | -0.40230409 |
+    | -0.40344065 |
+    | -0.40451783 |
+    | -0.40552022 |
+    | -0.40644295 |
+    | -0.40728728 |
+    | -0.40805782 |
+    | -0.40876084 |
+    | -0.40940318 |
+    | -0.40999171 |
+    | -0.41053293 |
+    | -0.41103279 |
+    | -0.41149665 |
+    | -0.41192927 |
+    | -0.41233480 |
+    | -0.41271682 |
+    | -0.41307846 |
+    | -0.41342236 |
+    | -0.41375081 |
+    | -0.41406574 |
+    | -0.41436877 |
+    | -0.41466129 |
+    | -0.41494447 |
+    | -0.41521927 |
+    | -0.41548652 |
+    | -0.41574689 |
+    | -0.41600095 |
+    | -0.41624917 |
+    | -0.41649193 |
+    | -0.41672956 |
+    | -0.41696231 |
+    | -0.41719039 |
+    | -0.41741398 |
+    | -0.41763321 |
+    | -0.41784820 |
+    | -0.41805904 |
+    | -0.41826580 |
+    | -0.41846853 |
+    | -0.41866730 |
+    | -0.41886213 |
+    | -0.41905306 |
+    | -0.41924011 |
+    | -0.41942332 |
+    | -0.41960271 |
+    | -0.41977830 |
+    | -0.41995011 |
+    | -0.42011816 |
+    | -0.42028249 |
+    | -0.42044311 |
+    | -0.42060006 |
+    | -0.42075336 |
+    | -0.42090305 |
+    | -0.42104916 |
+    | -0.42119173 |
+    | -0.42133079 |
+    | -0.42146639 |
+    | -0.42159856 |
+    | -0.42172736 |
+    | -0.42185283 |
+    | -0.42197502 |
+    | -0.42209398 |
+    | -0.42220975 |
+    | -0.42232240 |
+    | -0.42243198 |
+    | -0.42253853 |
+    | -0.42264212 |
+    | -0.42274281 |
+    | -0.42284064 |
+    | -0.42293568 |
+    | -0.42302799 |
+    | -0.42311762 |
+    | -0.42320464 |
+    | -0.42328909 |
+    | -0.42337104 |
+    | -0.42345055 |
+    | -0.42352767 |
+    | -0.42360247 |
+    | -0.42367499 |
+    | -0.42374530 |
+    | -0.42381345 |
+    | -0.42387950 |
+    | -0.42394350 |
+    | -0.42400550 |
+    | -0.42406556 |
+    | -0.42412374 |
+    | -0.42418007 |
+    | -0.42423462 |
+    | -0.42428743 |
+    | -0.42433855 |
+    | -0.42438803 |
+    | -0.42443592 |
+    | -0.42448226 |
+    | -0.42452709 |
+    | -0.42457047 |
+    | -0.42461244 |
+    | -0.42465303 |
+    | -0.42469229 |
+    | -0.42473025 |
+    | -0.42476697 |
+    | -0.42480247 |
+    | -0.42483679 |
+    | -0.42486997 |
+    | -0.42490205 |
+    | -0.42493306 |
+    | -0.42496303 |
+    | -0.42499199 |
+    | -0.42501999 |
+    | -0.42504704 |
+    | -0.42507318 |
+    | -0.42509843 |
+    | -0.42512284 |
+    | -0.42514641 |
+    | -0.42516919 |
+    | -0.42519119 |
+    | -0.42521244 |
+    | -0.42523297 |
+    | -0.42525280 |
+    | -0.42527195 |
+    | -0.42529045 |
+    | -0.42530831 |
+    | -0.42532556 |
+    | -0.42534222 |
+    | -0.42535831 |
+    | -0.42537384 |
+    | -0.42538884 |
+    | -0.42540332 |
+    | -0.42541730 |
+    | -0.42543080 |
+    | -0.42544383 |
+    | -0.42545642 |
+    | -0.42546856 |
+    | -0.42548029 |
+    | -0.42549161 |
+    | -0.42550253 |
+    | -0.42551308 |
+    | -0.42552326 |
+    | -0.42553309 |
+    | -0.42554257 |
+    | -0.42555173 |
+    | -0.42556057 |
+    | -0.42556909 |
+    | -0.42557733 |
+    | -0.42558527 |
+    | -0.42559294 |
+    | -0.42560034 |
+    | -0.42560748 |
+    | -0.42561437 |
+    | -0.42562102 |
+    | -0.42562744 |
+    | -0.42563363 |
+    | -0.42563961 |
+    | -0.42564538 |
+    | -0.42565094 |
+    | -0.42565631 |
+    | -0.42566150 |
+    | -0.42566650 |
+    | -0.42567132 |
+    | -0.42567598 |
+    | -0.42568047 |
+    | -0.42568481 |
+    | -0.42568899 |
+    | -0.42569303 |
+    | -0.42569692 |
+    | -0.42570068 |
+    | -0.42570430 |
+    | -0.42570780 |
+    | -0.42571118 |
+    | -0.42571443 |
+    | -0.42571757 |
+    | -0.42572061 |
+    | -0.42572353 |
+    | -0.42572635 |
+    | -0.42572907 |
+    | -0.42573170 |
+    | -0.42573423 |
+    | -0.42573668 |
+    | -0.42573904 |
+    | -0.42574131 |
+    | -0.42574351 |
+    | -0.42574563 |
+    | -0.42574767 |
+    | -0.42574964 |
+    | -0.42575155 |
+    | -0.42575338 |
+    | -0.42575515 |
+    | -0.42575686 |
+    | -0.42575851 |
+   
+    Run the program and plot the result
+
+    #+begin_src gnuplot :var data=exact-diagnalization-energy-result :file plot/exact-diagnalization-energy.png
+      reset
+      set yrange [-0.45:-0.40]
+      set xlabel "iteration count"
+      set ylabel "energy per site"
+      set terminal png size 500,375
+      plot data notitle with linespoints
+    #+end_src
+
+    #+RESULTS:
+    [[file:plot/exact-diagnalization-energy.png]]
+
+    As we can see above, energy per site of Heisenberg chain with length $n=10$ is about $-0.4258$, Please notice that the energy of every step is not exact so we can see the curve is not strictly descreasing.
+
+*** Spin
+
+    #+name: exact-diagnalization-spin
+    #+begin_src python :results output raw :noweb no-export :exports code
+      <<exact-diagnalization-common>>
+
+      length = 9
+      TAT.random.seed(43)
+      state, _ = heisenberg_chain_exact_diagnalization(length=length, loop_times=200)
+
+      # initialize spin matrix
+      S_x = Tensor(["i0", "o0"], [2, 2]).zero()
+      S_x[{"i0": 0, "o0": 1}] = +0.5
+      S_x[{"i0": 1, "o0": 0}] = +0.5
+      S_z = Tensor(["i0", "o0"], [2, 2]).zero()
+      S_z[{"i0": 0, "o0": 0}] = +0.5
+      S_z[{"i0": 1, "o0": 1}] = -0.5
+
+      # observe function
+      def observe_spin(state, site):
+          leg = "s"+str(site)
+          psiSxpsi = state.contract(S_x, {(leg, "i0")}).edge_rename({"o0": leg}).contract_all_edge(state)
+          psiSzpsi = state.contract(S_z, {(leg, "i0")}).edge_rename({"o0": leg}).contract_all_edge(state)
+          psipsi = state.contract_all_edge(state)
+          return float(psiSxpsi / psipsi), float(psiSzpsi / psipsi)
+
+      for index in range(length):
+          x, z = observe_spin(state, index)
+          print("| %d | 0 | %f | %f |"%(index, x, z))
+    #+end_src
+
+    The output is
+
+    #+name: exact-diagnalization-spin-result
+    #+RESULTS: exact-diagnalization-spin
+    | 0 | 0 | -0.162032 | -0.077435 |
+    | 1 | 0 |  0.100007 |  0.047793 |
+    | 2 | 0 | -0.189079 | -0.090360 |
+    | 3 | 0 |  0.124181 |  0.059345 |
+    | 4 | 0 | -0.197280 | -0.094278 |
+    | 5 | 0 |  0.124182 |  0.059345 |
+    | 6 | 0 | -0.189083 | -0.090360 |
+    | 7 | 0 |  0.100010 |  0.047793 |
+    | 8 | 0 | -0.162038 | -0.077436 |
+    
+    #+begin_src gnuplot :var data=exact-diagnalization-spin-result :file plot/exact-diagnalization-spin.png :exports both
+      reset
+      set border 0
+      unset xtics
+      unset ytics
+      set xrange [-1:9]
+      set yrange [-1:1]
+      set terminal png size 1000,200
+      plot data using 1:2:3:4 with vectors notitle size 0.5,10 lw 2
+    #+end_src
+
+    #+RESULTS:
+    [[file:plot/exact-diagnalization-spin.png]]
+
+    As we can see it is antiferromagnetic.
+
+* Matrix Product State
+
+  Exact diagnalization is hard to solve system with length $n>25$, which cost a lot of memory, so there is an ansatz "matrix product state", which describe the system by connected tensor chain:
+  $T_{s_1 s_2 \cdots s_n} = A^1_{s_1 b_1} A^2_{s_2 b_1 b_2} A^3_{s_3 b_2 b_3} \cdots A^n_{s_n b_{n-1}}$.
+
+  ...
+
+** Imaginary Iteration
+
+   ...
+
+*** QR canonicalize
+
+    #+begin_src python :results output :exports both
+      import sys
+      import math
+      import TAT
+
+      sys.stderr = sys.stdout
+      Tensor = TAT.Normal.D.Tensor
+
+      hamiltonian = Tensor(["i0", "i1", "o0", "o1"], [2, 2, 2, 2]).zero()
+      hamiltonian[{"i0": 0, "i1": 0, "o0": 0, "o1": 0}] = +0.25
+      hamiltonian[{"i0": 0, "i1": 1, "o0": 0, "o1": 1}] = -0.25
+      hamiltonian[{"i0": 1, "i1": 0, "o0": 1, "o1": 0}] = -0.25
+      hamiltonian[{"i0": 1, "i1": 1, "o0": 1, "o1": 1}] = +0.25
+      hamiltonian[{"i0": 1, "i1": 0, "o0": 0, "o1": 1}] = +0.50
+      hamiltonian[{"i0": 0, "i1": 1, "o0": 1, "o1": 0}] = +0.50
+
+      class MPS:
+          def __init__(self, length, dimension):
+              self.length = length
+              self.dimension = dimension
+              self.site = [self._construct_site(i) for i in range(self.length)]
+
+          def _construct_site(self, index):
+              if index == 0:
+                  return Tensor(["r","s"+str(index)], [self.dimension, 2]).randn()
+              elif index == self.length - 1:
+                  return Tensor(["l","s"+str(index)], [self.dimension, 2]).randn()
+              else:
+                  return Tensor(["l", "r", "s"+str(index)], [self.dimension, self.dimension, 2]).randn()
+
+
+          def update(self, iteration_times, imaginary_time):
+              updater = (hamiltonian * (- abs(imaginary_time))).exponential({("i0", "o0"), ("i1", "o1")}, step=4)
+
+              for i in range(self.length-2):
+                  self._canonicalize_left_to_right(i)
+
+              for t in range(iteration_times):
+                  for i in reversed(range(self.length-1)):
+                      self._update_once_at(i, updater, direction="L")
+                  for i in range(self.length-1):
+                      self._update_once_at(i, updater, direction="R")
+
+          def _update_once_at(self, index, updater, direction):
+              legA = "s"+str(index)
+              legB = "s"+str(index+1)
+              AB = self.site[index].contract(self.site[index+1], {("r", "l")})
+              ABH = AB.contract(updater, {(legA, "i0"),(legB, "i1")}).edge_rename({"o0": legA, "o1": legB})
+              self.site[index], S, self.site[index+1] = ABH.svd({"l", legA}, "r", "l", cut=self.dimension)
+              S = S/S.norm_max()
+              if direction == "L":
+                  self.site[index] = self.site[index].multiple(S, "r", 'u')
+              elif direction == "R":
+                  self.site[index+1] = self.site[index+1].multiple(S, "l", 'v')
+              else:
+                  raise RuntimeError("invalid direction")
+
+
+          def _canonicalize_left_to_right(self, index):
+              """index and index+1"""
+              Q, R = self.site[index].qr('R', {"r"}, "r", "l")
+              self.site[index] = Q
+              self.site[index+1] = self.site[index+1].contract(R, {("l", "r")})
+
+          def _canonicalize_right_to_left(self, index):
+              """index and index+1"""
+              Q, R = self.site[index+1].qr('R', {"l"}, "l", "r")
+              self.site[index+1] = Q
+              self.site[index] = self.site[index].contract(R, {("r", "l")})
+
+          def energy(self):
+              for i in range(self.length-2):
+                  self._canonicalize_left_to_right(i)
+
+              result = 0
+
+              for i in reversed(range(self.length-1)):
+                  result += self._energy_at(i)
+                  self._canonicalize_right_to_left(i)
+
+              return result / self.length
+
+          def _energy_at(self, index):
+              legA = "s"+str(index)
+              legB = "s"+str(index+1)
+              psi = self.site[index].contract(self.site[index+1], {("r", "l")})
+              Hpsi = psi.contract(hamiltonian, {(legA, "i0"),(legB, "i1")}).edge_rename({"o0": legA, "o1": legB})
+              psipsi = psi.contract_all_edge(psi)
+              psiHpsi = Hpsi.contract_all_edge(psi)
+              return float(psiHpsi / psipsi)
+
+
+
+      TAT.random.seed(33)
+      mps = MPS(length=10, dimension=10)
+      mps.update(100, 0.5)
+      mps.update(100, 0.1)
+      print(mps.energy())
+    #+end_src
+
+    #+RESULTS:
+    : -0.4258028113818428
+
+    exact energy is $-0.4258$
+
+**** Z2 Symmetry
+    
+     #+begin_src python :results output :exports both
+       import math
+       import TAT
+
+       Tensor = TAT.Z2.D.Tensor
+
+       pair_0_1 = {False, True}
+       def get_position(a, b, c, d):
+           result = {"i0": (a==1, 0), "i1": (b==1, 0), "o0": (c==1, 0), "o1": (d==1, 0)}
+           return result
+
+       hamiltonian = Tensor(["i0", "i1", "o0", "o1"], [pair_0_1 for _ in range(4)]).zero()
+       hamiltonian[get_position(0, 0, 0, 0)] = +0.25
+       hamiltonian[get_position(0, 1, 0, 1)] = -0.25
+       hamiltonian[get_position(1, 0, 1, 0)] = -0.25
+       hamiltonian[get_position(1, 1, 1, 1)] = +0.25
+       hamiltonian[get_position(1, 0, 0, 1)] = +0.50
+       hamiltonian[get_position(0, 1, 1, 0)] = +0.50
+
+
+       class MPS:
+           def __init__(self, length, dimension):
+               self.length = length
+               self.dimension = dimension
+               half_dimension = (dimension + 1) // 2
+               self.half_pair = {False: half_dimension, True: half_dimension}
+               self.site = [self._construct_site(i) for i in range(self.length)]
+
+           def _construct_site(self, index):
+               if index == 0:
+                   return Tensor(["r","s"+str(index), "t"], [self.half_pair, pair_0_1, {(self.length & 3 == 2)}]).randn()
+               elif index == self.length - 1:
+                   return Tensor(["l","s"+str(index)], [self.half_pair, pair_0_1]).randn()
+               else:
+                   return Tensor(["l", "r", "s"+str(index)], [self.half_pair, self.half_pair, pair_0_1]).randn()
+
+
+           def update(self, iteration_times, imaginary_time):
+               updater = (hamiltonian * (- abs(imaginary_time))).exponential({("i0", "o0"), ("i1", "o1")}, step=4)
+
+               for i in range(self.length-2):
+                   self._canonicalize_left_to_right(i)
+
+               for t in range(iteration_times):
+                   for i in reversed(range(self.length-1)):
+                       self._update_once_at(i, updater, direction="L")
+                   for i in range(self.length-1):
+                       self._update_once_at(i, updater, direction="R")
+
+           def _update_once_at(self, index, updater, direction):
+               legA = "s"+str(index)
+               legB = "s"+str(index+1)
+               AB = self.site[index].contract(self.site[index+1], {("r", "l")})
+               ABH = AB.contract(updater, {(legA, "i0"),(legB, "i1")}).edge_rename({"o0": legA, "o1": legB})
+               self.site[index], S, self.site[index+1] = ABH.svd({"l", legA}, "r", "l", cut=self.dimension)
+               S = S/S.norm_max()
+               if direction == "L":
+                   self.site[index] = self.site[index].multiple(S, "r", 'u')
+               elif direction == "R":
+                   self.site[index+1] = self.site[index+1].multiple(S, "l", 'v')
+               else:
+                   raise RuntimeError("invalid direction")
+
+
+           def _canonicalize_left_to_right(self, index):
+               """index and index+1"""
+               Q, R = self.site[index].qr('R', {"r"}, "r", "l")
+               self.site[index] = Q
+               self.site[index+1] = self.site[index+1].contract(R, {("l", "r")})
+
+           def _canonicalize_right_to_left(self, index):
+               """index and index+1"""
+               Q, R = self.site[index+1].qr('R', {"l"}, "l", "r")
+               self.site[index+1] = Q
+               self.site[index] = self.site[index].contract(R, {("r", "l")})
+
+           def energy(self):
+               for i in range(self.length-2):
+                   self._canonicalize_left_to_right(i)
+
+               result = 0
+
+               for i in reversed(range(self.length-1)):
+                   result += self._energy_at(i)
+                   self._canonicalize_right_to_left(i)
+
+               return result / self.length
+
+           def _energy_at(self, index):
+               legA = "s"+str(index)
+               legB = "s"+str(index+1)
+               psi = self.site[index].contract(self.site[index+1], {("r", "l")})
+               Hpsi = psi.contract(hamiltonian, {(legA, "i0"),(legB, "i1")}).edge_rename({"o0": legA, "o1": legB})
+               psipsi = psi.contract_all_edge(psi)
+               psiHpsi = Hpsi.contract_all_edge(psi)
+               return float(psiHpsi / psipsi)
+
+       TAT.random.seed(33)
+       mps = MPS(length=10, dimension=10)
+       mps.update(100, 0.5)
+       mps.update(100, 0.1)
+       print("E =", mps.energy())
+     #+end_src
+
+     #+RESULTS:
+     : E = -0.4258028113818427
+
+     exact energy is $-0.4258$
+
+**** U1 Symmetry
+    
+     #+begin_src python :results output :exports both
+       import math
+       import TAT
+
+       Tensor = TAT.U1.D.Tensor
+
+       def get_position(a, b, c, d):
+           result = {"i0": (-a, 0), "i1": (-b, 0), "o0": (c, 0), "o1": (d, 0)}
+           return result
+
+       hamiltonian = Tensor(["i0", "i1", "o0", "o1"], [{-1, 0}, {-1, 0}, {1, 0}, {1, 0}]).zero()
+       hamiltonian[get_position(0, 0, 0, 0)] = +0.25
+       hamiltonian[get_position(0, 1, 0, 1)] = -0.25
+       hamiltonian[get_position(1, 0, 1, 0)] = -0.25
+       hamiltonian[get_position(1, 1, 1, 1)] = +0.25
+       hamiltonian[get_position(1, 0, 0, 1)] = +0.50
+       hamiltonian[get_position(0, 1, 1, 0)] = +0.50
+
+       class MPS:
+           def __init__(self, length, dimension):
+               self.length = length
+               self.dimension = dimension
+               self.half_dimension = (dimension + 1) // 2
+               self.site = [self._construct_site(i) for i in range(self.length)]
+
+           def _construct_site(self, index):
+               t = (self.length + 1) // 2
+               ir = index // 2
+               il = (index - 1) // 2
+               if index == 0:
+                   return Tensor(["r","s"+str(index), "t"], [{t-ir-1: self.half_dimension, t-ir: self.half_dimension}, {0, 1}, {-t}]).randn()
+               elif index == self.length - 1:
+                   return Tensor(["l","s"+str(index)], [{-(t-il-1): self.half_dimension, -(t-il): self.half_dimension}, {0, 1}]).randn()
+               else:
+                   return Tensor(["l", "r", "s"+str(index)], [{-(t-il-1): self.half_dimension, -(t-il): self.half_dimension}, {t-ir-1: self.half_dimension, t-ir: self.half_dimension}, {0, 1}]).randn()
+
+
+           def update(self, iteration_times, imaginary_time):
+               updater = (hamiltonian * (- abs(imaginary_time))).exponential({("i0", "o0"), ("i1", "o1")}, step=4)
+
+               for i in range(self.length-2):
+                   self._canonicalize_left_to_right(i)
+
+               for t in range(iteration_times):
+                   for i in reversed(range(self.length-1)):
+                       self._update_once_at(i, updater, direction="L")
+                   for i in range(self.length-1):
+                       self._update_once_at(i, updater, direction="R")
+
+           def _update_once_at(self, index, updater, direction):
+               legA = "s"+str(index)
+               legB = "s"+str(index+1)
+               AB = self.site[index].contract(self.site[index+1], {("r", "l")})
+               ABH = AB.contract(updater, {(legA, "i0"),(legB, "i1")}).edge_rename({"o0": legA, "o1": legB})
+               self.site[index], S, self.site[index+1] = ABH.svd({"l", legA}, "r", "l", cut=self.dimension)
+               S = S/S.norm_max()
+               if direction == "L":
+                   self.site[index] = self.site[index].multiple(S, "r", 'u')
+               elif direction == "R":
+                   self.site[index+1] = self.site[index+1].multiple(S, "l", 'v')
+               else:
+                   raise RuntimeError("invalid direction")
+
+
+           def _canonicalize_left_to_right(self, index):
+               """index and index+1"""
+               Q, R = self.site[index].qr('R', {"r"}, "r", "l")
+               self.site[index] = Q
+               self.site[index+1] = self.site[index+1].contract(R, {("l", "r")})
+
+           def _canonicalize_right_to_left(self, index):
+               """index and index+1"""
+               Q, R = self.site[index+1].qr('R', {"l"}, "l", "r")
+               self.site[index+1] = Q
+               self.site[index] = self.site[index].contract(R, {("r", "l")})
+
+           def energy(self):
+               for i in range(self.length-2):
+                   self._canonicalize_left_to_right(i)
+
+               result = 0
+
+               for i in reversed(range(self.length-1)):
+                   result += self._energy_at(i)
+                   self._canonicalize_right_to_left(i)
+
+               return result / self.length
+
+           def _energy_at(self, index):
+               legA = "s"+str(index)
+               legB = "s"+str(index+1)
+               psi = self.site[index].contract(self.site[index+1], {("r", "l")})
+               print(psi.transpose(["t", "s0", "s1"]))
+               Hpsi = psi.contract(hamiltonian, {(legA, "i0"),(legB, "i1")}).edge_rename({"o0": legA, "o1": legB})
+               print(hamiltonian)
+               print(Hpsi.transpose(["t", "s0", "s1"]))
+               psidagger = psi.conjugate()
+               print(psidagger.transpose(["t", "s0", "s1"]))
+               psipsi = psi.contract_all_edge(psidagger)
+               psiHpsi = Hpsi.contract_all_edge(psidagger)
+               print(psiHpsi)
+               print(psipsi)
+               return float(psiHpsi / psipsi)
+
+       TAT.random.seed(233)
+       mps = MPS(length=2, dimension=2)
+       mps.site[0][{"r":(1, 0),"s0":(0, 0),"t":(-1, 0)}] = 1
+       mps.site[0][{"r":(0, 0),"s0":(1, 0),"t":(-1, 0)}] = 1
+       mps.site[1][{"l":(0, 0),"s1":(0, 0)}] = 1
+       mps.site[1][{"l":(-1, 0),"s1":(1, 0)}] = -1
+       [print(i) for i in mps.site]
+       print()
+       print(mps.energy())
+
+       exit()
+       mps.update(100, 0.5)
+       mps.update(100, 0.1)
+       mps.update(100, 0.01)
+       [print(i) for i in mps.site]
+       print()
+       print(mps.energy())
+     #+end_src
+   
+     #+RESULTS:
+     #+begin_example
+     {names:[r,s0,t],edges:[{conjugated:0,map:{0:1,1:1},{conjugated:0,map:{0:1,1:1},{conjugated:0,map:{-1:1}],blocks:{[0,1,-1]:[1],[1,0,-1]:[1]}}
+     {names:[l,s1],edges:[{conjugated:0,map:{-1:1,0:1},{conjugated:0,map:{0:1,1:1}],blocks:{[-1,1]:[-1],[0,0]:[1]}}
+
+     {names:[t,s0,s1],edges:[{conjugated:0,map:{-1:1},{conjugated:0,map:{0:1,1:1},{conjugated:0,map:{0:1,1:1}],blocks:{[-1,0,1]:[-1],[-1,1,0]:[1]}}
+     {names:[i0,i1,o0,o1],edges:[{conjugated:0,map:{-1:1,0:1},{conjugated:0,map:{-1:1,0:1},{conjugated:0,map:{0:1,1:1},{conjugated:0,map:{0:1,1:1}],blocks:{[-1,-1,1,1]:[0.25],[-1,0,0,1]:[0.5],[-1,0,1,0]:[-0.25],[0,-1,0,1]:[-0.25],[0,-1,1,0]:[0.5],[0,0,0,0]:[0.25]}}
+     {names:[t,s0,s1],edges:[{conjugated:0,map:{-1:1},{conjugated:0,map:{0:1,1:1},{conjugated:0,map:{0:1,1:1}],blocks:{[-1,0,1]:[-0.75],[-1,1,0]:[0.75]}}
+     {names:[t,s0,s1],edges:[{conjugated:0,map:{1:1},{conjugated:0,map:{-1:1,0:1},{conjugated:0,map:{-1:1,0:1}],blocks:{[1,-1,0]:[1],[1,0,-1]:[-1]}}
+     {names:[],edges:[],blocks:{[]:[1.5]}}
+     {names:[],edges:[],blocks:{[]:[2]}}
+     0.375
+     #+end_example
+
+*** SVD environment
+
+    ...
+
+** Sampling and Gradient Descient
+
+   ...

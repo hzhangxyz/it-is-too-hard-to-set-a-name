@@ -29,8 +29,8 @@ namespace TAT {
    const ScalarType& Tensor<ScalarType, Symmetry, Name>::get_item(const auto& position) const& {
       const auto rank = Rank(names.size());
       if constexpr (Symmetry::length == 0) {
-         auto scalar_position = std::vector<Size>();
-         auto dimensions = std::vector<Size>();
+         auto scalar_position = pmr::vector<Size>();
+         auto dimensions = pmr::vector<Size>();
          scalar_position.reserve(rank);
          dimensions.reserve(rank);
          for (auto i = 0; i < rank; i++) {
@@ -48,10 +48,9 @@ namespace TAT {
          }
          return core->blocks.front().second[offset];
       } else {
-         using VectorSymmetry = typename core_t::symmetry_vector_t;
-         auto symmetries = VectorSymmetry();
-         auto scalar_position = std::vector<Size>();
-         auto dimensions = std::vector<Size>();
+         auto symmetries = pmr::vector<Symmetry>();
+         auto scalar_position = pmr::vector<Size>();
+         auto dimensions = pmr::vector<Size>();
          symmetries.reserve(rank);
          scalar_position.reserve(rank);
          dimensions.reserve(rank);
@@ -71,7 +70,7 @@ namespace TAT {
             offset *= dimensions[j];
             offset += scalar_position[j];
          }
-         return map_at(core->blocks, symmetries)[offset];
+         return map_at<true>(core->blocks, symmetries)[offset];
       }
    }
 } // namespace TAT

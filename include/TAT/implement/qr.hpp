@@ -27,90 +27,90 @@
 
 #ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS
 extern "C" {
-void sgeqrf_(const int* m, const int* n, float* A, const int* lda, float* tau, float* work, const int* lwork, int* info);
-void dgeqrf_(const int* m, const int* n, double* A, const int* lda, double* tau, double* work, const int* lwork, int* info);
-void cgeqrf_(
-      const int* m,
-      const int* n,
-      std::complex<float>* A,
-      const int* lda,
-      std::complex<float>* tau,
-      std::complex<float>* work,
-      const int* lwork,
-      int* info);
-void zgeqrf_(
-      const int* m,
-      const int* n,
-      std::complex<double>* A,
-      const int* lda,
-      std::complex<double>* tau,
-      std::complex<double>* work,
-      const int* lwork,
-      int* info);
-void sgelqf_(const int* m, const int* n, float* A, const int* lda, float* tau, float* work, const int* lwork, int* info);
-void dgelqf_(const int* m, const int* n, double* A, const int* lda, double* tau, double* work, const int* lwork, int* info);
-void cgelqf_(
-      const int* m,
-      const int* n,
-      std::complex<float>* A,
-      const int* lda,
-      std::complex<float>* tau,
-      std::complex<float>* work,
-      const int* lwork,
-      int* info);
-void zgelqf_(
-      const int* m,
-      const int* n,
-      std::complex<double>* A,
-      const int* lda,
-      std::complex<double>* tau,
-      std::complex<double>* work,
-      const int* lwork,
-      int* info);
-void sorgqr_(const int* m, const int* n, const int* k, float* A, const int* lda, float const* tau, float* work, const int* lwork, int* info);
-void dorgqr_(const int* m, const int* n, const int* k, double* A, const int* lda, double const* tau, double* work, const int* lwork, int* info);
-void cungqr_(
-      const int* m,
-      const int* n,
-      const int* k,
-      std::complex<float>* A,
-      const int* lda,
-      std::complex<float> const* tau,
-      std::complex<float>* work,
-      const int* lwork,
-      int* info);
-void zungqr_(
-      const int* m,
-      const int* n,
-      const int* k,
-      std::complex<double>* A,
-      const int* lda,
-      std::complex<double> const* tau,
-      std::complex<double>* work,
-      const int* lwork,
-      int* info);
-void sorglq_(const int* m, const int* n, const int* k, float* A, const int* lda, float const* tau, float* work, const int* lwork, int* info);
-void dorglq_(const int* m, const int* n, const int* k, double* A, const int* lda, double const* tau, double* work, const int* lwork, int* info);
-void cunglq_(
-      const int* m,
-      const int* n,
-      const int* k,
-      std::complex<float>* A,
-      const int* lda,
-      std::complex<float> const* tau,
-      std::complex<float>* work,
-      const int* lwork,
-      int* info);
-void zunglq_(
-      const int* m,
-      const int* n,
-      const int* k,
-      std::complex<double>* A,
-      const int* lda,
-      std::complex<double> const* tau,
-      std::complex<double>* work,
-      const int* lwork,
-      int* info);
+   void sgeqrf_(const int* m, const int* n, float* A, const int* lda, float* tau, float* work, const int* lwork, int* info);
+   void dgeqrf_(const int* m, const int* n, double* A, const int* lda, double* tau, double* work, const int* lwork, int* info);
+   void cgeqrf_(
+         const int* m,
+         const int* n,
+         std::complex<float>* A,
+         const int* lda,
+         std::complex<float>* tau,
+         std::complex<float>* work,
+         const int* lwork,
+         int* info);
+   void zgeqrf_(
+         const int* m,
+         const int* n,
+         std::complex<double>* A,
+         const int* lda,
+         std::complex<double>* tau,
+         std::complex<double>* work,
+         const int* lwork,
+         int* info);
+   void sgelqf_(const int* m, const int* n, float* A, const int* lda, float* tau, float* work, const int* lwork, int* info);
+   void dgelqf_(const int* m, const int* n, double* A, const int* lda, double* tau, double* work, const int* lwork, int* info);
+   void cgelqf_(
+         const int* m,
+         const int* n,
+         std::complex<float>* A,
+         const int* lda,
+         std::complex<float>* tau,
+         std::complex<float>* work,
+         const int* lwork,
+         int* info);
+   void zgelqf_(
+         const int* m,
+         const int* n,
+         std::complex<double>* A,
+         const int* lda,
+         std::complex<double>* tau,
+         std::complex<double>* work,
+         const int* lwork,
+         int* info);
+   void sorgqr_(const int* m, const int* n, const int* k, float* A, const int* lda, float const* tau, float* work, const int* lwork, int* info);
+   void dorgqr_(const int* m, const int* n, const int* k, double* A, const int* lda, double const* tau, double* work, const int* lwork, int* info);
+   void cungqr_(
+         const int* m,
+         const int* n,
+         const int* k,
+         std::complex<float>* A,
+         const int* lda,
+         std::complex<float> const* tau,
+         std::complex<float>* work,
+         const int* lwork,
+         int* info);
+   void zungqr_(
+         const int* m,
+         const int* n,
+         const int* k,
+         std::complex<double>* A,
+         const int* lda,
+         std::complex<double> const* tau,
+         std::complex<double>* work,
+         const int* lwork,
+         int* info);
+   void sorglq_(const int* m, const int* n, const int* k, float* A, const int* lda, float const* tau, float* work, const int* lwork, int* info);
+   void dorglq_(const int* m, const int* n, const int* k, double* A, const int* lda, double const* tau, double* work, const int* lwork, int* info);
+   void cunglq_(
+         const int* m,
+         const int* n,
+         const int* k,
+         std::complex<float>* A,
+         const int* lda,
+         std::complex<float> const* tau,
+         std::complex<float>* work,
+         const int* lwork,
+         int* info);
+   void zunglq_(
+         const int* m,
+         const int* n,
+         const int* k,
+         std::complex<double>* A,
+         const int* lda,
+         std::complex<double> const* tau,
+         std::complex<double>* work,
+         const int* lwork,
+         int* info);
 }
 #endif
 
@@ -391,17 +391,17 @@ namespace TAT {
       }
       result_name_1.push_back(use_qr_not_lq ? common_name_q : common_name_r);
       auto tensor_merged = edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
             reversed_set_origin,
             pmr::map<Name, pmr::vector<Name>>{{InternalName<Name>::QR_1, std::move(free_name_1)}, {InternalName<Name>::QR_2, std::move(free_name_2)}},
             std::vector<Name>{InternalName<Name>::QR_1, InternalName<Name>::QR_2},
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       // call lapack
       auto common_edge_1 = Edge<Symmetry>();
       auto common_edge_2 = Edge<Symmetry>();
@@ -440,29 +440,29 @@ namespace TAT {
          (use_qr_not_lq ? reversed_set_1 : reversed_set_2).insert(common_name_q);
       }
       auto new_tensor_1 = tensor_1.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, Name>>(),
             pmr::map<Name, pmr::vector<std::tuple<Name, edge_map_t<Symmetry, true>>>>{{InternalName<Name>::QR_1, std::move(free_names_and_edges_1)}},
             reversed_set_1,
-            std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+            empty_list<std::pair<Name, std::initializer_list<Name>>>(),
             std::move(result_name_1),
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       auto new_tensor_2 = tensor_2.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, Name>>(),
             pmr::map<Name, pmr::vector<std::tuple<Name, edge_map_t<Symmetry, true>>>>{{InternalName<Name>::QR_2, std::move(free_names_and_edges_2)}},
             reversed_set_2,
-            std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+            empty_list<std::pair<Name, std::initializer_list<Name>>>(),
             std::move(result_name_2),
             false,
-            std::initializer_list<Name>(),
+            empty_list<Name>(),
             use_qr_not_lq ? pmr::set<Name>{} : pmr::set<Name>{common_name_q},
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       return {std::move(use_qr_not_lq ? new_tensor_1 : new_tensor_2), std::move(use_qr_not_lq ? new_tensor_2 : new_tensor_1)};
    }
 } // namespace TAT

@@ -24,97 +24,12 @@
 #include <numeric>
 #include <vector>
 
+#include "../TAT.hpp"
+#include "../utility/concepts_and_fake_map_set.hpp"
 #include "../utility/no_initialize_allocator.hpp"
 #include "edge.hpp"
 
 namespace TAT {
-   template<typename Range, typename Value>
-   concept range_of = std::ranges::range<Range>&& std::same_as<Value, std::ranges::range_value_t<Range>>;
-
-   template<typename Key, typename A>
-   const auto& get_key(const A& a) {
-      if constexpr (std::is_same_v<Key, std::remove_cvref_t<A>>) {
-         return a;
-      } else {
-         return a.first;
-      }
-   }
-
-   template<bool Lexicographic = false, typename Container, typename Key>
-   requires(
-         (!Lexicographic && std::is_same_v<std::remove_cvref_t<typename Container::value_type::first_type>, std::remove_cvref_t<Key>>) ||
-         (Lexicographic && requires(typename Container::value_type::first_type a, Key b) {
-            std::ranges::lexicographical_compare(a, b);
-            std::ranges::equal(a, b);
-         })) auto map_find(Container& v, const Key& key) {
-      if constexpr (requires(Container c, Key k) { c.find(k); }) {
-         return v.find(key);
-      } else {
-         if constexpr (Lexicographic) {
-            auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) {
-               return std::ranges::lexicographical_compare(get_key<Key>(a), get_key<Key>(b));
-            });
-            if (result == v.end() || std::ranges::equal(result->first, key)) {
-               return result;
-            } else {
-               return v.end();
-            }
-         } else {
-            auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) { return get_key<Key>(a) < get_key<Key>(b); });
-            if (result == v.end() || result->first == key) {
-               return result;
-            } else {
-               return v.end();
-            }
-         }
-      }
-   }
-
-   template<bool Lexicographic = false, typename Container, typename Key>
-   requires(
-         (!Lexicographic && std::is_same_v<std::remove_cvref_t<typename Container::value_type::first_type>, std::remove_cvref_t<Key>>) ||
-         (Lexicographic && requires(typename Container::value_type::first_type a, Key b) {
-            std::ranges::lexicographical_compare(a, b);
-            std::ranges::equal(a, b);
-         })) auto& map_at(Container& v, const Key& key) {
-      if constexpr (requires(Container c, Key k) { c.find(k); }) {
-         return v.at(key);
-      } else {
-         if constexpr (Lexicographic) {
-            auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) {
-               return std::ranges::lexicographical_compare(get_key<Key>(a), get_key<Key>(b));
-            });
-            if (result == v.end() || !std::ranges::equal(result->first, key)) {
-               throw std::out_of_range("fake map at");
-            } else {
-               return result->second;
-            }
-         } else {
-            auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) { return get_key<Key>(a) < get_key<Key>(b); });
-            if (result == v.end() || result->first != key) {
-               throw std::out_of_range("fake map at");
-            } else {
-               return result->second;
-            }
-         }
-      }
-   }
-
-   template<typename Container, typename Key>
-   requires std::is_same_v<std::remove_cvref_t<typename Container::value_type>, std::remove_cvref_t<Key>> auto
-   set_find(Container& v, const Key& key) {
-      if constexpr (requires(Container c, Key k) { c.find(k); }) {
-         return v.find(key);
-      } else {
-         auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) { return a < b; });
-         if (result == v.end() || *result == key) {
-            return result;
-         } else {
-            return v.end();
-         }
-      }
-   }
-
    template<typename T, typename Iter>
    auto forward_iterator(Iter it) {
       if constexpr (std::is_rvalue_reference_v<T&&>) {
@@ -159,7 +74,7 @@ namespace TAT {
 
       template<range_of<Edge<Symmetry>> EdgeVector>
       core_edges_t(EdgeVector&& initial_edge, const bool auto_reverse = false) :
-            edges(forward_vector<std::vector<edge_t>>(std::forward<EdgeVector>(initial_edge))) {
+            edges(forward_vector<edge_vector_t>(std::forward<EdgeVector>(initial_edge))) {
          check_edge_reverse(auto_reverse);
       }
 
@@ -203,7 +118,9 @@ namespace TAT {
                   symmetries_list.begin(),
                   symmetries_list.end(),
                   0,
-                  [&](const Size total_size, const auto& p) { return total_size + p.second; })),
+                  [&](const Size total_size, const auto& p) {
+                     return total_size + p.second;
+                  })),
             resource(storage.data(), storage.size() * sizeof(ScalarType)),
             blocks() {
          for (auto&& [symmetries, size] : symmetries_list) {
@@ -219,7 +136,9 @@ namespace TAT {
          }
       }
       core_blocks_t(core_blocks_t&& other) :
-            storage(std::move(other.storage)), resource(storage.data(), storage.size() * sizeof(ScalarType)), blocks() {
+            storage(std::move(other.storage)),
+            resource(storage.data(), storage.size() * sizeof(ScalarType)),
+            blocks() {
          for (auto&& [symmetries, block] : other.blocks) {
             blocks.push_back({std::move(symmetries), content_vector_t(block.size(), &resource)});
          }
@@ -254,7 +173,8 @@ namespace TAT {
        */
       template<range_of<Edge<Symmetry>> VectorEdge>
       Core(VectorEdge&& initial_edge, const bool auto_reverse = false) :
-            base_edges(std::forward<VectorEdge>(initial_edge), auto_reverse), base_blocks(initialize_block_symmetries_with_check(edges)) {
+            base_edges(std::forward<VectorEdge>(initial_edge), auto_reverse),
+            base_blocks(initialize_block_symmetries_with_check(edges)) {
          // 删除不在block中用到的symmetry
          if constexpr (Symmetry::length != 0) {
             const Rank rank = edges.size();

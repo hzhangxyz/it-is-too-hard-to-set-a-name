@@ -32,7 +32,7 @@ namespace TAT {
       };
 
       template<typename U, typename... Args>
-      void construct(U* p, Args&&... args) {
+      void construct([[maybe_unused]] U* p, Args&&... args) {
          if constexpr (!((sizeof...(args) == 0) && (std::is_trivially_destructible_v<T>))) {
             new (p) U(std::forward<Args>(args)...);
          }

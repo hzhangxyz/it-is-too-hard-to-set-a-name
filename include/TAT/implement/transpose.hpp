@@ -28,28 +28,28 @@
 #ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS
 #ifdef TAT_USE_MKL_TRANSPOSE
 extern "C" {
-void mkl_somatcopy_(const char*, const char*, const int*, const int*, const float*, const float*, const int*, float*, const int*);
-void mkl_domatcopy_(const char*, const char*, const int*, const int*, const double*, const double*, const int*, double*, const int*);
-void mkl_comatcopy_(
-      const char*,
-      const char*,
-      const int*,
-      const int*,
-      const std::complex<float>*,
-      const std::complex<float>*,
-      const int*,
-      std::complex<float>*,
-      const int*);
-void mkl_zomatcopy_(
-      const char*,
-      const char*,
-      const int*,
-      const int*,
-      const std::complex<double>*,
-      const std::complex<double>*,
-      const int*,
-      const std::complex<double>*,
-      const int*);
+   void mkl_somatcopy_(const char*, const char*, const int*, const int*, const float*, const float*, const int*, float*, const int*);
+   void mkl_domatcopy_(const char*, const char*, const int*, const int*, const double*, const double*, const int*, double*, const int*);
+   void mkl_comatcopy_(
+         const char*,
+         const char*,
+         const int*,
+         const int*,
+         const std::complex<float>*,
+         const std::complex<float>*,
+         const int*,
+         std::complex<float>*,
+         const int*);
+   void mkl_zomatcopy_(
+         const char*,
+         const char*,
+         const int*,
+         const int*,
+         const std::complex<double>*,
+         const std::complex<double>*,
+         const int*,
+         const std::complex<double>*,
+         const int*);
 }
 #endif
 #endif
@@ -157,12 +157,13 @@ namespace TAT {
       // 经过测试使用mkl的transpose有时会变慢
 #if 0
 #ifdef TAT_USE_MKL_TRANSPOSE
-      if (rank == 2) {
-         if (leading_source[1] == 1 && leading_destination[0] == 1) {
+      if (rank == 2) [[unlikely]] {
+         if (leading_source[1] == 1 && leading_destination[0] == 1) [[unlikely]] {
             mkl_transpose<ScalarType>(
                   dimension[0], dimension[1], data_source, data_destination, leading_source[0], leading_destination[1], parity ? -1 : 1);
             return;
-         } else if (leading_source[0] == 1 && leading_destination[1] == 1) {
+         }
+         if (leading_source[0] == 1 && leading_destination[1] == 1) [[unlikely]] {
             mkl_transpose<ScalarType>(
                   dimension[1], dimension[0], data_source, data_destination, leading_source[1], leading_destination[0], parity ? -1 : 1);
             return;
@@ -261,7 +262,7 @@ namespace TAT {
          Size expect_leading = 1;
          while (expect_leading *= dimensions_destination[line_rank],
                 leadings_source_by_destination[line_rank - 1] == expect_leading && leadings_destination[line_rank - 1] == expect_leading) {
-            if (line_rank == 0) {
+            if (line_rank == 0) [[unlikely]] {
                // 完全线性copy
                break;
             }
@@ -382,7 +383,7 @@ namespace TAT {
          Size expect_leading = 1;
          while (expect_leading *= real_dimensions[line_rank],
                 real_leadings_source[line_rank - 1] == expect_leading && real_leadings_destination[line_rank - 1] == expect_leading) {
-            if (line_rank == 0) {
+            if (line_rank == 0) [[unlikely]] {
                // 完全线性copy
                break;
             }
@@ -404,7 +405,12 @@ namespace TAT {
                const_expect_leading_variant);
       } else {
          tensor_transpose_kernel<ScalarType, parity>(
-               data_source, data_destination, real_dimensions.data(), real_leadings_source.data(), real_leadings_destination.data(), rank);
+               data_source,
+               data_destination,
+               real_dimensions.data(),
+               real_leadings_source.data(),
+               real_leadings_destination.data(),
+               rank);
       }
    }
 

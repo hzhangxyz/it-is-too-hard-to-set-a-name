@@ -27,128 +27,128 @@
 
 #ifndef TAT_DOXYGEN_SHOULD_SKIP_THIS
 extern "C" {
-void sgemm_(
-      const char* transpose_a,
-      const char* transpose_b,
-      const int* m,
-      const int* n,
-      const int* k,
-      const float* alpha,
-      const float* a,
-      const int* lda,
-      const float* b,
-      const int* ldb,
-      const float* beta,
-      float* c,
-      const int* ldc);
-void dgemm_(
-      const char* transpose_a,
-      const char* transpose_b,
-      const int* m,
-      const int* n,
-      const int* k,
-      const double* alpha,
-      const double* a,
-      const int* lda,
-      const double* b,
-      const int* ldb,
-      const double* beta,
-      double* c,
-      const int* ldc);
-void cgemm_(
-      const char* transpose_a,
-      const char* transpose_b,
-      const int* m,
-      const int* n,
-      const int* k,
-      const std::complex<float>* alpha,
-      const std::complex<float>* a,
-      const int* lda,
-      const std::complex<float>* b,
-      const int* ldb,
-      const std::complex<float>* beta,
-      std::complex<float>* c,
-      const int* ldc);
-void zgemm_(
-      const char* transpose_a,
-      const char* transpose_b,
-      const int* m,
-      const int* n,
-      const int* k,
-      const std::complex<double>* alpha,
-      const std::complex<double>* a,
-      const int* lda,
-      const std::complex<double>* b,
-      const int* ldb,
-      const std::complex<double>* beta,
-      std::complex<double>* c,
-      const int* ldc);
+   void sgemm_(
+         const char* transpose_a,
+         const char* transpose_b,
+         const int* m,
+         const int* n,
+         const int* k,
+         const float* alpha,
+         const float* a,
+         const int* lda,
+         const float* b,
+         const int* ldb,
+         const float* beta,
+         float* c,
+         const int* ldc);
+   void dgemm_(
+         const char* transpose_a,
+         const char* transpose_b,
+         const int* m,
+         const int* n,
+         const int* k,
+         const double* alpha,
+         const double* a,
+         const int* lda,
+         const double* b,
+         const int* ldb,
+         const double* beta,
+         double* c,
+         const int* ldc);
+   void cgemm_(
+         const char* transpose_a,
+         const char* transpose_b,
+         const int* m,
+         const int* n,
+         const int* k,
+         const std::complex<float>* alpha,
+         const std::complex<float>* a,
+         const int* lda,
+         const std::complex<float>* b,
+         const int* ldb,
+         const std::complex<float>* beta,
+         std::complex<float>* c,
+         const int* ldc);
+   void zgemm_(
+         const char* transpose_a,
+         const char* transpose_b,
+         const int* m,
+         const int* n,
+         const int* k,
+         const std::complex<double>* alpha,
+         const std::complex<double>* a,
+         const int* lda,
+         const std::complex<double>* b,
+         const int* ldb,
+         const std::complex<double>* beta,
+         std::complex<double>* c,
+         const int* ldc);
 
 #ifdef TAT_USE_MKL_GEMM_BATCH
-void sgemm_batch_(
-      const char* transpose_a,
-      const char* transpose_b,
-      const int* m,
-      const int* n,
-      const int* k,
-      const float* alpha,
-      const float** a,
-      const int* lda,
-      const float** b,
-      const int* ldb,
-      const float* beta,
-      float** c,
-      const int* ldc,
-      const int* group_count,
-      const int* group_size);
-void dgemm_batch_(
-      const char* transpose_a,
-      const char* transpose_b,
-      const int* m,
-      const int* n,
-      const int* k,
-      const double* alpha,
-      const double** a,
-      const int* lda,
-      const double** b,
-      const int* ldb,
-      const double* beta,
-      double** c,
-      const int* ldc,
-      const int* group_count,
-      const int* group_size);
-void cgemm_batch_(
-      const char* transpose_a,
-      const char* transpose_b,
-      const int* m,
-      const int* n,
-      const int* k,
-      const std::complex<float>* alpha,
-      const std::complex<float>** a,
-      const int* lda,
-      const std::complex<float>** b,
-      const int* ldb,
-      const std::complex<float>* beta,
-      std::complex<float>** c,
-      const int* ldc,
-      const int* group_count,
-      const int* group_size);
-void zgemm_batch_(
-      const char* transpose_a,
-      const char* transpose_b,
-      const int* m,
-      const int* n,
-      const int* k,
-      const std::complex<double>* alpha,
-      const std::complex<double>** a,
-      const int* lda,
-      const std::complex<double>** b,
-      const int* ldb,
-      const std::complex<double>* beta,
-      std::complex<double>** c,
-      const int* ldc,
-      const int* group_count,
-      const int* group_size);
+   void sgemm_batch_(
+         const char* transpose_a,
+         const char* transpose_b,
+         const int* m,
+         const int* n,
+         const int* k,
+         const float* alpha,
+         const float** a,
+         const int* lda,
+         const float** b,
+         const int* ldb,
+         const float* beta,
+         float** c,
+         const int* ldc,
+         const int* group_count,
+         const int* group_size);
+   void dgemm_batch_(
+         const char* transpose_a,
+         const char* transpose_b,
+         const int* m,
+         const int* n,
+         const int* k,
+         const double* alpha,
+         const double** a,
+         const int* lda,
+         const double** b,
+         const int* ldb,
+         const double* beta,
+         double** c,
+         const int* ldc,
+         const int* group_count,
+         const int* group_size);
+   void cgemm_batch_(
+         const char* transpose_a,
+         const char* transpose_b,
+         const int* m,
+         const int* n,
+         const int* k,
+         const std::complex<float>* alpha,
+         const std::complex<float>** a,
+         const int* lda,
+         const std::complex<float>** b,
+         const int* ldb,
+         const std::complex<float>* beta,
+         std::complex<float>** c,
+         const int* ldc,
+         const int* group_count,
+         const int* group_size);
+   void zgemm_batch_(
+         const char* transpose_a,
+         const char* transpose_b,
+         const int* m,
+         const int* n,
+         const int* k,
+         const std::complex<double>* alpha,
+         const std::complex<double>** a,
+         const int* lda,
+         const std::complex<double>** b,
+         const int* ldb,
+         const std::complex<double>* beta,
+         std::complex<double>** c,
+         const int* ldc,
+         const int* group_count,
+         const int* group_size);
 #endif
 }
 #endif
@@ -247,7 +247,19 @@ namespace TAT {
          } else {
             for (auto i = 0; i < batch_size; i++) {
                gemm<ScalarType>(
-                     &transpose_a[i], &transpose_b[i], &m[i], &n[i], &k[i], &alpha[i], a[i], &lda[i], b[i], &ldb[i], &beta[i], c[i], &ldc[i]);
+                     &transpose_a[i],
+                     &transpose_b[i],
+                     &m[i],
+                     &n[i],
+                     &k[i],
+                     &alpha[i],
+                     a[i],
+                     &lda[i],
+                     b[i],
+                     &ldb[i],
+                     &beta[i],
+                     c[i],
+                     &ldc[i]);
             }
          }
 #endif
@@ -292,10 +304,14 @@ namespace TAT {
       auto pmr_guard = scope_resource<default_buffer_size>();
       if constexpr (Symmetry::length == 0) {
          return contract_with_fuse(
-               tensor_1, tensor_2, may_need_sort<pmr::vector<std::pair<Name, Name>>>(std::forward<SetNameAndName>(contract_names)));
+               tensor_1,
+               tensor_2,
+               may_need_sort<pmr::vector<std::pair<Name, Name>>>(std::forward<SetNameAndName>(contract_names)));
       } else {
          return contract_without_fuse(
-               tensor_1, tensor_2, may_need_sort<pmr::vector<std::pair<Name, Name>>>(std::forward<SetNameAndName>(contract_names)));
+               tensor_1,
+               tensor_2,
+               may_need_sort<pmr::vector<std::pair<Name, Name>>>(std::forward<SetNameAndName>(contract_names)));
       }
    }
 
@@ -494,33 +510,36 @@ namespace TAT {
       // 仅对第一个张量的公共边的reverse和merge做符号
       auto common_name_1_set = pmr::set<Name>(common_name_1.begin(), common_name_1.end());
       auto tensor_1_merged = tensor_1.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
             reversed_set_1,
             pmr::map<Name, pmr::vector<Name>>{
-                  {InternalName<Name>::Contract_1, std::move(free_name_1)}, {InternalName<Name>::Contract_2, std::move(common_name_1)}},
+                  {InternalName<Name>::Contract_1, std::move(free_name_1)},
+                  {InternalName<Name>::Contract_2, std::move(common_name_1)}},
             put_common_1_right ? std::vector<Name>{InternalName<Name>::Contract_1, InternalName<Name>::Contract_2} :
                                  std::vector<Name>{InternalName<Name>::Contract_2, InternalName<Name>::Contract_1},
             false,
-            std::initializer_list<Name>(),
+            empty_list<Name>(),
             common_name_1_set,
-            std::initializer_list<Name>(),
+            empty_list<Name>(),
             pmr::vector<Name>{InternalName<Name>::Contract_2},
             delete_1);
       auto tensor_2_merged = tensor_2.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
             reversed_set_2,
             pmr::map<Name, pmr::vector<Name>>{
-                  {InternalName<Name>::Contract_2, std::move(free_name_2)}, {InternalName<Name>::Contract_1, std::move(common_name_2)}},
+                  {InternalName<Name>::Contract_2, std::move(free_name_2)},
+                  {InternalName<Name>::Contract_1, std::move(common_name_2)}},
             put_common_2_right ? std::vector<Name>{InternalName<Name>::Contract_2, InternalName<Name>::Contract_1} :
                                  std::vector<Name>{InternalName<Name>::Contract_1, InternalName<Name>::Contract_2},
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
             delete_2);
+
       // calculate_product
       auto product_result = Tensor<ScalarType, Symmetry, Name>(
             {InternalName<Name>::Contract_1, InternalName<Name>::Contract_2},
@@ -595,17 +614,17 @@ namespace TAT {
          return result;
       } else {
          auto result = product_result.edge_operator_implement(
-               std::initializer_list<std::pair<Name, Name>>(),
+               empty_list<std::pair<Name, Name>>(),
                split_map_result,
                reversed_set_result,
-               std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
+               empty_list<std::pair<Name, std::initializer_list<Name>>>(),
                std::move(name_result),
                false,
-               std::initializer_list<Name>(),
-               std::initializer_list<Name>(),
-               std::initializer_list<Name>(),
-               std::initializer_list<Name>(),
-               std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
+               empty_list<Name>(),
+               empty_list<Name>(),
+               empty_list<Name>(),
+               empty_list<Name>(),
+               empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
          return result;
       }
    }
@@ -751,9 +770,9 @@ namespace TAT {
       // merge
       // 仅对第一个张量的公共边的reverse和merge做符号
       auto tensor_1_merged = tensor_1.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry<>>>>>>(),
-            std::initializer_list<Name>(),
+            empty_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry<>>>>>>(),
+            empty_list<Name>(),
             pmr::map<Name, pmr::vector<Name>>{
                   {InternalName<Name>::Contract_1, std::move(free_name_1)},
                   {InternalName<Name>::Contract_2, std::move(common_name_1)},
@@ -761,15 +780,15 @@ namespace TAT {
             put_common_1_right ? std::vector<Name>{InternalName<Name>::Contract_0, InternalName<Name>::Contract_1, InternalName<Name>::Contract_2} :
                                  std::vector<Name>{InternalName<Name>::Contract_0, InternalName<Name>::Contract_2, InternalName<Name>::Contract_1},
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry<>, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry<>, Size>>>>());
       auto tensor_2_merged = tensor_2.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry<>>>>>>(),
-            std::initializer_list<Name>(),
+            empty_list<std::pair<Name, Name>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry<>>>>>>(),
+            empty_list<Name>(),
             pmr::map<Name, pmr::vector<Name>>{
                   {InternalName<Name>::Contract_2, std::move(free_name_2)},
                   {InternalName<Name>::Contract_1, std::move(common_name_2)},
@@ -777,11 +796,11 @@ namespace TAT {
             put_common_2_right ? std::vector<Name>{InternalName<Name>::Contract_0, InternalName<Name>::Contract_2, InternalName<Name>::Contract_1} :
                                  std::vector<Name>{InternalName<Name>::Contract_0, InternalName<Name>::Contract_1, InternalName<Name>::Contract_2},
             false,
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<Name>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry<>, Size>>>>());
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<Name>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry<>, Size>>>>());
       // calculate_product
       const int l = tensor_1_merged.core->edges[0].map.begin()->second;
       const int m = tensor_1_merged.core->edges[1 + !put_common_1_right].map.begin()->second;

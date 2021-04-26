@@ -11,11 +11,5 @@ do
 #define SYMMETRY_NAME ${Sym}Symmetry
 #include "../dealing_Tensor.ipp"
 PYTAT_DEALING
-      cat << PYTAT_DEALING > generated_code/dealing_MPI_$Short$Sym.cpp
-#define FUNCTION_NAME dealing_MPI_${Short}${Sym}
-#define SCALAR_NAME ${Scalar}
-#define SYMMETRY_NAME ${Sym}Symmetry
-#include "../dealing_MPI.ipp"
-PYTAT_DEALING
    done
 done

@@ -25,26 +25,23 @@
 #error only work for c++
 #endif
 
-#ifdef _MSVC_LANG
-#if _MSVC_LANG < 201703L
-#error require c++17 or later
-#endif
-#else
 #if __cplusplus < 201703L
 #error require c++17 or later
 #endif
+
+#if __cplusplus < 202002L
+#define TAT_USE_CXX20 false
+#else
+#define TAT_USE_CXX20 true
 #endif
 
 // 开关说明
 // TAT_USE_MPI 定义以开启MPI支持, cmake可对此进行定义
 // TAT_USE_MKL_TRANSPOSE 定义以使用mkl加速转置, cmake可对此进行定义 TODO 进一步优化
 // TAT_USE_MKL_GEMM_BATCH 定义以使用mkl的?gemm_batch, cmake可对此进行定义
-// TAT_USE_SINGULAR_MATRIX svd出来的奇异值使用矩阵表示
 // TAT_USE_SIMPLE_NAME 定义以使用原始字符串作为name
 // TAT_USE_VALID_DEFAULT_TENSOR 默认tensor初始化会产生一个合法的tensor, 默认不合法
 // TAT_USE_TIMER 对常见操作进行计时
-// TAT_USE_RESTRICT_SMALL_ALLOCATOR 使用严格的小分配器
-// TAT_SMALL_ALLOCATOR_SIZE 小分配器的大小
 // TAT_ERROR_BITS 将各类警告转换为异常
 // TAT_NOTHING_BITS 将各类警告转换为静默
 // TAT_L3_CACHE, TAT_L2_CACHE, TAT_L1_CACHE 在转置中会使用
@@ -54,6 +51,7 @@
  * TAT is A Tensor library
  */
 namespace TAT {
+   // macro and warning
    /**
     * \defgroup Miscellaneous
     * @{
@@ -153,6 +151,8 @@ namespace TAT {
 #include <cstdint>
 
 namespace TAT {
+   // type alias
+
    // 下面三个类型原本是short, int, long
    // 在linux(lp64)下分别是16, 32, 64
    // 但是windows(llp64)中是16, 32, 32
@@ -184,11 +184,12 @@ namespace TAT {
 #include <type_traits>
 
 namespace TAT {
+   // traits about scalar
    template<typename T>
    concept is_real = std::is_scalar_v<T>;
 
    template<typename T>
-   concept is_complex = std::is_same_v<T, std::complex<typename T::value_type>>;
+   concept is_complex = is_real<typename T::value_type> && std::is_same_v<T, std::complex<typename T::value_type>>;
 
    template<typename T>
    concept is_scalar = is_real<T> || is_complex<T>;
@@ -217,30 +218,12 @@ namespace TAT {
 #include "implement/edge_operator.hpp"
 #include "implement/exponential.hpp"
 #include "implement/get_item.hpp"
-#include "implement/identity.hpp"
+#include "implement/identity_and_conjugate.hpp"
 #include "implement/multiple.hpp"
 #include "implement/qr.hpp"
 #include "implement/shrink_and_expand.hpp"
 #include "implement/svd.hpp"
 #include "implement/trace.hpp"
 #include "implement/transpose.hpp"
-
-namespace TAT {
-   /**
-    * Z2对称性的类型
-    */
-   using Z2 = bool;
-   /**
-    * U1对称性的类型
-    */
-   using U1 = std::int32_t;
-
-   using NoSymmetry = Symmetry<>;
-   using Z2Symmetry = Symmetry<Z2>;
-   using U1Symmetry = Symmetry<U1>;
-   using FermiSymmetry = Symmetry<fermi_wrap<U1>>;
-   using FermiZ2Symmetry = Symmetry<fermi_wrap<U1>, Z2>;
-   using FermiU1Symmetry = Symmetry<fermi_wrap<U1>, U1>;
-} // namespace TAT
 
 #endif

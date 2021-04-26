@@ -29,6 +29,7 @@
 #include <new>
 
 namespace TAT {
+   // 抄boost的
    struct memory_resource {
       virtual ~memory_resource() {}
 
@@ -75,7 +76,6 @@ namespace TAT {
       std::size_t size;
    };
 
-   // 抄boost的
    struct monotonic_buffer_resource : memory_resource {
       std::forward_list<buffer_t> m_buffer_list;
       memory_resource* m_upstream;
@@ -145,7 +145,7 @@ namespace TAT {
 
       void* do_allocate(std::size_t bytes, std::size_t alignment) override {
          std::size_t aligner = 0u;
-         if (remaining_storage(alignment, aligner) < bytes) {
+         if (remaining_storage(alignment, aligner) < bytes) [[unlikely]] {
             aligner = 0u;
             increase_next_size_to(bytes);
             m_current_buffer = m_upstream->allocate(m_next_buffer_size, alignof(std::max_align_t));
@@ -178,20 +178,18 @@ namespace TAT {
    // 和std::pmr::polymorphic_allocator的初始化时的默认resource不同, 使用的是自己的thread unsafe版本
    // 还有就是加上了一个尝试不初始化的选项
    // 为了行为和std::pmr尽可能一致, 上层使用的时候尽可能手动指定resource, 而不是通过get_default_resource获取
-   template<typename Derived, typename T, bool try_not_initialize>
-   struct polymorphic_allocator_base {
+   template<typename T>
+   struct polymorphic_allocator {
       memory_resource* m_resource;
 
       using value_type = T;
-      polymorphic_allocator_base() noexcept : polymorphic_allocator_base(get_default_resource()) {}
-      polymorphic_allocator_base(const polymorphic_allocator_base& other) = default;
-      template<typename DerivedAllocator, typename U>
-      polymorphic_allocator_base(const polymorphic_allocator_base<DerivedAllocator, U, try_not_initialize>& other) noexcept :
-            polymorphic_allocator_base(other.resource()) {}
-      polymorphic_allocator_base(memory_resource* r) : m_resource(r) {}
+      polymorphic_allocator() noexcept : polymorphic_allocator(get_default_resource()) {}
+      polymorphic_allocator(const polymorphic_allocator& other) = default;
+      template<typename U>
+      polymorphic_allocator(const polymorphic_allocator<U>& other) noexcept : polymorphic_allocator(other.resource()) {}
+      polymorphic_allocator(memory_resource* r) : m_resource(r) {}
 
-      polymorphic_allocator_base<Derived, T, try_not_initialize>&
-      operator=(const polymorphic_allocator_base<Derived, T, try_not_initialize>&) = delete;
+      polymorphic_allocator<T>& operator=(const polymorphic_allocator<T>&) = delete;
 
       T* allocate(std::size_t n) {
          return static_cast<T*>(resource()->allocate(n * sizeof(T), alignof(T)));
@@ -202,10 +200,8 @@ namespace TAT {
       }
 
       template<typename U, typename... Args>
-      void construct([[maybe_unused]] U* p, Args&&... args) {
-         if constexpr (!(try_not_initialize && (sizeof...(args) == 0) && (std::is_trivially_destructible_v<T>))) {
-            new (p) U(std::forward<Args>(args)...);
-         }
+      void construct(U* p, Args&&... args) {
+         new (p) U(std::forward<Args>(args)...);
       }
 
       template<typename U>
@@ -213,8 +209,8 @@ namespace TAT {
          p->~U();
       }
 
-      Derived select_on_container_copy_construction() const {
-         return Derived();
+      polymorphic_allocator<T> select_on_container_copy_construction() const {
+         return polymorphic_allocator<T>();
       }
 
       memory_resource* resource() const {
@@ -223,12 +219,24 @@ namespace TAT {
    };
 
    template<typename T>
-   struct polymorphic_allocator : polymorphic_allocator_base<polymorphic_allocator<T>, T, false> {
-      using polymorphic_allocator_base<polymorphic_allocator<T>, T, false>::polymorphic_allocator_base;
-   };
-   template<typename T>
-   struct polymorphic_allocator_without_initialize : polymorphic_allocator_base<polymorphic_allocator_without_initialize<T>, T, true> {
-      using polymorphic_allocator_base<polymorphic_allocator_without_initialize<T>, T, true>::polymorphic_allocator_base;
+   struct no_initialize_polymorphic_allocator : polymorphic_allocator<T> {
+      using polymorphic_allocator<T>::polymorphic_allocator;
+
+      template<typename U>
+      struct rebind {
+         using other = no_initialize_polymorphic_allocator<U>;
+      };
+
+      template<typename U, typename... Args>
+      void construct([[maybe_unused]] U* p, Args&&... args) {
+         if constexpr (!((sizeof...(args) == 0) && (std::is_trivially_destructible_v<T>))) {
+            new (p) U(std::forward<Args>(args)...);
+         }
+      }
+
+      no_initialize_polymorphic_allocator<T> select_on_container_copy_construction() const {
+         return no_initialize_polymorphic_allocator<T>();
+      }
    };
 
    template<typename T1, typename T2>
@@ -240,11 +248,11 @@ namespace TAT {
       return !(lhs == rhs);
    }
    template<typename T1, typename T2>
-   bool operator==(const polymorphic_allocator_without_initialize<T1>& lhs, const polymorphic_allocator_without_initialize<T2>& rhs) noexcept {
+   bool operator==(const no_initialize_polymorphic_allocator<T1>& lhs, const no_initialize_polymorphic_allocator<T2>& rhs) noexcept {
       return *lhs.resource() == *rhs.resource();
    }
    template<typename T1, typename T2>
-   bool operator!=(const polymorphic_allocator_without_initialize<T1>& lhs, const polymorphic_allocator_without_initialize<T2>& rhs) noexcept {
+   bool operator!=(const no_initialize_polymorphic_allocator<T1>& lhs, const no_initialize_polymorphic_allocator<T2>& rhs) noexcept {
       return !(lhs == rhs);
    }
 
@@ -252,6 +260,7 @@ namespace TAT {
    // 这个buffer应当仅仅用于零碎的变量
    // 对于tensor中的数据, 在一些背景下很容易有几百兆以上的大小
    constexpr std::size_t default_buffer_size = 1 << 15;
+   constexpr std::size_t small_buffer_size = 1 << 10;
 
    template<std::size_t, bool dynamic = false>
    struct scope_resource {
@@ -259,7 +268,9 @@ namespace TAT {
       monotonic_buffer_resource resource;
       memory_resource* upstream;
       scope_resource(std::size_t size) :
-            buffer(new std::byte[size]), resource(buffer, size * sizeof(std::byte)), upstream(set_default_resource(&resource)) {}
+            buffer(new std::byte[size]),
+            resource(buffer, size * sizeof(std::byte)),
+            upstream(set_default_resource(&resource)) {}
       ~scope_resource() {
          set_default_resource(upstream);
          delete[] buffer;
@@ -287,7 +298,7 @@ namespace TAT {
    namespace pmr {
       // content_vector仅在张量数据中使用
       template<typename T>
-      using content_vector = std::vector<T, polymorphic_allocator_without_initialize<T>>;
+      using content_vector = std::vector<T, no_initialize_polymorphic_allocator<T>>;
 
       // 下面几个容器和std::pmr的唯一区别就是默认的source不同，这里使用的是线程不安全的版本
       template<typename T>

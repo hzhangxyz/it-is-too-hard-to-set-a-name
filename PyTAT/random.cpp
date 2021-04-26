@@ -24,7 +24,9 @@ namespace TAT {
       random_m.def(
             "uniform_int",
             [](int min, int max) {
-               return [distribution = std::uniform_int_distribution<int>(min, max)]() mutable { return distribution(random_engine); };
+               return [distribution = std::uniform_int_distribution<int>(min, max)]() mutable {
+                  return distribution(random_engine);
+               };
             },
             py::arg("min") = 0,
             py::arg("max") = 1,
@@ -32,7 +34,9 @@ namespace TAT {
       random_m.def(
             "uniform_real",
             [](double min, double max) {
-               return [distribution = std::uniform_real_distribution<double>(min, max)]() mutable { return distribution(random_engine); };
+               return [distribution = std::uniform_real_distribution<double>(min, max)]() mutable {
+                  return distribution(random_engine);
+               };
             },
             py::arg("min") = 0,
             py::arg("max") = 1,
@@ -40,7 +44,9 @@ namespace TAT {
       random_m.def(
             "normal",
             [](double mean, double stddev) {
-               return [distribution = std::normal_distribution<double>(mean, stddev)]() mutable { return distribution(random_engine); };
+               return [distribution = std::normal_distribution<double>(mean, stddev)]() mutable {
+                  return distribution(random_engine);
+               };
             },
             py::arg("mean") = 0,
             py::arg("stddev") = 1,

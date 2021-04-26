@@ -23,6 +23,7 @@
 
 #include "../structure/tensor.hpp"
 #include "../utility/const_integral.hpp"
+#include "../utility/pmr_resource.hpp"
 #include "../utility/timer.hpp"
 
 namespace TAT {
@@ -52,7 +53,7 @@ namespace TAT {
    Tensor<ScalarType, Symmetry, Name>
    Tensor<ScalarType, Symmetry, Name>::multiple(const SingularType& S, const Name& name, char direction, bool division) const {
       auto timer_guard = multiple_guard();
-      auto pmr_guard = scope_resource<1 << 10>();
+      auto pmr_guard = scope_resource<small_buffer_size>();
       bool different_direction;
       if (direction == 'u' || direction == 'U') {
          different_direction = false;
@@ -75,14 +76,9 @@ namespace TAT {
          if (different_direction) {
             symmetry_of_s = -symmetry_of_s;
          }
-#ifdef TAT_USE_SINGULAR_MATRIX
          const auto& vector_in_S = map_at<true>(S.core->blocks, pmr::vector<Symmetry>{-symmetry_of_s, symmetry_of_s});
          auto dimension = map_at(S.core->edges[1].map, symmetry_of_s);
          auto dimension_plus_one = dimension + 1;
-#else
-         const auto& vector_in_S = map_at(S.value, symmetry_of_s);
-         auto dimension = vector_in_S.size();
-#endif
          Rank i = 0;
          Size m = 1;
          for (; i < index; i++) {
@@ -104,20 +100,12 @@ namespace TAT {
          const auto* pointS = realS.data();
          if (division) {
             for (Size i = 0; i < k; i++) {
-#ifdef TAT_USE_SINGULAR_MATRIX
                realS[i] = ScalarTypeS(1) / vector_in_S[i * dimension_plus_one];
-#else
-               realS[i] = ScalarTypeS(1) / vector_in_S[i];
-#endif
             }
          } else {
-#ifdef TAT_USE_SINGULAR_MATRIX
             for (Size i = 0; i < k; i++) {
                realS[i] = vector_in_S[i * dimension_plus_one];
             }
-#else
-            pointS = vector_in_S.data();
-#endif
          }
 
          multiple_kernel(m, k, n, data_destination, data_source, pointS);
