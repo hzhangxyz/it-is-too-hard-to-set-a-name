@@ -31,7 +31,7 @@ namespace TAT {
    template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
    Tensor<ScalarType, Symmetry, Name> Tensor<ScalarType, Symmetry, Name>::conjugate() const {
       auto timer_guard = conjugate_guard();
-      auto pmr_guard = scope_resource<small_buffer_size>();
+      auto pmr_guard = scope_resource(default_buffer_size);
       if constexpr (Symmetry::length == 0 && is_real<ScalarType>) {
          return *this;
       }

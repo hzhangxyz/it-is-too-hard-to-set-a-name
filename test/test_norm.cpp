@@ -22,7 +22,8 @@
 void run_test() {
    auto t =
          TAT::Tensor<double, TAT::U1Symmetry>{
-               {"Left", "Right", "Up"}, {{{-1, 3}, {0, 1}, {1, 2}}, {{-1, 1}, {0, 2}, {1, 3}}, {{-1, 2}, {0, 3}, {1, 1}}}}
+               {"Left", "Right", "Up"},
+               {{{-1, 3}, {0, 1}, {1, 2}}, {{-1, 1}, {0, 2}, {1, 3}}, {{-1, 2}, {0, 3}, {1, 1}}}}
                .range(2)
                .to<std::complex<double>>();
    std::cout << t.norm<-1>() << "\n";

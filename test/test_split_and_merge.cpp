@@ -33,7 +33,8 @@ void run_test() {
    std::cout << d << "\n";
    auto e =
          TAT::Tensor<std::complex<double>, TAT::FermiSymmetry>{
-               {"Left", "Right", "Up"}, {{{-1, 3}, {0, 1}, {1, 2}}, {{-1, 1}, {0, 2}, {1, 3}}, {{-1, 2}, {0, 3}, {1, 1}}}}
+               {"Left", "Right", "Up"},
+               {{{-1, 3}, {0, 1}, {1, 2}}, {{-1, 1}, {0, 2}, {1, 3}}, {{-1, 2}, {0, 3}, {1, 1}}}}
                .set([]() {
                   static double i = 0;
                   return i += 1;

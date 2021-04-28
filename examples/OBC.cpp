@@ -26,7 +26,9 @@
 using Tensor = TAT::Tensor<float, TAT::NoSymmetry>;
 
 auto get_name(std::string alphabet) {
-   return [=](int i) { return alphabet + std::to_string(i); };
+   return [=](int i) {
+      return alphabet + std::to_string(i);
+   };
 }
 auto left = get_name("left");
 auto right = get_name("right");
@@ -66,7 +68,8 @@ struct PBC {
          for (int j = 0; j < L; j++) {
             auto contract_names = std::set<std::pair<TAT::DefaultName, TAT::DefaultName>>{{right(i), left(i)}, {down(j), up(j)}};
             result = result.contract(
-                  lattice.at(i).at(j).edge_rename({{"up", up(j)}, {"down", down(j)}, {"left", left(i)}, {"right", right(i)}}), contract_names);
+                  lattice.at(i).at(j).edge_rename({{"up", up(j)}, {"down", down(j)}, {"left", left(i)}, {"right", right(i)}}),
+                  contract_names);
          }
       }
       return float(result);
@@ -109,7 +112,9 @@ int main(const int argc, char** argv) {
    }
    std::mt19937 engine(0);
    std::uniform_real_distribution<double> dis(-1, 1);
-   auto generator = [&]() { return dis(engine); };
+   auto generator = [&]() {
+      return dis(engine);
+   };
    auto pbc = PBC(4, 4, generator);
    std::cout << std::fixed;
    std::cout << "Exact\t: " << pbc.get_exact() << "\n";

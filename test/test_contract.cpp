@@ -35,16 +35,22 @@ void run_test() {
              << "\n";
    auto c =
          TAT::Tensor<double, TAT::FermiSymmetry>{
-               {"A", "B", "C", "D"}, {{{-1, 1}, {0, 1}, {-2, 1}}, {{0, 1}, {1, 2}}, {{0, 2}, {1, 2}}, {{-2, 2}, {-1, 1}, {0, 2}}}, true}
+               {"A", "B", "C", "D"},
+               {{{-1, 1}, {0, 1}, {-2, 1}}, {{0, 1}, {1, 2}}, {{0, 2}, {1, 2}}, {{-2, 2}, {-1, 1}, {0, 2}}},
+               true}
                .range();
    auto d =
          TAT::Tensor<double, TAT::FermiSymmetry>{
-               {"E", "F", "G", "H"}, {{{0, 2}, {1, 1}}, {{-2, 1}, {-1, 1}, {0, 2}}, {{0, 1}, {-1, 2}}, {{0, 2}, {1, 1}, {2, 2}}}, true}
+               {"E", "F", "G", "H"},
+               {{{0, 2}, {1, 1}}, {{-2, 1}, {-1, 1}, {0, 2}}, {{0, 1}, {-1, 2}}, {{0, 2}, {1, 1}, {2, 2}}},
+               true}
                .range();
    std::cout << c << "\n";
    std::cout << d << "\n";
    std::cout << TAT::Tensor<double, TAT::FermiSymmetry>::contract(c, d, {{"B", "G"}, {"D", "H"}}) << "\n";
    std::cout << TAT::Tensor<double, TAT::FermiSymmetry>::contract(
-                      c.transpose({"A", "C", "B", "D"}), d.transpose({"G", "H", "E", "F"}), {{"B", "G"}, {"D", "H"}})
+                      c.transpose({"A", "C", "B", "D"}),
+                      d.transpose({"G", "H", "E", "F"}),
+                      {{"B", "G"}, {"D", "H"}})
              << "\n";
 }

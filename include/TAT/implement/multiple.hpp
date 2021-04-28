@@ -53,19 +53,19 @@ namespace TAT {
    Tensor<ScalarType, Symmetry, Name>
    Tensor<ScalarType, Symmetry, Name>::multiple(const SingularType& S, const Name& name, char direction, bool division) const {
       auto timer_guard = multiple_guard();
-      auto pmr_guard = scope_resource<small_buffer_size>();
+      auto pmr_guard = scope_resource(default_buffer_size);
       bool different_direction;
       if (direction == 'u' || direction == 'U') {
          different_direction = false;
       } else if (direction == 'v' || direction == 'V') {
          different_direction = true;
       } else {
-         TAT_error("Direction invalid in multiple");
+         detail::error("Direction invalid in multiple");
          return *this;
       }
       const auto found = map_find(name_to_index, name);
       if (found == name_to_index.end()) [[unlikely]] {
-         TAT_warning_or_error_when_name_missing("Name not found in multiple");
+         detail::what_if_name_missing("Name not found in multiple");
          return *this;
       }
       auto result = same_shape();
@@ -90,13 +90,13 @@ namespace TAT {
             n *= map_at(core->edges[i].map, symmetries[i]);
          }
          if (dimension != k) [[unlikely]] {
-            TAT_error("Vector Size incompatible in Multiple with a tensor");
+            detail::error("Vector Size incompatible in Multiple with a tensor");
          }
          const auto* data_source = block_source.data();
          auto* data_destination = block_destination.data();
 
          using ScalarTypeS = typename std::remove_cv_t<std::remove_reference_t<decltype(vector_in_S)>>::value_type;
-         pmr::content_vector<ScalarTypeS> realS(k);
+         content_vector<ScalarTypeS> realS(k);
          const auto* pointS = realS.data();
          if (division) {
             for (Size i = 0; i < k; i++) {

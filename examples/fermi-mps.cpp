@@ -180,7 +180,9 @@ struct MPS {
 int main(int argc, char** argv) {
    std::mt19937 engine(0);
    std::uniform_real_distribution<double> dis(-1, 1);
-   auto gen = [&]() { return dis(engine); };
+   auto gen = [&]() {
+      return dis(engine);
+   };
    auto mps = MPS(2, 2, gen);
    // mps.update(std::atoi(argv[3]), std::atof(argv[4]), std::atoi(argv[5]));
    mps.update(10, 0.1, 1);

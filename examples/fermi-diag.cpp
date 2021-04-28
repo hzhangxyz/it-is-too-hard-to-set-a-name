@@ -86,7 +86,9 @@ int main(int argc, char** argv) {
    if (argc != 1) {
       std::cout.rdbuf(out.rdbuf());
    }
-   std::cout << (8 * V - T).transpose({"In", "Out"}).transform([](float i) { return i == -0 ? 0 : i; }) << "\n";
+   std::cout << (8 * V - T).transpose({"In", "Out"}).transform([](float i) {
+      return i == -0 ? 0 : i;
+   }) << "\n";
    if (argc != 1) {
       std::cout.rdbuf(cout_buf);
       std::ifstream fout(argv[1]);

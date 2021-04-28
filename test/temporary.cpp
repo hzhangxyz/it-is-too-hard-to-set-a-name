@@ -18,12 +18,12 @@
 #include <TAT/TAT.hpp>
 
 int main() {
-  using Tensor = TAT::Tensor<double, TAT::U1Symmetry>;
-  auto A = Tensor({"t", "s0", "s1"}, {{-1}, {0, 1}, {0, 1}}).zero();
-  A.core->storage[0] = 1;
-  A.core->storage[1] = -1;
-  std::cout << A << "\n";
-  auto B = A.conjugate();
-  std::cout << B << "\n";
-  std::cout << A.contract_all_edge(B) << "\n";
+   using Tensor = TAT::Tensor<double, TAT::U1Symmetry>;
+   auto A = Tensor({"t", "s0", "s1"}, {{-1}, {0, 1}, {0, 1}}).zero();
+   A.core->storage[0] = 1;
+   A.core->storage[1] = -1;
+   std::cout << A << "\n";
+   auto B = A.conjugate();
+   std::cout << B << "\n";
+   std::cout << A.contract_all_edge(B) << "\n";
 }

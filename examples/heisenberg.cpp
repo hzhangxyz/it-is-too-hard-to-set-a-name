@@ -23,7 +23,12 @@
 #include <fstream>
 #include <square/square.hpp>
 
-enum struct LatticeType { Exact, Simple, Sample };
+enum struct LatticeType
+{
+   Exact,
+   Simple,
+   Sample
+};
 
 int main(int argc, char** argv) {
    bool real_cin = true;
@@ -209,7 +214,9 @@ int main(int argc, char** argv) {
                TAT::mpi.out_one() << "\n"
                                   << "Gradient descent done, total_step=" << gradient_step << "\n";
             } else if (command == "equilibrate") {
-               sampling_gradient_lattice.initialize_spin([](int i, int j) { return (i + j) % 2; });
+               sampling_gradient_lattice.initialize_spin([](int i, int j) {
+                  return (i + j) % 2;
+               });
                std::uint64_t total_step;
                std::cin >> total_step;
                sampling_gradient_lattice.equilibrate(total_step);

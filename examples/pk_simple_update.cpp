@@ -22,7 +22,11 @@
 
 using Tensor = TAT::Tensor<>;
 using Singular = TAT::Singular<>;
-enum struct Direction { Right, Down };
+enum struct Direction
+{
+   Right,
+   Down
+};
 
 auto random_engine = std::default_random_engine(std::random_device()());
 auto distribution = std::normal_distribution<double>(0, 1);
@@ -87,7 +91,9 @@ struct TwoDimensionHeisenberg {
       name_list.push_back("Phy");
       dimension_list.push_back(2);
       auto result = Tensor(name_list, dimension_list);
-      result.set([]() { return distribution(random_engine); });
+      result.set([]() {
+         return distribution(random_engine);
+      });
       return result;
    }
 

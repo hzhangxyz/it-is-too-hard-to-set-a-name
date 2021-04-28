@@ -62,7 +62,9 @@ struct SpinLattice {
    SpinLattice(const std::vector<std::string>& node_names, double approximate_energy = 0) : approximate_energy(std::abs(approximate_energy)) {
       auto edge_to_initial = std::vector<int>(node_names.size(), 2);
       auto dist = std::normal_distribution<double>(0, 1);
-      state_vector = Tensor(node_names, edge_to_initial).set([&]() { return dist(random_engine); });
+      state_vector = Tensor(node_names, edge_to_initial).set([&]() {
+         return dist(random_engine);
+      });
    }
 
    void set_bond(const std::string& n1, const std::string& n2, const Tensor& matrix) {

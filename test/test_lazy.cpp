@@ -25,8 +25,18 @@ void run_test() {
    auto b = lazy::Root(2);
    std::cout << a->get() << "\n";
    std::cout << b->get() << "\n";
-   auto c = lazy::Path([](int a, int b) { return a + b; }, a, b);
-   auto d = lazy::Node([](int c, int a) { return c * a; }, c, a);
+   auto c = lazy::Path(
+         [](int a, int b) {
+            return a + b;
+         },
+         a,
+         b);
+   auto d = lazy::Node(
+         [](int c, int a) {
+            return c * a;
+         },
+         c,
+         a);
    std::cout << d->get() << "\n";
    a->set(233);
    std::cout << d->get() << "\n";

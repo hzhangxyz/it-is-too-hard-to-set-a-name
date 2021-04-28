@@ -130,42 +130,42 @@ std::unique_ptr<SquareSpinLattice> lattice;
 
 extern "C" {
 
-int create_lattice(int n1, int n2) {
-   lattice = std::make_unique<SquareSpinLattice>(n1, n2, n1 * n2 * 0.5);
-   for (auto i = 0; i < n1 - 1; i++) {
-      for (auto j = 0; j < n2; j++) {
-         lattice->set_bond({i, j}, {i + 1, j}, SS);
+   int create_lattice(int n1, int n2) {
+      lattice = std::make_unique<SquareSpinLattice>(n1, n2, n1 * n2 * 0.5);
+      for (auto i = 0; i < n1 - 1; i++) {
+         for (auto j = 0; j < n2; j++) {
+            lattice->set_bond({i, j}, {i + 1, j}, SS);
+         }
+      }
+      for (auto i = 0; i < n1; i++) {
+         for (auto j = 0; j < n2 - 1; j++) {
+            lattice->set_bond({i, j}, {i, j + 1}, SS);
+         }
+      }
+      return 0;
+   }
+
+   int update_lattice(int step) {
+      for (auto t = 0; t < step; t++) {
+         lattice->update();
+      }
+      return 0;
+   }
+
+   double get_energy() {
+      return lattice->energy / (lattice->n1 * lattice->n2);
+   }
+
+   double get_spin(int x, int y, int kind) {
+      if (kind == 0) {
+         return lattice->observe_single_site({x, y}, Sx);
+      } else if (kind == 1) {
+         return lattice->observe_single_site({x, y}, Sy);
+      } else {
+         return lattice->observe_single_site({x, y}, Sz);
       }
    }
-   for (auto i = 0; i < n1; i++) {
-      for (auto j = 0; j < n2 - 1; j++) {
-         lattice->set_bond({i, j}, {i, j + 1}, SS);
-      }
+   double get_den() {
+      return lattice->get_observe_denominator();
    }
-   return 0;
-}
-
-int update_lattice(int step) {
-   for (auto t = 0; t < step; t++) {
-      lattice->update();
-   }
-   return 0;
-}
-
-double get_energy() {
-   return lattice->energy / (lattice->n1 * lattice->n2);
-}
-
-double get_spin(int x, int y, int kind) {
-   if (kind == 0) {
-      return lattice->observe_single_site({x, y}, Sx);
-   } else if (kind == 1) {
-      return lattice->observe_single_site({x, y}, Sy);
-   } else {
-      return lattice->observe_single_site({x, y}, Sz);
-   }
-}
-double get_den() {
-   return lattice->get_observe_denominator();
-}
 }

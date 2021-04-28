@@ -70,7 +70,7 @@ namespace TAT {
          // 调整使得可以缩并
          auto& old_edge = core->edges[map_at(name_to_index, old_name)];
          if (old_edge.map.size() != 1 || old_edge.map.begin()->second != 1) {
-            TAT_error("Cannot Expand a Edge which dimension is not one");
+            detail::error("Cannot Expand a Edge which dimension is not one");
          }
          if constexpr (is_no_symmetry) {
             new_edges.push_back({{{Symmetry(), 1}}});
@@ -81,13 +81,13 @@ namespace TAT {
                new_edges.push_back({{{-total_symmetry, 1}}});
             }
             if (old_edge.map.front().first != total_symmetry) [[unlikely]] {
-               TAT_error("Cannot Expand to such Edges whose total Symmetry is not Compatible with origin Edge");
+               detail::error("Cannot Expand to such Edges whose total Symmetry is not Compatible with origin Edge");
             }
          }
       } else {
          if constexpr (!is_no_symmetry) {
             if (total_symmetry != Symmetry()) [[unlikely]] {
-               TAT_error("Cannot Expand to such Edges whose total Symmetry is not zero");
+               detail::error("Cannot Expand to such Edges whose total Symmetry is not zero");
             }
          }
       }
@@ -148,7 +148,7 @@ namespace TAT {
       } else {
          if constexpr (!is_no_symmetry) {
             if (total_symmetry != Symmetry()) [[unlikely]] {
-               TAT_error("Need to Create a New Edge but Name not set in Slice");
+               detail::error("Need to Create a New Edge but Name not set in Slice");
             }
          }
       }

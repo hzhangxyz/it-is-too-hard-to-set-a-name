@@ -64,16 +64,16 @@ namespace TAT {
          ;
 
    constexpr unsigned long l2_cache =
-#ifdef TAT_L1_CACHE
-         TAT_L1_CACHE
+#ifdef TAT_L2_CACHE
+         TAT_L2_CACHE
 #else
          786432
 #endif
          ;
 
    constexpr unsigned long l3_cache =
-#ifdef TAT_L1_CACHE
-         TAT_L1_CACHE
+#ifdef TAT_L3_CACHE
+         TAT_L3_CACHE
 #else
          4718592
 #endif

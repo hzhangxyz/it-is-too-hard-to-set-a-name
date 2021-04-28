@@ -125,7 +125,9 @@ int main(int argc, char** argv) {
 
    std::mt19937 engine(0);
    std::uniform_real_distribution<double> dis(-1, 1);
-   auto gen = [&]() { return dis(engine); };
+   auto gen = [&]() {
+      return dis(engine);
+   };
    auto l = lattice()
                   .create_vector(4)
                   .set_link({{0, 1}, {1, 2}, {2, 3}})

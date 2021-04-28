@@ -30,7 +30,9 @@ void run_test() {
                   .range(2)
          << "\n";
    auto a = TAT::Tensor<double, TAT::FermiU1Symmetry>{
-         {"Left", "Right", "Up"}, {{{{0, 0}, 1}, {{1, 1}, 2}}, {{{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}}, {{{0, 0}, 3}, {{1, -1}, 1}}}, true};
+         {"Left", "Right", "Up"},
+         {{{{0, 0}, 1}, {{1, 1}, 2}}, {{{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}}, {{{0, 0}, 3}, {{1, -1}, 1}}},
+         true};
    std::cout
          << TAT::Tensor<
                   double,

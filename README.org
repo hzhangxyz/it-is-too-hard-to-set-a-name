@@ -54,7 +54,7 @@
 
 ** Documents
    
-  #+begin_src emacs-lisp :exports none
+  #+begin_src emacs-lisp :exports none :results silent
     (defun ek/babel-ansi ()
       (when-let ((beg (org-babel-where-is-src-block-result nil nil)))
         (save-excursion
@@ -64,10 +64,8 @@
                   (ansi-color-context-region nil))
               (ansi-color-apply-on-region beg end))))))
     (add-hook 'org-babel-after-execute-hook 'ek/babel-ansi)
+    (setq org-babel-min-lines-for-block-output 1)
   #+end_src
-
-  #+RESULTS:
-  | ek/babel-ansi | spacemacs/ob-fix-inline-images |
 
 *** No Symmetry Tensor
 
@@ -91,7 +89,9 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[i,j],edges:[3,4],blocks:[0,0,0,0,0,0,0,0,0,0,0,0]}
+     #+begin_example
+     {names:[i,j],edges:[3,4],blocks:[0,0,0,0,0,0,0,0,0,0,0,0]}
+     #+end_example
 
      the code above create a rank-2 tensor named =A= which two edges are =i= and =j=,
      and their dimensions are =3= and =4=, then print tensor =A= to =std::cout=.
@@ -114,8 +114,10 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[i,j],edges:[3,4],blocks:[0,0,0,0,0,0,0,0,0,0,3,0]}
-     : 3
+     #+begin_example
+     {names:[i,j],edges:[3,4],blocks:[0,0,0,0,0,0,0,0,0,0,3,0]}
+     3
+     #+end_example
 
 **** Scalar operators
 
@@ -142,8 +144,10 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[i],edges:[4],blocks:[11,22,33,44]}
-     : {names:[i],edges:[4],blocks:[1,0.5,0.333333,0.25]}
+     #+begin_example
+     {names:[i],edges:[4],blocks:[11,22,33,44]}
+     {names:[i],edges:[4],blocks:[1,0.5,0.333333,0.25]}
+     #+end_example
 
 **** Rank-0 tensor and number
 
@@ -160,7 +164,9 @@
      #+end_src
 
      #+RESULTS:
-     : 233
+     #+begin_example
+     233
+     #+end_example
 
 **** Explicitly copy
 
@@ -195,7 +201,9 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[i,j],edges:[2,2],blocks:[0,0,0,0]}
+     #+begin_example
+     {names:[i,j],edges:[2,2],blocks:[0,0,0,0]}
+     #+end_example
 
 **** Map and transform
 
@@ -216,9 +224,11 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[i,j],edges:[2,2],blocks:[0,1,4,9]}
-     : {names:[i,j],edges:[2,2],blocks:[1,2,5,10]}
-     : {names:[i,j],edges:[2,2],blocks:[0,1,4,9]}
+     #+begin_example
+     {names:[i,j],edges:[2,2],blocks:[0,1,4,9]}
+     {names:[i,j],edges:[2,2],blocks:[1,2,5,10]}
+     {names:[i,j],edges:[2,2],blocks:[0,1,4,9]}
+     #+end_example
 
 **** Type conversion
 
@@ -245,10 +255,12 @@
      #+end_src
 
      #+RESULTS:
-     : 9
-     : 10
-     : 45
-     : 16.8819
+     #+begin_example
+     9
+     10
+     45
+     16.8819
+     #+end_example
 
 **** Contract
 
@@ -262,7 +274,9 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[k,b,d],edges:[4,5,6],blocks:[4776,4836,4896,4956,5016,5076,5856,5916,5976,6036,6096,6156,6936,6996,7056,7116,7176,7236,8016,8076,8136,8196,8256,8316,9096,9156,9216,9276,9336,9396,5082,5148,5214,5280,5346,5412,6270,6336,6402,6468,6534,6600,7458,7524,7590,7656,7722,7788,8646,8712,8778,8844,8910,8976,9834,9900,9966,10032,10098,10164,5388,5460,5532,5604,5676,5748,6684,6756,6828,6900,6972,7044,7980,8052,8124,8196,8268,8340,9276,9348,9420,9492,9564,9636,10572,10644,10716,10788,10860,10932,5694,5772,5850,5928,6006,6084,7098,7176,7254,7332,7410,7488,8502,8580,8658,8736,8814,8892,9906,9984,10062,10140,10218,10296,11310,11388,11466,11544,11622,11700]}
+     #+begin_example
+     {names:[k,b,d],edges:[4,5,6],blocks:[4776,4836,4896,4956,5016,5076,5856,5916,5976,6036,6096,6156,6936,6996,7056,7116,7176,7236,8016,8076,8136,8196,8256,8316,9096,9156,9216,9276,9336,9396,5082,5148,5214,5280,5346,5412,6270,6336,6402,6468,6534,6600,7458,7524,7590,7656,7722,7788,8646,8712,8778,8844,8910,8976,9834,9900,9966,10032,10098,10164,5388,5460,5532,5604,5676,5748,6684,6756,6828,6900,6972,7044,7980,8052,8124,8196,8268,8340,9276,9348,9420,9492,9564,9636,10572,10644,10716,10788,10860,10932,5694,5772,5850,5928,6006,6084,7098,7176,7254,7332,7410,7488,8502,8580,8658,8736,8814,8892,9906,9984,10062,10140,10218,10296,11310,11388,11466,11544,11622,11700]}
+     #+end_example
 
 **** Merge and split edge
 
@@ -281,8 +295,10 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[b,a,k],edges:[1,6,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
-     : {names:[i,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+     #+begin_example
+     {names:[b,a,k],edges:[1,6,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+     {names:[i,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+     #+end_example
 
 **** Edge rename and transpose
 
@@ -301,9 +317,11 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[x,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
-     : {names:[i,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
-     : {names:[k,j,i],edges:[4,3,2],blocks:[0,12,4,16,8,20,1,13,5,17,9,21,2,14,6,18,10,22,3,15,7,19,11,23]}
+     #+begin_example
+     {names:[x,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+     {names:[i,j,k],edges:[2,3,4],blocks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]}
+     {names:[k,j,i],edges:[4,3,2],blocks:[0,12,4,16,8,20,1,13,5,17,9,21,2,14,6,18,10,22,3,15,7,19,11,23]}
+     #+end_example
 
 **** SVD and QR decomposition
 
@@ -324,8 +342,10 @@
       #+end_src
 
       #+RESULTS:
-      : {names:[Q1,Q2],edges:[4,4],blocks:[1,1.37131e-16,-6.69686e-17,-9.2407e-18,1.37131e-16,1,1.41169e-16,-3.05143e-17,-6.69686e-17,1.41169e-16,1,-1.86861e-16,-9.2407e-18,-3.05143e-17,-1.86861e-16,1]}
-      : 7.10543e-15
+      #+begin_example
+      {names:[Q1,Q2],edges:[4,4],blocks:[1,1.37131e-16,-6.69686e-17,-9.2407e-18,1.37131e-16,1,1.41169e-16,-3.05143e-17,-6.69686e-17,1.41169e-16,1,-1.86861e-16,-9.2407e-18,-3.05143e-17,-1.86861e-16,1]}
+      7.10543e-15
+      #+end_example
 
 ***** SVD decomposition
 
@@ -356,8 +376,10 @@
       #+end_src
 
       #+RESULTS:
-      : {names:[U1,U2],edges:[3,3],blocks:[1,1.02864e-16,9.12414e-17,1.02864e-16,1,2.17799e-16,9.12414e-17,2.17799e-16,1]}
-      : 7.10543e-15
+      #+begin_example
+      {names:[U1,U2],edges:[3,3],blocks:[1,1.02864e-16,9.12414e-17,1.02864e-16,1,2.17799e-16,9.12414e-17,2.17799e-16,1]}
+      7.10543e-15
+      #+end_example
 
 **** Identity, exponential and trace
 
@@ -380,8 +402,10 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[j,i,k,l],edges:[3,2,3,2],blocks:[2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828]}
-     : {names:[],edges:[],blocks:[6]}
+     #+begin_example
+     {names:[j,i,k,l],edges:[3,2,3,2],blocks:[2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828,0,0,0,0,0,0,2.71828]}
+     {names:[],edges:[],blocks:[6]}
+     #+end_example
 
 **** IO
 
@@ -407,7 +431,9 @@
      #+end_src
 
      #+RESULTS:
-     : {names:[i,j,k,l],edges:[2,3,3,2],blocks:[1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1]}
+     #+begin_example
+     {names:[i,j,k,l],edges:[2,3,3,2],blocks:[1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1]}
+     #+end_example
 
 **** Fill random number into tensor
 

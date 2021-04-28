@@ -27,40 +27,36 @@
 #include "../utility/concepts_and_fake_map_set.hpp"
 
 namespace TAT {
-   /**
-    * \defgroup Symmetry
-    * 对称性模块
-    * @{
-    */
-
    template<typename T>
    struct fermi_wrap {};
 
-   template<typename T>
-   struct fermi_unwrap_helper : std::type_identity<T> {};
-   template<typename T>
-   struct fermi_unwrap_helper<fermi_wrap<T>> : std::type_identity<T> {};
-   template<typename T>
-   using fermi_unwrap = typename fermi_unwrap_helper<T>::type;
+   namespace detail {
+      template<typename T>
+      struct fermi_unwrap_helper : std::type_identity<T> {};
+      template<typename T>
+      struct fermi_unwrap_helper<fermi_wrap<T>> : std::type_identity<T> {};
+      template<typename T>
+      using fermi_unwrap = typename fermi_unwrap_helper<T>::type;
 
-   template<typename T>
-   struct fermi_wrapped_helper : std::false_type {};
-   template<typename T>
-   struct fermi_wrapped_helper<fermi_wrap<T>> : std::true_type {};
-   template<typename T>
-   constexpr bool fermi_wrapped = fermi_wrapped_helper<T>::value;
+      template<typename T>
+      struct fermi_wrapped_helper : std::false_type {};
+      template<typename T>
+      struct fermi_wrapped_helper<fermi_wrap<T>> : std::true_type {};
+      template<typename T>
+      constexpr bool fermi_wrapped = fermi_wrapped_helper<T>::value;
+   } // namespace detail
 
    template<typename... T>
-      requires(std::is_integral_v<fermi_unwrap<T>>&&...)
-   struct Symmetry : std::tuple<fermi_unwrap<T>...> {
+      requires(std::is_integral_v<detail::fermi_unwrap<T>>&&...)
+   struct Symmetry : std::tuple<detail::fermi_unwrap<T>...> {
     private:
       using self_t = Symmetry<T...>; // used freq too high so alias it
 
     public:
-      using base_tuple = std::tuple<fermi_unwrap<T>...>;
+      using base_tuple = std::tuple<detail::fermi_unwrap<T>...>;
       static constexpr int length = sizeof...(T);
-      static constexpr std::array<bool, length> is_fermi_item = {fermi_wrapped<T>...};
-      static constexpr bool is_fermi_symmetry = (fermi_wrapped<T> || ...);
+      static constexpr std::array<bool, length> is_fermi_item = {detail::fermi_wrapped<T>...};
+      static constexpr bool is_fermi_symmetry = (detail::fermi_wrapped<T> || ...);
       using index_sequence = std::index_sequence_for<T...>;
 
     private:
@@ -352,6 +348,5 @@ namespace TAT {
    using FermiSymmetry = Symmetry<fermi_wrap<U1>>;
    using FermiZ2Symmetry = Symmetry<fermi_wrap<U1>, Z2>;
    using FermiU1Symmetry = Symmetry<fermi_wrap<U1>, U1>;
-   /**@}*/
 } // namespace TAT
 #endif

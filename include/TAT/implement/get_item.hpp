@@ -37,7 +37,7 @@ namespace TAT {
             if (auto found = map_find(position, names[i]); found != position.end()) [[likely]] {
                scalar_position.push_back(found->second);
             } else [[unlikely]] {
-               TAT_error("Name not found in position map when finding offset");
+               detail::error("Name not found in position map when finding offset");
             }
             dimensions.push_back(core->edges[i].map.begin()->second);
          }
@@ -58,7 +58,7 @@ namespace TAT {
             const auto& name = names[i];
             auto found = map_find(position, name);
             if (found == position.end()) {
-               TAT_error("Name not found in position map when finding block and offset");
+               detail::error("Name not found in position map when finding block and offset");
             }
             const auto& [symmetry, index] = found->second;
             symmetries.push_back(symmetry);

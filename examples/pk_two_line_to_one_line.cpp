@@ -30,8 +30,9 @@ int main() {
    std::vector<Tensor> line_1;
    std::vector<Tensor> line_2;
    for (auto i = 0; i < length; i++) {
-      line_1.push_back(
-            Tensor({"Left", "Right", "Down"}, {i == 0 ? 1u : Dc, i == length - 1 ? 1u : Dc, D}).set([&]() { return distribution(random_engine); }));
+      line_1.push_back(Tensor({"Left", "Right", "Down"}, {i == 0 ? 1u : Dc, i == length - 1 ? 1u : Dc, D}).set([&]() {
+         return distribution(random_engine);
+      }));
       line_2.push_back(Tensor({"Left", "Right", "Down", "Up"}, {i == 0 ? 1u : D, i == length - 1 ? 1u : D, D, D}).set([&]() {
          return distribution(random_engine);
       }));

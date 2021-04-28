@@ -111,7 +111,7 @@ namespace TAT {
    // 而输入的话会重载std::string的输入问题不大
    // 对于二进制io在tensor处处理了问题也不大
    inline std::ostream& operator<<(std::ostream& out, const FastName& name) {
-      return out << fastname_dataset.id_to_name[name.id];
+      return out << static_cast<const std::string&>(name);
    }
 
    inline bool valid_name_character(char c) {
@@ -567,10 +567,10 @@ namespace TAT {
       return *this;
    }
 
-   inline std::ostream& operator<(std::ostream& out, const fastname_dataset_t& dataset) {
+   inline std::ostream& operator<(std::ostream& out, const FastName::dataset_t& dataset) {
       return out < dataset.id_to_name;
    }
-   inline std::istream& operator>(std::istream& in, fastname_dataset_t& dataset) {
+   inline std::istream& operator>(std::istream& in, FastName::dataset_t& dataset) {
       in > dataset.id_to_name;
       dataset.fastname_number = dataset.id_to_name.size();
       dataset.name_to_id.clear();
@@ -581,11 +581,11 @@ namespace TAT {
    }
    inline void load_fastname_dataset(const std::string& input) {
       std::istringstream in(input);
-      in > fastname_dataset;
+      in > FastName::dataset;
    }
    inline std::string dump_fastname_dataset() {
       std::ostringstream out;
-      out < fastname_dataset;
+      out < FastName::dataset;
       return out.str();
    }
 

@@ -176,7 +176,7 @@ namespace TAT {
                for (const auto& [split_name, split_edge] : position->second) {
                   real_name_after_split.push_back(split_name);
                   if constexpr (is_fermi) {
-                     edge_after_split.push_back({edge_before_split[position_before_split].arrow, split_edge.map, conjugated});
+                     edge_after_split.push_back({split_edge.map, conjugated, edge_before_split[position_before_split].arrow});
                   } else if constexpr (!is_no_symmetry) {
                      edge_after_split.push_back({split_edge.map, conjugated});
                   } else {
@@ -197,7 +197,7 @@ namespace TAT {
                auto accumulated_symmetries = pmr::vector<Symmetry>(split_rank);
                auto accumulated_dimensions = pmr::vector<Size>(split_rank);
                auto current_symmetries = pmr::vector<Symmetry>(split_rank);
-               loop_edge<polymorphic_allocator, true>(
+               loop_edge<detail::polymorphic_allocator, true>(
                      edge_list_after_split,
                      split_rank,
                      [&this_offset]() {
@@ -227,9 +227,9 @@ namespace TAT {
                real_name_after_split.push_back(name_before_split[position_before_split]);
                if constexpr (is_fermi) {
                   edge_after_split.push_back(
-                        {edge_before_split[position_before_split].arrow,
-                         edge_before_split[position_before_split].map,
-                         edge_before_split[position_before_split].conjugated});
+                        {edge_before_split[position_before_split].map,
+                         edge_before_split[position_before_split].conjugated,
+                         edge_before_split[position_before_split].arrow});
                } else if constexpr (!is_no_symmetry) {
                   edge_after_split.push_back({edge_before_split[position_before_split].map, edge_before_split[position_before_split].conjugated});
                } else {
@@ -251,7 +251,7 @@ namespace TAT {
          for (auto i = 0; i < rank_before_split; i++) {
             const auto& edge = edge_before_split[i];
             if constexpr (is_fermi) {
-               edge_after_split.push_back({edge.arrow, edge.map, edge.conjugated});
+               edge_after_split.push_back({edge.map, edge.conjugated, edge.arrow});
             } else if constexpr (!is_no_symmetry) {
                edge_after_split.push_back({edge.map, edge.conjugated});
             } else {
@@ -335,7 +335,7 @@ namespace TAT {
       // rank_4 and name_5 and rank_5
       // name build by merge may contain some edge not exist
       if (rank_at_transpose != name_before_merge.size()) {
-         TAT_error("Tensor to transpose with Different Rank");
+         detail::error("Tensor to transpose with Different Rank");
       }
 
       // 1.5 转置方案
@@ -353,7 +353,7 @@ namespace TAT {
          if (auto found = map_find(name_to_index_after_split, name_before_merge[i]); found != name_to_index_after_split.end()) {
             plan_destination_to_source[i] = found->second;
          } else {
-            TAT_error("Tensor to transpose with incompatible name list");
+            detail::error("Tensor to transpose with incompatible name list");
          }
          plan_source_to_destination[plan_destination_to_source[i]] = i;
          edge_after_transpose.push_back(edge_before_transpose[plan_destination_to_source[i]]);
@@ -431,7 +431,7 @@ namespace TAT {
             auto current_symmetries = pmr::vector<Symmetry>(merge_rank);
 
             if (merge_rank != 1) {
-               loop_edge<polymorphic_allocator, true>(
+               loop_edge<detail::polymorphic_allocator, true>(
                      edge_before_merge.data() + start_of_merge,
                      merge_rank,
                      [&merged_edge, &this_offset]() {
@@ -477,9 +477,9 @@ namespace TAT {
             // edge_before_merge也不需要修改的
             const auto& edge = edge_before_merge[i];
             if constexpr (is_fermi) {
-               result_edge.push_back({edge.arrow, edge.map});
+               result_edge.push_back({edge.map, edge.conjugated, edge.arrow});
             } else {
-               result_edge.push_back({edge.map});
+               result_edge.push_back({edge.map, edge.conjugated});
             }
             // 后面会判断如果没有实际上的merge则不使用this_offset, 因为全部没有merge所以甚至不需要emplace_back
             // auto& this_offset = merge_offset.emplace_back();
@@ -513,7 +513,7 @@ namespace TAT {
       if (edge_and_symmetries_to_cut_before_all.size() != 0 || split_map.size() != 0 || (is_fermi && reversed_name.size() != 0)) {
          // 需要使用reversed前的symmetry，所以
          // 1. 上面判断了是否reversed为空，不然else中的edge不正确 2.下面使用edge_after_split而不是edge_before_transpose
-         for (auto& [symmetries_before_transpose, size] : initialize_block_symmetries_with_check<polymorphic_allocator>(edge_after_split)) {
+         for (auto& [symmetries_before_transpose, size] : initialize_block_symmetries_with_check<detail::polymorphic_allocator>(edge_after_split)) {
             // convert sym -> target_sym and offsets
             // and add to map
             auto symmetries = pmr::vector<Symmetry>();
@@ -557,7 +557,7 @@ namespace TAT {
       }
       auto data_after_transpose_to_destination = MapFromTransposeToSourceDestination();
       if (merge_map.size() != 0) {
-         for (auto& [symmetries_after_transpose, size] : initialize_block_symmetries_with_check<polymorphic_allocator>(edge_before_merge)) {
+         for (auto& [symmetries_after_transpose, size] : initialize_block_symmetries_with_check<detail::polymorphic_allocator>(edge_before_merge)) {
             // convert sym -> target_sym and offsets
             // and add to map
             auto symmetries = pmr::vector<Symmetry>();

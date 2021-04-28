@@ -26,7 +26,9 @@ using Tensor = TAT::Tensor<double, TAT::NoSymmetry>;
 
 void run_test() {
    auto input = Tensor(TAT::mpi.rank);
-   auto result = TAT::mpi.reduce(input, TAT::mpi.size / 2, [](auto a, auto b) { return a + b; });
+   auto result = TAT::mpi.reduce(input, TAT::mpi.size / 2, [](auto a, auto b) {
+      return a + b;
+   });
    TAT::mpi.out_one(TAT::mpi.size / 2) << result << "\n";
    result = TAT::mpi.broadcast(result, TAT::mpi.size / 2);
    TAT::mpi.barrier();

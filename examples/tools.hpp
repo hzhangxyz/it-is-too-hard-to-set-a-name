@@ -43,7 +43,7 @@ namespace tools {
 
       int length = line_1.size();
       if (length != int(line_2.size())) {
-         TAT_error("Different Length When Do Two Line to One Line");
+         detail::error("Different Length When Do Two Line to One Line");
       }
       // std::clog << "Two Line to One Line Start\n";
 
@@ -52,7 +52,9 @@ namespace tools {
       // std::clog << "double line:\n";
       for (auto i = 0; i < length; i++) {
          double_line.push_back(Tensor<ScalarType, Symmetry, Name>::contract(
-               line_1[i]->edge_rename({{left, left1}, {right, right1}}), line_2[i]->edge_rename({{left, left2}, {right, right2}}), {{down, up}}));
+               line_1[i]->edge_rename({{left, left1}, {right, right1}}),
+               line_2[i]->edge_rename({{left, left2}, {right, right2}}),
+               {{down, up}}));
          // std::clog << double_line[i] << "\n";
       }
 

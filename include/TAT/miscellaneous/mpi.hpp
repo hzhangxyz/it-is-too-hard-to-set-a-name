@@ -25,6 +25,7 @@
 #include <sstream>
 #include <stdexcept>
 
+#include "../utility/no_initialize_allocator.hpp"
 #include "../utility/timer.hpp"
 #include "io.hpp"
 
@@ -174,10 +175,10 @@ namespace TAT {
          MPI_Probe(source, mpi_tag, MPI_COMM_WORLD, &status);
          int length;
          MPI_Get_count(&status, MPI_BYTE, &length);
-         auto data = std::basic_string<char, std::char_traits<char>, no_initialize_allocator<char>>();
+         auto data = detail::no_initialize_string();
          data.resize(length);
          MPI_Recv(data.data(), length, MPI_BYTE, source, mpi_tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-         std::basic_istringstream<char, std::char_traits<char>, no_initialize_allocator<char>> stream(data);
+         detail::no_initialize_istringstream stream(data);
          auto result = Type();
          stream > result;
          return result;
@@ -201,7 +202,7 @@ namespace TAT {
             return value;
          }
          if (0 > root || root >= size) [[unlikely]] {
-            TAT_error("Invalid root rank when mpi broadcast");
+            detail::error("Invalid root rank when mpi broadcast");
          }
          const auto this_fake_rank = (size + rank - root) % size;
          Type result;
@@ -238,7 +239,7 @@ namespace TAT {
             return value;
          }
          if (0 > root || root >= size) [[unlikely]] {
-            TAT_error("Invalid root rank when mpi reduce");
+            detail::error("Invalid root rank when mpi reduce");
          }
          const auto this_fake_rank = (size + rank - root) % size;
          Type result;
@@ -294,7 +295,7 @@ namespace TAT {
    inline mpi_t mpi;
    /**@}*/
 
-   inline evil_t::evil_t() noexcept {
+   inline detail::evil_t::evil_t() noexcept {
 #ifdef _WIN32
       HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
       DWORD output_mode = 0;
@@ -306,22 +307,22 @@ namespace TAT {
       SetConsoleMode(error_handle, error_mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 #endif
    }
-   inline evil_t::~evil_t() {
+   inline detail::evil_t::~evil_t() {
 #ifndef NDEBUG
       mpi.log_one() << console_blue << "\n\nPremature optimization is the root of all evil!\n"
                     << console_origin << "                                       --- Donald Knuth\n\n\n";
 #endif
    }
 
-   inline void TAT_log(const char* message) {
+   inline void detail::log(const char* message) {
       mpi.log_rank() << console_yellow << message << console_origin << '\n';
    }
 
-   inline void TAT_warning(const char* message) {
+   inline void detail::warning(const char* message) {
       mpi.err_rank() << console_red << message << console_origin << '\n';
    }
 
-   inline void TAT_error(const char* message) {
+   inline void detail::error(const char* message) {
       throw std::runtime_error(message);
    }
 } // namespace TAT

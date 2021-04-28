@@ -36,5 +36,7 @@ void run_test() {
                      {{-1, 1}, {0, 2}, {1, 3}}, {{-1, 2}, {0, 3}, {1, 1}}}}
                       .zero()
              << "\n";
-   std::cout << TAT::Tensor<double, TAT::U1Symmetry>{{}, {}}.set([]() { return 123; }) << "\n";
+   std::cout << TAT::Tensor<double, TAT::U1Symmetry>{{}, {}}.set([]() {
+      return 123;
+   }) << "\n";
 }
