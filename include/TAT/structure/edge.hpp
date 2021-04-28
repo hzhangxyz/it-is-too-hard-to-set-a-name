@@ -144,24 +144,18 @@ namespace TAT {
       // 这里不可以用typename ... Args不然会和initialzier list产生歧义
       // 不知道为啥移动构造会走这一条，所以加个sfinae
       // TODO move arrow to the last argument
-      template<typename Arg>
-         requires(!std::is_same_v<std::remove_cvref_t<Arg>, Edge<Symmetry, is_pointer>>)
-      Edge(Arg&& arg, bool conjugated = false) : base_map_t(std::forward<Arg>(arg)), base_conjugated_t(conjugated) {}
-      Edge(const typename base_map_t::pair_initializer_list_t& map_, bool conjugated = false) : base_map_t(map_), base_conjugated_t(conjugated) {}
-      Edge(const typename base_map_t::symmetry_initializer_list_t& symmetries, bool conjugated = false) :
-            base_map_t(symmetries),
-            base_conjugated_t(conjugated) {}
 
       template<typename Arg>
-      Edge(Arrow arrow, Arg&& arg, bool conjugated = false) :
+         requires(!std::is_same_v<std::remove_cvref_t<Arg>, Edge<Symmetry, is_pointer>>)
+      Edge(Arg&& arg, bool conjugated = false, Arrow arrow = false) :
             base_map_t(std::forward<Arg>(arg)),
             base_conjugated_t(conjugated),
             base_arrow_t(arrow) {}
-      Edge(Arrow arrow, const typename base_map_t::pair_initializer_list_t& map, bool conjugated = false) :
+      Edge(const typename base_map_t::pair_initializer_list_t& map, bool conjugated = false, Arrow arrow = false) :
             base_map_t(map),
             base_conjugated_t(conjugated),
             base_arrow_t(arrow) {}
-      Edge(Arrow arrow, const typename base_map_t::symmetry_initializer_list_t& symmetries, bool conjugated = false) :
+      Edge(const typename base_map_t::symmetry_initializer_list_t& symmetries, bool conjugated = false, Arrow arrow = false) :
             base_map_t(symmetries),
             base_conjugated_t(conjugated),
             base_arrow_t(arrow) {}
@@ -258,6 +252,7 @@ namespace TAT {
          minimum_changed = operate(symmetry_iterator_list, minimum_changed);
          auto edge_position = rank - 1;
 
+         // TODO check conjugated 旨在U1 中会起到反转的作用，Z2不会
          while ((check_conjugated && edges[edge_position].conjugated) ? symmetry_iterator_list[edge_position]-- == edges[edge_position].map.begin() :
                                                                         ++symmetry_iterator_list[edge_position] == edges[edge_position].map.end()) {
             if (edge_position == 0) [[unlikely]] {

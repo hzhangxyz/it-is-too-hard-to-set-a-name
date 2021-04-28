@@ -149,9 +149,9 @@ namespace TAT {
       auto kernel_guard = svd_kernel_guard();
       // 经过初步测试m > n比m < n和false要好, true是显然更糟糕的
       if (m > n) {
-         auto new_a = pmr::content_vector<ScalarType>(n * m);
-         auto old_u = pmr::content_vector<ScalarType>(n * min);
-         auto old_vt = pmr::content_vector<ScalarType>(min * m);
+         auto new_a = content_vector<ScalarType>(n * m);
+         auto old_u = content_vector<ScalarType>(n * min);
+         auto old_vt = content_vector<ScalarType>(min * m);
          // new_a = a^T
          // u s vt = a
          // vt^T s u^T = a^T
@@ -174,13 +174,13 @@ namespace TAT {
       float float_lwork;
       sgesvd_("S", "S", &n, &m, a, &n, s, vt, &n, u, &min, &float_lwork, &lwork_query, &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("Error in GESVD");
+         detail::what_if_lapack_error("Error in GESVD");
       }
       const int lwork = int(float_lwork);
-      auto work = pmr::content_vector<float>(lwork);
+      auto work = content_vector<float>(lwork);
       sgesvd_("S", "S", &n, &m, a, &n, s, vt, &n, u, &min, work.data(), &lwork, &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("Error in GESVD");
+         detail::what_if_lapack_error("Error in GESVD");
       }
    }
    template<>
@@ -191,13 +191,13 @@ namespace TAT {
       double float_lwork;
       dgesvd_("S", "S", &n, &m, a, &n, s, vt, &n, u, &min, &float_lwork, &lwork_query, &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("Error in GESVD");
+         detail::what_if_lapack_error("Error in GESVD");
       }
       const int lwork = int(float_lwork);
-      auto work = pmr::content_vector<double>(lwork);
+      auto work = content_vector<double>(lwork);
       dgesvd_("S", "S", &n, &m, a, &n, s, vt, &n, u, &min, work.data(), &lwork, &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("Error in GESVD");
+         detail::what_if_lapack_error("Error in GESVD");
       }
    }
    template<>
@@ -211,18 +211,18 @@ namespace TAT {
          float* s,
          std::complex<float>* vt) {
       int result;
-      auto rwork = pmr::content_vector<float>(5 * min);
+      auto rwork = content_vector<float>(5 * min);
       const int lwork_query = -1;
       std::complex<float> float_lwork;
       cgesvd_("S", "S", &n, &m, a, &n, s, vt, &n, u, &min, &float_lwork, &lwork_query, rwork.data(), &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("Error in GESVD");
+         detail::what_if_lapack_error("Error in GESVD");
       }
       const int lwork = int(float_lwork.real());
-      auto work = pmr::content_vector<std::complex<float>>(lwork);
+      auto work = content_vector<std::complex<float>>(lwork);
       cgesvd_("S", "S", &n, &m, a, &n, s, vt, &n, u, &min, work.data(), &lwork, rwork.data(), &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("Error in GESVD");
+         detail::what_if_lapack_error("Error in GESVD");
       }
    }
    template<>
@@ -236,18 +236,18 @@ namespace TAT {
          double* s,
          std::complex<double>* vt) {
       int result;
-      auto rwork = pmr::content_vector<double>(5 * min);
+      auto rwork = content_vector<double>(5 * min);
       const int lwork_query = -1;
       std::complex<double> float_lwork;
       zgesvd_("S", "S", &n, &m, a, &n, s, vt, &n, u, &min, &float_lwork, &lwork_query, rwork.data(), &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("Error in GESVD");
+         detail::what_if_lapack_error("Error in GESVD");
       }
       const int lwork = int(float_lwork.real());
-      auto work = pmr::content_vector<std::complex<double>>(lwork);
+      auto work = content_vector<std::complex<double>>(lwork);
       zgesvd_("S", "S", &n, &m, a, &n, s, vt, &n, u, &min, work.data(), &lwork, rwork.data(), &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("Error in GESVD");
+         detail::what_if_lapack_error("Error in GESVD");
       }
    }
 #endif
@@ -308,7 +308,7 @@ namespace TAT {
          }
       }
       if (free_name_u.size() != free_name_set_u.size()) {
-         TAT_warning_or_error_when_name_missing("Name missing in SVD");
+         detail::what_if_name_missing("Name missing in SVD");
       }
       result_name_u.push_back(common_name_u);
       const bool put_v_right = free_name_v.empty() || free_name_v.back() == names.back();

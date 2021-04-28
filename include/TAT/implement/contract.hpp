@@ -301,7 +301,7 @@ namespace TAT {
          const Tensor<ScalarType, Symmetry, Name>& tensor_2,
          SetNameAndName&& contract_names) {
       auto timer_guard = contract_guard();
-      auto pmr_guard = scope_resource<default_buffer_size>();
+      auto pmr_guard = scope_resource(default_buffer_size);
       if constexpr (Symmetry::length == 0) {
          return contract_with_fuse(
                tensor_1,
@@ -331,7 +331,7 @@ namespace TAT {
          auto found_2 = map_find(tensor_2.name_to_index, std::get<1>(*iterator));
          if (found_1 == tensor_1.name_to_index.end() || found_2 == tensor_2.name_to_index.end()) [[unlikely]] {
             iterator = contract_names.erase(iterator);
-            TAT_warning_or_error_when_name_missing("Name missing in contract");
+            detail::what_if_name_missing("Name missing in contract");
          } else [[likely]] {
             ++iterator;
          }
@@ -344,7 +344,7 @@ namespace TAT {
          contract_names_2.insert(name_2);
       }
       if (contract_names_1.size() != common_rank || contract_names_2.size() != common_rank) [[unlikely]] {
-         TAT_error("Duplicated Contract Name");
+         detail::error("Duplicated Contract Name");
       }
       // Rank contract_origin_rank = contract_names_1.size();
       // for (Rank i = 0; i < contract_origin_rank; i++) {
@@ -479,7 +479,7 @@ namespace TAT {
             auto delete_unused_dimension = [](const auto& edge_this, const auto& edge_other, const auto& name_this, auto& delete_this) {
                if constexpr (is_fermi) {
                   if (edge_this.arrow == edge_other.arrow) [[unlikely]] {
-                     TAT_error("Different Fermi Arrow to Contract");
+                     detail::error("Different Fermi Arrow to Contract");
                   }
                }
                auto delete_map = pmr::map<Symmetry, Size>();
@@ -490,7 +490,7 @@ namespace TAT {
                   if (found != edge_other.map.end()) {
                      // found
                      if (const auto dimension_other = found->second; dimension_other != dimension) [[unlikely]] {
-                        TAT_error("Different Dimension to Contract");
+                        detail::error("Different Dimension to Contract");
                      }
                   } else {
                      // not found
@@ -548,12 +548,12 @@ namespace TAT {
       auto common_edge = std::move(tensor_1_merged.core->edges[put_common_1_right]);
 
       auto max_batch_size = product_result.core->blocks.size();
-      pmr::content_vector<char> transpose_a_list(max_batch_size), transpose_b_list(max_batch_size);
-      pmr::content_vector<int> m_list(max_batch_size), n_list(max_batch_size), k_list(max_batch_size), lda_list(max_batch_size),
-            ldb_list(max_batch_size), ldc_list(max_batch_size);
-      pmr::content_vector<ScalarType> alpha_list(max_batch_size), beta_list(max_batch_size);
-      pmr::content_vector<const ScalarType*> a_list(max_batch_size), b_list(max_batch_size);
-      pmr::content_vector<ScalarType*> c_list(max_batch_size);
+      content_vector<char> transpose_a_list(max_batch_size), transpose_b_list(max_batch_size);
+      content_vector<int> m_list(max_batch_size), n_list(max_batch_size), k_list(max_batch_size), lda_list(max_batch_size), ldb_list(max_batch_size),
+            ldc_list(max_batch_size);
+      content_vector<ScalarType> alpha_list(max_batch_size), beta_list(max_batch_size);
+      content_vector<const ScalarType*> a_list(max_batch_size), b_list(max_batch_size);
+      content_vector<ScalarType*> c_list(max_batch_size);
       int batch_size = 0;
 
       for (auto& [symmetries, data] : product_result.core->blocks) {
@@ -642,7 +642,7 @@ namespace TAT {
          auto found_2 = map_find(tensor_2.name_to_index, std::get<1>(*iterator));
          if (found_1 == tensor_1.name_to_index.end() || found_2 == tensor_2.name_to_index.end()) [[unlikely]] {
             iterator = contract_names.erase(iterator);
-            TAT_warning_or_error_when_name_missing("Name missing in contract");
+            detail::what_if_name_missing("Name missing in contract");
          } else [[likely]] {
             ++iterator;
          }
@@ -655,7 +655,7 @@ namespace TAT {
          contract_names_2.insert(name_2);
       }
       if (contract_names_1.size() != common_rank || contract_names_2.size() != common_rank) [[unlikely]] {
-         TAT_error("Duplicated Contract Name");
+         detail::error("Duplicated Contract Name");
       }
       // 确认fuse name即相同名称的边
       pmr::set<Name> fuse_names;
@@ -683,7 +683,7 @@ namespace TAT {
          const auto& edge_1 = tensor_1.core->edges[map_at(tensor_1.name_to_index, name)];
          const auto& edge_2 = tensor_2.core->edges[map_at(tensor_2.name_to_index, name)];
          if (!(edge_1 == edge_2)) [[unlikely]] {
-            TAT_error("Cannot fuse two edge with different shape");
+            detail::error("Cannot fuse two edge with different shape");
          }
          edge_result.push_back(edge_1);
       }

@@ -51,7 +51,7 @@ namespace TAT {
       auto timer_guard = scalar_outplace_guard(); \
       using ScalarType = std::common_type_t<ScalarType1, ScalarType2>; \
       if (tensor_1.names.size() != tensor_2.names.size()) [[unlikely]] { \
-         TAT_error("Try to do scalar operator on two different rank tensor"); \
+         detail::error("Try to do scalar operator on two different rank tensor"); \
       } \
       auto real_tensor_2_pointer = &tensor_2; \
       auto new_tensor_2 = Tensor<ScalarType2, Symmetry, Name>(); \
@@ -77,7 +77,7 @@ namespace TAT {
                            return a.first < b.first; \
                         }); \
                } else if (found->second != dimension) [[unlikely]] { \
-                  TAT_error("Try to do scalar operator on two tensors which edges not compatible"); \
+                  detail::error("Try to do scalar operator on two tensors which edges not compatible"); \
                } \
             } \
          } \
@@ -173,7 +173,7 @@ namespace TAT {
       auto timer_guard = scalar_inplace_guard(); \
       if (tensor_1.core.use_count() != 1) [[unlikely]] { \
          tensor_1.core = std::make_shared<Core<ScalarType1, Symmetry>>(*tensor_1.core); \
-         TAT_warning_or_error_when_copy_shared("Inplace operator on tensor shared, copy happened here"); \
+         detail::what_if_copy_shared("Inplace operator on tensor shared, copy happened here"); \
       } \
       auto real_tensor_2_pointer = &tensor_2; \
       auto new_tensor_2 = Tensor<ScalarType2, Symmetry, Name>(); \
@@ -183,7 +183,7 @@ namespace TAT {
       } \
       const auto& real_tensor_2 = *real_tensor_2_pointer; \
       if (tensor_1.core->edges != real_tensor_2.core->edges) [[unlikely]] { \
-         TAT_error("Scalar Operator In Different Shape Tensor, Maybe You Need Outplace Operator"); \
+         detail::error("Scalar Operator In Different Shape Tensor, Maybe You Need Outplace Operator"); \
       } \
       ScalarType1* __restrict a = tensor_1.core->storage.data(); \
       const ScalarType2* __restrict b = real_tensor_2.core->storage.data(); \
@@ -200,7 +200,7 @@ namespace TAT {
       auto timer_guard = scalar_inplace_guard(); \
       if (tensor_1.core.use_count() != 1) [[unlikely]] { \
          tensor_1.core = std::make_shared<Core<ScalarType1, Symmetry>>(*tensor_1.core); \
-         TAT_warning_or_error_when_copy_shared("Inplace operator on tensor shared, copy happened here"); \
+         detail::what_if_copy_shared("Inplace operator on tensor shared, copy happened here"); \
       } \
       ScalarType1* __restrict a = tensor_1.core->storage.data(); \
       const auto& y = number_2; \

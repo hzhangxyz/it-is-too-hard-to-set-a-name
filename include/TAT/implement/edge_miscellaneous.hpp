@@ -35,7 +35,7 @@ namespace TAT {
             if constexpr (std::is_same_v<ResultName, Name>) {
                return name;
             } else {
-               TAT_error("New names not found in edge_rename which change type of name");
+               detail::error("New names not found in edge_rename which change type of name");
                return ResultName();
             }
          } else {

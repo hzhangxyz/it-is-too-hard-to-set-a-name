@@ -100,12 +100,12 @@ namespace TAT {
    template<is_scalar ScalarType, is_symmetry Symmetry>
    struct core_blocks_t {
       using symmetry_vector_t = std::vector<Symmetry>;
-      using content_vector_t = pmr::content_vector<ScalarType>;
+      using content_vector_t = content_vector<ScalarType>;
 
       using block_map_t = std::vector<std::pair<symmetry_vector_t, content_vector_t>>;
 
-      no_initialize::vector<ScalarType> storage;
-      monotonic_buffer_resource resource;
+      detail::no_initialize_vector<ScalarType> storage;
+      detail::monotonic_buffer_resource resource;
 
       /**
        * 张量内本身的数据, 是对称性列表到数据列表的映射表, 数据列表就是张量内本身的数据,

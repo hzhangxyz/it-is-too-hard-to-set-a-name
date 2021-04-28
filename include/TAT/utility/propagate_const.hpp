@@ -24,28 +24,40 @@
 #include <memory>
 
 namespace TAT {
-   // 实现类似<experimental/propagate_const>的东西
-   // 为了简单, propagate_const_shared_ptr<T> 相当于 propagate_const<shared_ptr<T>>
-   template<typename T>
-   struct propagate_const_shared_ptr : std::shared_ptr<T> {
-      using std::shared_ptr<T>::shared_ptr;
+   namespace detail {
+      /**
+       * Shared pointer with const propagated
+       *
+       * Similar to <experimental/propagate_const>, propagate_const_shared_ptr<T> is propagate_const<shared_ptr<T>>
+       */
+      template<typename T>
+      struct propagate_const_shared_ptr : std::shared_ptr<T> {
+         using std::shared_ptr<T>::shared_ptr;
 
-      propagate_const_shared_ptr(const std::shared_ptr<T>& p) noexcept : std::shared_ptr<T>(p) {}
-      propagate_const_shared_ptr(std::shared_ptr<T>&& p) noexcept : std::shared_ptr<T>(std::move(p)) {}
+         propagate_const_shared_ptr(const std::shared_ptr<T>& p) noexcept : std::shared_ptr<T>(p) {}
+         propagate_const_shared_ptr(std::shared_ptr<T>&& p) noexcept : std::shared_ptr<T>(std::move(p)) {}
 
-      const T& operator*() const noexcept {
-         return *this->get();
-      }
-      T& operator*() noexcept {
-         return *this->get();
-      }
+         const T* get() const noexcept {
+            return std::shared_ptr<T>::get();
+         }
+         T* get() noexcept {
+            return std::shared_ptr<T>::get();
+         }
 
-      const T* operator->() const noexcept {
-         return this->get();
-      }
-      T* operator->() noexcept {
-         return this->get();
-      }
-   };
+         const T& operator*() const noexcept {
+            return *get();
+         }
+         T& operator*() noexcept {
+            return *get();
+         }
+
+         const T* operator->() const noexcept {
+            return get();
+         }
+         T* operator->() noexcept {
+            return get();
+         }
+      };
+   } // namespace detail
 } // namespace TAT
 #endif

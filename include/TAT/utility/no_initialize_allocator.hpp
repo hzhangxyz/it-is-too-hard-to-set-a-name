@@ -22,31 +22,38 @@
 #define TAT_NO_INITIALIZE_ALLOCATOR_HPP
 
 #include <memory>
-
-namespace TAT {
-   template<typename T>
-   struct no_initialize_allocator : std::allocator<T> {
-      template<typename U>
-      struct rebind {
-         using other = no_initialize_allocator<U>;
-      };
-
-      template<typename U, typename... Args>
-      void construct([[maybe_unused]] U* p, Args&&... args) {
-         if constexpr (!((sizeof...(args) == 0) && (std::is_trivially_destructible_v<T>))) {
-            new (p) U(std::forward<Args>(args)...);
-         }
-      }
-   };
-} // namespace TAT
-
+#include <sstream>
+#include <string>
 #include <vector>
 
 namespace TAT {
-   namespace no_initialize {
+   namespace detail {
+      /**
+       * Allocator without initialize the element if no parameter given
+       *
+       * Inherit from std::allocator
+       */
       template<typename T>
-      using vector = std::vector<T, no_initialize_allocator<T>>;
-   }
+      struct no_initialize_allocator : std::allocator<T> {
+         template<typename U>
+         struct rebind {
+            using other = no_initialize_allocator<U>;
+         };
+
+         template<typename U, typename... Args>
+         void construct([[maybe_unused]] U* p, Args&&... args) {
+            if constexpr (!((sizeof...(args) == 0) && (std::is_trivially_destructible_v<T>))) {
+               new (p) U(std::forward<Args>(args)...);
+            }
+         }
+      };
+
+      template<typename T>
+      using no_initialize_vector = std::vector<T, no_initialize_allocator<T>>;
+
+      using no_initialize_string = std::basic_string<char, std::char_traits<char>, no_initialize_allocator<char>>;
+      using no_initialize_istringstream = std::basic_istringstream<char, std::char_traits<char>, no_initialize_allocator<char>>;
+   } // namespace detail
 } // namespace TAT
 
 #endif

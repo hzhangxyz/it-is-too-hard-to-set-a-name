@@ -57,15 +57,15 @@ namespace TAT {
       // AX=B
       // A: n*n
       // B: n*nrhs
-      pmr::content_vector<ScalarType> AT(n * n);
+      content_vector<ScalarType> AT(n * n);
       matrix_transpose(n, n, A, AT.data());
-      pmr::content_vector<ScalarType> BT(n * nrhs);
+      content_vector<ScalarType> BT(n * nrhs);
       matrix_transpose(n, nrhs, B, BT.data());
-      pmr::content_vector<int> ipiv(n);
+      content_vector<int> ipiv(n);
       int result;
       gesv<ScalarType>(&n, &nrhs, AT.data(), &n, ipiv.data(), BT.data(), &n, &result);
       if (result != 0) {
-         TAT_warning_or_error_when_lapack_error("error in GESV");
+         detail::what_if_lapack_error("error in GESV");
       }
       matrix_transpose(nrhs, n, BT.data(), X);
    }
@@ -102,13 +102,13 @@ namespace TAT {
          A[i] *= parameter;
       }
       // D=I, N=I, X=I, c=1
-      pmr::content_vector<ScalarType> D(n * n);
+      content_vector<ScalarType> D(n * n);
       initialize_identity_matrix(D.data(), n);
-      pmr::content_vector<ScalarType> N(n * n);
+      content_vector<ScalarType> N(n * n);
       initialize_identity_matrix(N.data(), n);
-      pmr::content_vector<ScalarType> X1(n * n);
+      content_vector<ScalarType> X1(n * n);
       initialize_identity_matrix(X1.data(), n);
-      pmr::content_vector<ScalarType> X2(n * n);
+      content_vector<ScalarType> X2(n * n);
       ScalarType c = 1;
       // for k=1:q
       const ScalarType alpha = 1;
@@ -130,8 +130,8 @@ namespace TAT {
          }
       }
       // solve D@F=N for F
-      pmr::content_vector<ScalarType> F1(n * n);
-      pmr::content_vector<ScalarType> F2(n * n);
+      content_vector<ScalarType> F1(n * n);
+      content_vector<ScalarType> F2(n * n);
       auto* R = j == 0 ? F : F1.data();
       // D@R=N
       linear_solve<ScalarType>(n, D.data(), n, N.data(), R);

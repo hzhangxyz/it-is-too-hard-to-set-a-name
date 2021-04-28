@@ -54,13 +54,13 @@ namespace TAT {
    template<typename Name>
    bool check_valid_name(const std::span<Name>& names, const Rank& rank) {
       if (names.size() != rank) [[unlikely]] {
-         TAT_error("Wrong name list length which no equals to expected length");
+         detail::error("Wrong name list length which no equals to expected length");
          return false;
       }
       for (auto i = names.begin(); i != names.end(); ++i) {
          for (auto j = std::next(i); j != names.end(); ++j) {
             if (*i == *j) [[unlikely]] {
-               TAT_error("Duplicated names in name list");
+               detail::error("Duplicated names in name list");
                return false;
             }
          }
@@ -132,7 +132,7 @@ namespace TAT {
        * \see Core
        * \note 因为重命名边的操作很常见, 为了避免复制, 使用shared_ptr封装Core
        */
-      propagate_const_shared_ptr<core_t> core;
+      detail::propagate_const_shared_ptr<core_t> core;
 
       TensorShape<ScalarType, Symmetry, Name> shape() {
          return {this};
@@ -233,7 +233,7 @@ namespace TAT {
        */
       explicit operator ScalarType() const {
          if (!scalar_like()) [[unlikely]] {
-            TAT_error("Try to get the only element of the tensor which contains more than one element");
+            detail::error("Try to get the only element of the tensor which contains more than one element");
          }
          return core->storage.front();
       }
@@ -247,14 +247,14 @@ namespace TAT {
       template<map_like_range_of<Name, EdgePointWithArrow> ExpandConfigure = std::vector<std::pair<Name, EdgePointWithArrow>>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name>
       expand(ExpandConfigure&& configure, const Name& old_name = InternalName<Name>::No_Old_Name) const {
-         auto pmr_guard = scope_resource<small_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return expand_implement(may_need_sort<pmr::vector<std::pair<Name, EdgePointWithArrow>>>(std::forward<ExpandConfigure>(configure)), old_name);
       }
 
       template<map_like_range_of<Name, EdgePoint> ShrinkConfigure = std::vector<std::pair<Name, EdgePoint>>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name>
       shrink(ShrinkConfigure&& configure, const Name& new_name = InternalName<Name>::No_New_Name, Arrow arrow = false) const {
-         auto pmr_guard = scope_resource<small_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return shrink_implement(may_need_sort<pmr::vector<std::pair<Name, EdgePoint>>>(std::forward<ShrinkConfigure>(configure)), new_name, arrow);
       }
 
@@ -298,7 +298,7 @@ namespace TAT {
       Tensor<ScalarType, Symmetry, Name>& transform(Function&& function) & {
          if (core.use_count() != 1) [[unlikely]] {
             core = std::make_shared<Core<ScalarType, Symmetry>>(*core);
-            TAT_warning_or_error_when_copy_shared("Set tensor shared, copy happened here");
+            detail::what_if_copy_shared("Set tensor shared, copy happened here");
          }
          std::transform(core->storage.begin(), core->storage.end(), core->storage.begin(), function);
          return *this;
@@ -370,15 +370,14 @@ namespace TAT {
       [[nodiscard]] ScalarType& at(MapNameEdgePoint&& position) & {
          if (core.use_count() != 1) [[unlikely]] {
             core = std::make_shared<Core<ScalarType, Symmetry>>(*core);
-            TAT_warning_or_error_when_copy_shared(
-                  "Get reference which may change of shared tensor, copy happened here, use const_at to get const reference");
+            detail::what_if_copy_shared("Get reference which may change of shared tensor, copy happened here, use const_at to get const reference");
          }
          return const_cast<ScalarType&>(const_at(std::forward<MapNameEdgePoint>(position)));
       }
 
       template<map_like_range_of<Name, EdgePoint> MapNameEdgePoint = std::initializer_list<std::pair<Name, EdgePoint>>>
       [[nodiscard]] const ScalarType& const_at(MapNameEdgePoint&& position) const& {
-         auto pmr_guard = scope_resource<small_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return get_item(may_need_sort<std::vector<std::pair<Name, EdgePoint>>>(position));
       }
 
@@ -491,7 +490,7 @@ namespace TAT {
             ParityExcludeNameBeforeTranspose&& parity_exclude_name_reversed_before_transpose = {},
             ParityExcludeNameAfterTranspose&& parity_exclude_name_reversed_after_transpose = {},
             ParityExcludeNameMerge&& parity_exclude_name_merge = {}) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return edge_operator_implement(
                may_need_sort<pmr::vector<std::ranges::range_value_t<RenameMap>>>(std::forward<RenameMap>(rename_map)),
                may_need_sort<pmr::vector<std::pair<Name, typename std::ranges::range_value_t<SplitMap>::second_type>>>(
@@ -549,7 +548,7 @@ namespace TAT {
        */
       template<range_of<Name> VectorName = std::initializer_list<Name>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name> transpose(VectorName&& target_names) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return edge_operator_implement(
                empty_list<std::pair<Name, Name>>(),
                empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
@@ -574,7 +573,7 @@ namespace TAT {
       template<range_of<Name> ReversedName = std::initializer_list<Name>, range_of<Name> ExcludeName = std::initializer_list<Name>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name>
       reverse_edge(ReversedName&& reversed_name, bool apply_parity = false, ExcludeName&& parity_exclude_name = {}) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return edge_operator_implement(
                empty_list<std::pair<Name, Name>>(),
                empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
@@ -607,7 +606,7 @@ namespace TAT {
             bool apply_parity = false,
             ParityExcludeNameMerge&& parity_exclude_name_merge = {},
             ParityExcludeNameAfterTranspose&& parity_exclude_name_reverse = {}) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return merge_edge_implement(
                may_need_sort<pmr::vector<std::pair<Name, typename std::ranges::range_value_t<MergeMap>::second_type>>>(std::forward<MergeMap>(merge)),
                apply_parity,
@@ -633,7 +632,7 @@ namespace TAT {
             range_of<Name> ParityExcludeNameSplit = std::initializer_list<Name>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name>
       split_edge(SplitMap&& split, bool apply_parity = false, ParityExcludeNameSplit&& parity_exclude_name_split = {}) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return split_edge_implement(
                may_need_sort<pmr::vector<std::pair<Name, typename std::ranges::range_value_t<SplitMap>::second_type>>>(std::forward<SplitMap>(split)),
                apply_parity,
@@ -716,7 +715,7 @@ namespace TAT {
        */
       template<pair_range_of<Name> SetNameAndName = std::initializer_list<std::tuple<Name, Name>>>
       Tensor<ScalarType, Symmetry, Name>& identity(SetNameAndName&& pairs) & {
-         auto pmr_guard = scope_resource<small_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return identity_implement(may_need_sort<pmr::vector<std::ranges::range_value_t<SetNameAndName>>>(std::forward<SetNameAndName>(pairs)));
       }
 
@@ -736,7 +735,7 @@ namespace TAT {
        */
       template<pair_range_of<Name> SetNameAndName = std::initializer_list<std::pair<Name, Name>>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name> exponential(SetNameAndName&& pairs, int step = 2) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return exponential_implement(
                may_need_sort<pmr::vector<std::ranges::range_value_t<SetNameAndName>>>(std::forward<SetNameAndName>(pairs)),
                step);
@@ -754,7 +753,7 @@ namespace TAT {
 
       template<pair_range_of<Name> SetNameAndName = std::initializer_list<std::pair<Name, Name>>>
       [[nodiscard]] Tensor<ScalarType, Symmetry, Name> trace(SetNameAndName&& trace_names) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return trace_implement(may_need_sort<pmr::vector<std::ranges::range_value_t<SetNameAndName>>>(std::forward<SetNameAndName>(trace_names)));
       }
 
@@ -809,7 +808,7 @@ namespace TAT {
           Size cut = Size(-1),
           const Name& singular_name_u = InternalName<Name>::SVD_U,
           const Name& singular_name_v = InternalName<Name>::SVD_V) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return svd_implement(
                may_need_sort<pmr::vector<Name>>(std::forward<SetName>(free_name_set_u)),
                common_name_u,
@@ -840,7 +839,7 @@ namespace TAT {
        */
       template<range_of<Name> SetName = std::initializer_list<Name>>
       [[nodiscard]] qr_result qr(char free_name_direction, SetName&& free_name_set, const Name& common_name_q, const Name& common_name_r) const {
-         auto pmr_guard = scope_resource<default_buffer_size>();
+         auto pmr_guard = scope_resource(default_buffer_size);
          return qr_implement(
                free_name_direction,
                may_need_sort<pmr::vector<Name>>(std::forward<SetName>(free_name_set)),

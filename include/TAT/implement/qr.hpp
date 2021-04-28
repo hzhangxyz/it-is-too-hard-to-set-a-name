@@ -209,18 +209,18 @@ namespace TAT {
          // XXX   X  XXX    XQQ
          // XXX = XX XXX -> XXQ
          int result;
-         auto tau = pmr::content_vector<ScalarType>(min);
+         auto tau = content_vector<ScalarType>(min);
          const int lwork_query = -1;
          ScalarType float_lwork;
          gelqf<ScalarType>(&n, &m, data, &n, tau.data(), &float_lwork, &lwork_query, &result);
          if (result != 0) {
-            TAT_error("Error in LQ");
+            detail::error("Error in LQ");
          }
          const int lwork = to_int(float_lwork);
-         auto work = pmr::content_vector<ScalarType>(lwork);
+         auto work = content_vector<ScalarType>(lwork);
          gelqf<ScalarType>(&n, &m, data, &n, tau.data(), work.data(), &lwork, &result);
          if (result != 0) {
-            TAT_error("Error in LQ");
+            detail::error("Error in LQ");
          }
          // Q matrix
          // data n*m
@@ -231,7 +231,7 @@ namespace TAT {
          orglq<ScalarType>(&min, &m, &min, data_1, &min, tau.data(), work.data(), &lwork, &result);
          // WRONG -> orglq<ScalarType>(&min, &min, &min, data_1, &min, tau.data(), work.data(), &lwork, &result);
          if (result != 0) {
-            TAT_error("Error in LQ");
+            detail::error("Error in LQ");
          }
          // L matrix
          for (auto i = 0; i < min; i++) {
@@ -249,18 +249,18 @@ namespace TAT {
          // XXX   XX XXX    XXX
          // XXX = XX  XX -> QXX
          int result;
-         auto tau = pmr::content_vector<ScalarType>(min);
+         auto tau = content_vector<ScalarType>(min);
          const int lwork_query = -1;
          ScalarType float_lwork;
          geqrf<ScalarType>(&n, &m, data, &n, tau.data(), &float_lwork, &lwork_query, &result);
          if (result != 0) {
-            TAT_error("Error in LQ");
+            detail::error("Error in LQ");
          }
          const int lwork = to_int(float_lwork);
-         auto work = pmr::content_vector<ScalarType>(lwork);
+         auto work = content_vector<ScalarType>(lwork);
          geqrf<ScalarType>(&n, &m, data, &n, tau.data(), work.data(), &lwork, &result);
          if (result != 0) {
-            TAT_error("Error in QR");
+            detail::error("Error in QR");
          }
          // Q matrix
          std::copy(data, data + n * min, data_2); // 多复制了无用的上三角部分
@@ -271,7 +271,7 @@ namespace TAT {
          // WRONG -> orgqr<ScalarType>(&min, &min, &min, data_2, &n, tau.data(), work.data(), &lwork, &result);
          // same size of lwork
          if (result != 0) {
-            TAT_error("Error in QR");
+            detail::error("Error in QR");
          }
          // R matrix
          for (auto i = 0; i < min; i++) {
@@ -299,9 +299,9 @@ namespace TAT {
       // 有时可能多转置一下更快，参见svd中的做法
       // 经过初步测试m > n看起来最好
       if (m > n) {
-         auto new_data = pmr::content_vector<ScalarType>(n * m);
-         auto old_data_1 = pmr::content_vector<ScalarType>(n * min);
-         auto old_data_2 = pmr::content_vector<ScalarType>(min * m);
+         auto new_data = content_vector<ScalarType>(n * m);
+         auto old_data_1 = content_vector<ScalarType>(n * min);
+         auto old_data_2 = content_vector<ScalarType>(min * m);
          matrix_transpose(m, n, data, new_data.data());
          calculate_qr_kernel(n, m, min, max, new_data.data(), old_data_1.data(), old_data_2.data(), !use_qr_not_lq);
          matrix_transpose(n, min, old_data_1.data(), data_2);
@@ -331,7 +331,7 @@ namespace TAT {
       } else if (free_name_direction == 'q' || free_name_direction == 'Q') {
          use_r_name = false;
       } else {
-         TAT_error("Invalid direction in QR");
+         detail::error("Invalid direction in QR");
       };
       bool use_qr_not_lq = names.empty() || ((set_find(free_name_set, names.back()) != free_name_set.end()) == use_r_name);
       // merge
@@ -381,12 +381,12 @@ namespace TAT {
       if (use_r_name == use_qr_not_lq) {
          // set is the second name
          if (free_name_2.size() != free_name_set.size()) {
-            TAT_warning_or_error_when_name_missing("Name missing in QR");
+            detail::what_if_name_missing("Name missing in QR");
          }
       } else {
          // set is the first name
          if (free_name_1.size() != free_name_set.size()) {
-            TAT_warning_or_error_when_name_missing("Name missing in QR");
+            detail::what_if_name_missing("Name missing in QR");
          }
       }
       result_name_1.push_back(use_qr_not_lq ? common_name_q : common_name_r);
