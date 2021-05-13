@@ -22,8 +22,8 @@ import TAT
 
 __all__ = ["SquareAuxiliariesSystem"]
 
-CTensor: type = TAT.Tensor.ZNo
-Tensor: type = TAT.Tensor.DNo
+CTensor: type = TAT.No.Z.Tensor
+Tensor: type = TAT.No.D.Tensor
 
 
 class SquareAuxiliariesSystem:

@@ -24,8 +24,8 @@ from .sampling_gradient_lattice import SamplingGradientLattice
 
 __all__ = ["SquareAuxiliariesSystem", "ExactLattice", "SimpleUpdateLattice", "SamplingGradientLattice", "CTensor", "Tensor", "Sx", "Sy", "Sz", "SxSx", "SySy", "SzSz", "SS"]
 
-CTensor: type = TAT.Tensor.ZNo
-Tensor: type = TAT.Tensor.DNo
+CTensor: type = TAT.No.Z.Tensor
+Tensor: type = TAT.No.D.Tensor
 
 Sx: Tensor = Tensor(["I0", "O0"], [2, 2])
 Sx.block[{}] = [[0, 0.5], [0.5, 0]]
@@ -34,8 +34,8 @@ Sy.block[{}] = [[0, -0.5j], [0.5j, 0]]
 Sz: Tensor = Tensor(["I0", "O0"], [2, 2])
 Sz.block[{}] = [[0.5, 0], [0, -0.5]]
 
-SxSx: Tensor = Sx.edge_rename({"I0": "I1", "O0": "O1"}).contract_all_edge(Sx).to(float)
-SySy: Tensor = Sy.edge_rename({"I0": "I1", "O0": "O1"}).contract_all_edge(Sy).to(float)
-SzSz: Tensor = Sz.edge_rename({"I0": "I1", "O0": "O1"}).contract_all_edge(Sz).to(float)
+SxSx: Tensor = Sx.edge_rename({"I0": "I1", "O0": "O1"}).contract(Sx, set()).to(float)
+SySy: Tensor = Sy.edge_rename({"I0": "I1", "O0": "O1"}).contract(Sy, set()).to(float)
+SzSz: Tensor = Sz.edge_rename({"I0": "I1", "O0": "O1"}).contract(Sz, set()).to(float)
 
 SS: Tensor = SxSx + SySy + SzSz

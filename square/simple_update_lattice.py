@@ -25,8 +25,8 @@ from . import sampling_gradient_lattice
 
 __all__ = ["SimpleUpdateLattice"]
 
-CTensor: type = TAT.Tensor.ZNo
-Tensor: type = TAT.Tensor.DNo
+CTensor: type = TAT.No.Z.Tensor
+Tensor: type = TAT.No.D.Tensor
 
 clear_line = "\u001b[2K"
 
