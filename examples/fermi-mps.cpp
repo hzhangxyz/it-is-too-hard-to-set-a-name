@@ -34,17 +34,20 @@ struct MPS {
    MPS(int n, int d, G&& g) : dimension(d) {
       for (int i = 0; i < n; i++) {
          if (i == 0) {
-            chain.push_back(Tensor({"Total", "Phy", "Right"}, {{-1}, {0, 1}, {1, 0}}, true).set(g));
+            chain.push_back(Tensor({"Total", "Phy", "Right"}, {{{-1}, true}, {{0, 1}, false}, {{1, 0}, false}}).set(g));
             //}
             // if (i == 1) {
             //   chain.push_back(Tensor({"Left", "Phy", "Right"}, {{{-2, 1}, {-1, 1}}, {{0, 1}, {1, 1}}, {{2, 1}, {1, 2}, {0, 1}}}, true).set(g));
             //} else if (i == 2) {
             //   chain.push_back(Tensor({"Left", "Phy", "Right"}, {{{-2, 1}, {-1, 2}, {0, 1}}, {{0, 1}, {1, 1}}, {{1, 1}, {0, 1}}}, true).set(g));
          } else {
-            chain.push_back(Tensor({"Left", "Phy"}, {{-1, 0}, {0, 1}}, true).set(g));
+            chain.push_back(Tensor({"Left", "Phy"}, {{{-1, 0}, true}, {{0, 1}, false}}).set(g));
          }
       }
-      hamiltonian = Tensor({"I0", "I1", "O0", "O1"}, {{{0, 1}, {-1, 1}}, {{0, 1}, {-1, 1}}, {{0, 1}, {1, 1}}, {{0, 1}, {1, 1}}}, true).zero();
+      hamiltonian = Tensor(
+                          {"I0", "I1", "O0", "O1"},
+                          {{{{0, 1}, {-1, 1}}, true}, {{{0, 1}, {-1, 1}}, true}, {{{0, 1}, {1, 1}}, false}, {{{0, 1}, {1, 1}}, false}})
+                          .zero();
       hamiltonian.block({{"I0", 0}, {"O0", 1}, {"I1", -1}, {"O1", 0}})[0] = 1;
       hamiltonian.block({{"I1", 0}, {"O1", 1}, {"I0", -1}, {"O0", 0}})[0] = 1;
    }

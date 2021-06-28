@@ -36,13 +36,12 @@ namespace TAT {
                return name;
             } else {
                detail::error("New names not found in edge_rename which change type of name");
-               return ResultName();
             }
          } else {
             return position->second;
          }
       });
-      result.name_to_index = construct_name_to_index<ResultName>(result.names);
+      result.name_to_index = construct_name_to_index(result.names);
       return result;
    }
 
@@ -95,8 +94,7 @@ namespace TAT {
       }
       std::reverse(target_name.begin(), target_name.end());
       return edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
-            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_segment_t<Symmetry>>>>>(),
             empty_list<Name>(),
             merge,
             std::move(target_name),
@@ -133,7 +131,6 @@ namespace TAT {
          }
       }
       return edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
             split,
             empty_list<Name>(),
             empty_list<std::pair<Name, std::initializer_list<Name>>>(),

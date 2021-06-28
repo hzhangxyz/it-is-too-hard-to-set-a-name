@@ -20,7 +20,12 @@
 #include "run_test.hpp"
 
 void run_test() {
-   std::cout << TAT::Tensor<double, TAT::Z2Symmetry>{{"Left", "Right", "Up"}, {{{1, 3}, {0, 1}}, {{1, 1}, {0, 2}}, {{1, 2}, {0, 3}}}}.zero() << "\n";
+#define edge_seg(...) {__VA_ARGS__}
+   std::cout << TAT::Tensor<
+                      double,
+                      TAT::Z2Symmetry>{{"Left", "Right", "Up"}, {edge_seg({1, 3}, {0, 1}), edge_seg({1, 1}, {0, 2}), edge_seg({1, 2}, {0, 3})}}
+                      .zero()
+             << "\n";
    std::cout << TAT::Tensor<
                       double,
                       TAT::U1Symmetry>{{"Left", "Right", "Up"}, {{{-1, 3}, {0, 1}, {1, 2}}, {{-1, 1}, {0, 2}, {1, 3}}, {{-1, 2}, {0, 3}, {1, 1}}}}
@@ -39,4 +44,6 @@ void run_test() {
    std::cout << TAT::Tensor<double, TAT::U1Symmetry>{{}, {}}.set([]() {
       return 123;
    }) << "\n";
+   std::cout << TAT::Tensor<double, TAT::U1Symmetry>::one(2333, {"i", "j"}, {-2, +2}) << "\n";
+   std::cout << TAT::Tensor<double, TAT::U1Symmetry>::one(2333, {"i", "j"}, {-2, +2}).block({{"i", -2}, {"j", +2}}).front() << "\n";
 }

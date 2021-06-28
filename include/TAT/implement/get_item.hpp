@@ -25,53 +25,49 @@
 #include "../utility/allocator.hpp"
 
 namespace TAT {
+
+   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
+   const auto& Tensor<ScalarType, Symmetry, Name>::get_block(const auto& map) const& {
+      auto symmetries = pmr::vector<Symmetry>();
+      symmetries.reserve(names.size());
+      for (const auto& name : names) {
+         symmetries.push_back(map_at(map, name));
+      }
+      return map_at<true>(core->blocks, symmetries);
+   }
+
    template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
    const ScalarType& Tensor<ScalarType, Symmetry, Name>::get_item(const auto& position) const& {
-      const auto rank = Rank(names.size());
-      if constexpr (Symmetry::length == 0) {
-         auto scalar_position = pmr::vector<Size>();
-         auto dimensions = pmr::vector<Size>();
-         scalar_position.reserve(rank);
-         dimensions.reserve(rank);
-         for (auto i = 0; i < rank; i++) {
-            if (auto found = map_find(position, names[i]); found != position.end()) [[likely]] {
-               scalar_position.push_back(found->second);
-            } else [[unlikely]] {
-               detail::error("Name not found in position map when finding offset");
+      auto rank = names.size();
+      auto symmetries = pmr::vector<Symmetry>();
+      auto scalar_position = pmr::vector<Size>();
+      auto dimensions = pmr::vector<Size>();
+      symmetries.reserve(rank);
+      scalar_position.reserve(rank);
+      dimensions.reserve(rank);
+      for (auto i = 0; i < rank; i++) {
+         const auto& name = names[i];
+         auto found = map_find(position, name);
+         if (found == position.end()) {
+            detail::error("Name not found in position map when finding block and offset");
+         }
+         const auto& [symmetry, index] = [edge = edges(i)](const auto& point_or_index) {
+            if constexpr (std::is_integral_v<std::remove_cvref_t<decltype(point_or_index)>>) {
+               return edge.get_point_from_index(point_or_index);
+            } else {
+               return point_or_index;
             }
-            dimensions.push_back(core->edges[i].map.begin()->second);
-         }
-         Size offset = 0;
-         for (Rank j = 0; j < rank; j++) {
-            offset *= dimensions[j];
-            offset += scalar_position[j];
-         }
-         return core->blocks.front().second[offset];
-      } else {
-         auto symmetries = pmr::vector<Symmetry>();
-         auto scalar_position = pmr::vector<Size>();
-         auto dimensions = pmr::vector<Size>();
-         symmetries.reserve(rank);
-         scalar_position.reserve(rank);
-         dimensions.reserve(rank);
-         for (auto i = 0; i < rank; i++) {
-            const auto& name = names[i];
-            auto found = map_find(position, name);
-            if (found == position.end()) {
-               detail::error("Name not found in position map when finding block and offset");
-            }
-            const auto& [symmetry, index] = found->second;
-            symmetries.push_back(symmetry);
-            scalar_position.push_back(index);
-            dimensions.push_back(map_at(core->edges[i].map, symmetry));
-         }
-         Size offset = 0;
-         for (Rank j = 0; j < rank; j++) {
-            offset *= dimensions[j];
-            offset += scalar_position[j];
-         }
-         return map_at<true>(core->blocks, symmetries)[offset];
+         }(found->second);
+         symmetries.push_back(symmetry);
+         scalar_position.push_back(index);
+         dimensions.push_back(edges(i).get_dimension_from_symmetry(symmetry));
       }
+      Size offset = 0;
+      for (Rank j = 0; j < rank; j++) {
+         offset *= dimensions[j];
+         offset += scalar_position[j];
+      }
+      return map_at<true>(core->blocks, symmetries)[offset];
    }
 } // namespace TAT
 #endif

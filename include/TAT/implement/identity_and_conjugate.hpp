@@ -42,13 +42,9 @@ namespace TAT {
          if constexpr (Symmetry::is_fermi_symmetry) {
             result_edge.arrow = !edge.arrow;
          }
-         if constexpr (Symmetry::length != 0) {
-            result_edge.conjugated = !edge.arrow;
+         for (const auto& [symmetry, dimension] : edge.segment) {
+            result_edge.segment.emplace_back(-symmetry, dimension);
          }
-         for (const auto& [symmetry, dimension] : edge.map) {
-            result_edge.map.emplace_back(-symmetry, dimension);
-         }
-         do_sort(result_edge.map);
       }
       auto transpose_flag = pmr::vector<Rank>(names.size(), 0);
       auto valid_flag = pmr::vector<bool>(1, true);
@@ -91,7 +87,6 @@ namespace TAT {
       return result;
    }
 
-   /// \private
    void set_to_identity(auto* pointer, const std::span<const Size>& dimension, const std::span<const Size>& leading, Rank rank) {
       auto current_index = pmr::vector<Size>(rank, 0);
       while (true) {
@@ -152,7 +147,7 @@ namespace TAT {
          auto dimension = pmr::vector<Size>(rank);
          auto leading = pmr::vector<Size>(rank);
          for (Rank i = rank; i-- > 0;) {
-            dimension[i] = map_at(core->edges[i].map, symmetries[i]);
+            dimension[i] = edges(i).get_dimension_from_symmetry(symmetries[i]);
             if (i == rank - 1) {
                leading[i] = 1;
             } else {

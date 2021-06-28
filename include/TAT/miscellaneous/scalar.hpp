@@ -61,82 +61,27 @@ namespace TAT {
       } \
       const auto& real_tensor_2 = *real_tensor_2_pointer; \
       if (tensor_1.core->edges != real_tensor_2.core->edges) [[unlikely]] { \
-         auto new_result_edge = decltype(tensor_1.core->edges)(); \
-         new_result_edge.reserve(tensor_1.names.size()); \
-         for (Rank i = 0; i < tensor_1.names.size(); i++) { \
-            auto& single_new_edge = new_result_edge.emplace_back(tensor_1.core->edges.at(i)); \
-            for (auto [symmetry, dimension] : real_tensor_2.core->edges.at(i).map) { \
-               auto found = map_find(single_new_edge.map, symmetry); \
-               if (found == single_new_edge.map.end()) [[unlikely]] { \
-                  single_new_edge.map.emplace_back(symmetry, dimension); \
-                  std::inplace_merge( \
-                        single_new_edge.map.begin(), \
-                        std::prev(single_new_edge.map.end()), \
-                        single_new_edge.map.end(), \
-                        [](const auto& a, const auto& b) { \
-                           return a.first < b.first; \
-                        }); \
-               } else if (found->second != dimension) [[unlikely]] { \
-                  detail::error("Try to do scalar operator on two tensors which edges not compatible"); \
-               } \
-            } \
-         } \
-\
-         const ScalarType x = 0; \
-         const ScalarType y = 0; \
-         auto result = Tensor<ScalarType, Symmetry, Name>{tensor_1.names, std::move(new_result_edge)}; \
-         for (auto& [symmetries, block] : result.core->blocks) { \
-            auto found_1 = map_find(tensor_1.core->blocks, symmetries); \
-            auto found_2 = map_find(real_tensor_2.core->blocks, symmetries); \
-            if (found_1 != tensor_1.core->blocks.end()) { \
-               if (found_2 != real_tensor_2.core->blocks.end()) { \
-                  const ScalarType1* __restrict a = map_at(tensor_1.core->blocks, symmetries).data(); \
-                  const ScalarType2* __restrict b = map_at(real_tensor_2.core->blocks, symmetries).data(); \
-                  ScalarType* __restrict c = block.data(); \
-                  for (Size j = 0; j < block.size(); j++) { \
-                     EVAL3; \
-                  } \
-               } else { \
-                  const ScalarType1* __restrict a = map_at(tensor_1.core->blocks, symmetries).data(); \
-                  ScalarType* __restrict c = block.data(); \
-                  for (Size j = 0; j < block.size(); j++) { \
-                     EVAL2; \
-                  } \
-               } \
-            } else { \
-               if (found_2 != real_tensor_2.core->blocks.end()) { \
-                  const ScalarType2* __restrict b = map_at(real_tensor_2.core->blocks, symmetries).data(); \
-                  ScalarType* __restrict c = block.data(); \
-                  for (Size j = 0; j < block.size(); j++) { \
-                     EVAL1; \
-                  } \
-               } else { \
-                  std::fill(block.begin(), block.end(), 0); \
-               } \
-            } \
-         } \
-         return result; \
-      } else [[likely]] { \
-         auto result = Tensor<ScalarType, Symmetry, Name>{tensor_1.names, tensor_1.core->edges}; \
-         const ScalarType1* __restrict a = tensor_1.core->storage.data(); \
-         const ScalarType2* __restrict b = real_tensor_2.core->storage.data(); \
-         ScalarType* __restrict c = result.core->storage.data(); \
-         const auto size = result.core->storage.size(); \
-         for (Size j = 0; j < size; j++) { \
-            EVAL3; \
-         } \
-         return result; \
+         detail::error("Try to do scalar operator on two tensors which edges not compatible"); \
       } \
+      auto result = Tensor<ScalarType, Symmetry, Name>{tensor_1.names, tensor_1.core->edges}; \
+      const ScalarType1* __restrict a = tensor_1.storage().data(); \
+      const ScalarType2* __restrict b = real_tensor_2.storage().data(); \
+      ScalarType* __restrict c = result.storage().data(); \
+      const auto size = result.storage().size(); \
+      for (Size j = 0; j < size; j++) { \
+         EVAL3; \
+      } \
+      return result; \
    } \
    template<is_scalar ScalarType1, is_scalar ScalarType2, is_symmetry Symmetry, is_name Name> \
    [[nodiscard]] auto OP(const Tensor<ScalarType1, Symmetry, Name>& tensor_1, const ScalarType2& number_2) { \
       auto timer_guard = scalar_outplace_guard(); \
       using ScalarType = std::common_type_t<ScalarType1, ScalarType2>; \
-      const ScalarType1* __restrict a = tensor_1.core->storage.data(); \
+      const ScalarType1* __restrict a = tensor_1.storage().data(); \
       const auto& y = number_2; \
       auto result = Tensor<ScalarType, Symmetry, Name>{tensor_1.names, tensor_1.core->edges}; \
-      ScalarType* __restrict c = result.core->storage.data(); \
-      const auto size = result.core->storage.size(); \
+      ScalarType* __restrict c = result.storage().data(); \
+      const auto size = result.storage().size(); \
       for (Size j = 0; j < size; j++) { \
          EVAL2; \
       } \
@@ -147,10 +92,10 @@ namespace TAT {
       auto timer_guard = scalar_outplace_guard(); \
       using ScalarType = std::common_type_t<ScalarType1, ScalarType2>; \
       const auto& x = number_1; \
-      const ScalarType2* __restrict b = tensor_2.core->storage.data(); \
+      const ScalarType2* __restrict b = tensor_2.storage().data(); \
       auto result = Tensor<ScalarType, Symmetry, Name>{tensor_2.names, tensor_2.core->edges}; \
-      ScalarType* __restrict c = result.core->storage.data(); \
-      const auto size = result.core->storage.size(); \
+      ScalarType* __restrict c = result.storage().data(); \
+      const auto size = result.storage().size(); \
       for (Size j = 0; j < size; j++) { \
          EVAL1; \
       } \
@@ -183,11 +128,11 @@ namespace TAT {
       } \
       const auto& real_tensor_2 = *real_tensor_2_pointer; \
       if (tensor_1.core->edges != real_tensor_2.core->edges) [[unlikely]] { \
-         detail::error("Scalar Operator In Different Shape Tensor, Maybe You Need Outplace Operator"); \
+         detail::error("Try to do scalar operator on two tensors which edges not compatible"); \
       } \
-      ScalarType1* __restrict a = tensor_1.core->storage.data(); \
-      const ScalarType2* __restrict b = real_tensor_2.core->storage.data(); \
-      const auto size = tensor_1.core->storage.size(); \
+      ScalarType1* __restrict a = tensor_1.storage().data(); \
+      const ScalarType2* __restrict b = real_tensor_2.storage().data(); \
+      const auto size = tensor_1.storage().size(); \
       for (Size j = 0; j < size; j++) { \
          EVAL2; \
       } \
@@ -202,9 +147,9 @@ namespace TAT {
          tensor_1.core = std::make_shared<Core<ScalarType1, Symmetry>>(*tensor_1.core); \
          detail::what_if_copy_shared("Inplace operator on tensor shared, copy happened here"); \
       } \
-      ScalarType1* __restrict a = tensor_1.core->storage.data(); \
+      ScalarType1* __restrict a = tensor_1.storage().data(); \
       const auto& y = number_2; \
-      const auto size = tensor_1.core->storage.size(); \
+      const auto size = tensor_1.storage().size(); \
       for (Size j = 0; j < size; j++) { \
          EVAL1; \
       } \

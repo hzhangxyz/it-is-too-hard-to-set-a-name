@@ -29,7 +29,8 @@ void run_test() {
                       .set([]() {
                          return 10;
                       })
-                      .at({})
+                      .at()
              << "\n";
    std::cout << TAT::Tensor<std::complex<double>, TAT::NoSymmetry>{{"Left", "Right"}, {3, 4}}.range().at({{"Right", 2}, {"Left", 1}}) << "\n";
+   std::cout << TAT::Tensor<double, TAT::NoSymmetry>::one(2333, {"i", "j"}) << "\n";
 }

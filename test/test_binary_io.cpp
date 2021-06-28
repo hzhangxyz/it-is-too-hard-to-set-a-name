@@ -57,11 +57,14 @@ void run_test() {
    ss > h;
    std::cout << g << "\n";
    std::cout << h << "\n";
+#define f_edge(...) \
+   { {__VA_ARGS__}, false }
+#define t_edge(...) \
+   { {__VA_ARGS__}, true }
    auto i =
          TAT::Tensor<std::complex<double>, TAT::FermiSymmetry>{
                {"Left", "Right", "Up"},
-               {{{-2, 3}, {0, 1}, {-1, 2}}, {{0, 2}, {1, 3}}, {{0, 3}, {1, 1}}},
-               true}
+               {t_edge({-2, 3}, {0, 1}, {-1, 2}), f_edge({0, 2}, {1, 3}), f_edge({0, 3}, {1, 1})}}
                .range(2);
    ss < i;
    auto j = TAT::Tensor<std::complex<double>, TAT::FermiSymmetry>();

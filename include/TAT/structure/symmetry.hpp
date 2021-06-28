@@ -141,12 +141,12 @@ namespace TAT {
          return negative_symmetry(*this, index_sequence());
       }
 
-    public:
+    private:
       /**
        * get parity of certain term of symmetry, if it is bose term, return false
        */
       template<std::size_t Index>
-      [[nodiscard]] bool get_item_parity() const {
+      [[nodiscard]] bool single_term_get_parity_helper() const {
          if constexpr (is_fermi_item[Index]) {
             const auto quantum_number = std::get<Index>(*this);
             if constexpr (std::is_same_v<decltype(quantum_number), bool>) {
@@ -159,16 +159,21 @@ namespace TAT {
          }
       }
 
-    private:
-      template<std::size_t Index>
-      static void update_symmetry_result_single_item_for_get_reverse_parity(bool& result, const self_t& symmetry) {
-         if constexpr (is_fermi_item[Index]) {
-            result ^= symmetry.get_item_parity<Index>();
-         }
-      }
       template<std::size_t... Is>
-      static void update_symmetry_result_for_get_reverse_parity(bool& result, const self_t& symmetry, std::index_sequence<Is...>) {
-         (update_symmetry_result_single_item_for_get_reverse_parity<Is>(result, symmetry), ...);
+      bool get_parity_helper(std::index_sequence<Is...>) const {
+         return (single_term_get_parity_helper<Is>() ^ ...);
+      }
+
+    public:
+      /**
+       * Get the total parity, whether fermion or boson
+       */
+      [[nodiscard]] bool get_parity() const {
+         if constexpr (is_fermi_symmetry) {
+            return get_parity_helper(index_sequence());
+         } else {
+            return false;
+         }
       }
 
     public:
@@ -188,23 +193,10 @@ namespace TAT {
          auto result = false;
          for (Rank i = 0; i < symmetries.size(); i++) {
             if (reverse_flag[i] && valid_mark[i]) {
-               update_symmetry_result_for_get_reverse_parity(result, symmetries[i], index_sequence());
+               result ^= symmetries[i].get_parity();
             }
          }
          return result;
-      }
-
-    private:
-      template<std::size_t Index>
-      static void update_symmetry_result_single_item_for_get_transpose_parity(bool& result, const self_t& symmetry_1, const self_t& symmetry_2) {
-         if constexpr (is_fermi_item[Index]) {
-            result ^= symmetry_1.get_item_parity<Index>() && symmetry_2.get_item_parity<Index>();
-         }
-      }
-      template<std::size_t... Is>
-      static void
-      update_symmetry_result_for_get_transpose_parity(bool& result, const self_t& symmetry_1, const self_t& symmetry_2, std::index_sequence<Is...>) {
-         (update_symmetry_result_single_item_for_get_transpose_parity<Is>(result, symmetry_1, symmetry_2), ...);
       }
 
     public:
@@ -223,37 +215,11 @@ namespace TAT {
          for (Rank i = 0; i < symmetries.size(); i++) {
             for (Rank j = i + 1; j < symmetries.size(); j++) {
                if (transpose_plan[i] > transpose_plan[j]) {
-                  update_symmetry_result_for_get_transpose_parity(result, symmetries[i], symmetries[j], index_sequence());
+                  result ^= symmetries[i].get_parity() && symmetries[j].get_parity();
                }
             }
          }
          return result;
-      }
-
-    private:
-      template<std::size_t Index>
-      static void update_symmetry_result_single_item_for_get_split_merge_parity(
-            bool& result,
-            const range_of<self_t> auto& symmetries,
-            Rank split_merge_begin_position,
-            Rank split_merge_end_position) {
-         if constexpr (is_fermi_item[Index]) {
-            auto sum_of_parity = 0l;
-            for (auto position_in_group = split_merge_begin_position; position_in_group < split_merge_end_position; position_in_group++) {
-               sum_of_parity += symmetries[position_in_group].template get_item_parity<Index>();
-            }
-            result ^= bool(((sum_of_parity * sum_of_parity - sum_of_parity) / 2) % 2);
-         }
-      }
-      template<std::size_t... Is>
-      static void update_symmetry_result_for_get_split_merge_parity(
-            bool& result,
-            const range_of<self_t> auto& symmetries,
-            Rank split_merge_begin_position,
-            Rank split_merge_end_position,
-            std::index_sequence<Is...>) {
-         (update_symmetry_result_single_item_for_get_split_merge_parity<Is>(result, symmetries, split_merge_begin_position, split_merge_end_position),
-          ...);
       }
 
     public:
@@ -265,7 +231,7 @@ namespace TAT {
        * \param valid_mark validity of each merging or splitting operation.
        *
        * \note This is equivalant to total transposition over the merging list or splitting list,
-       * while \f$\sum_{i\neq j} s_i s_j = \frac{(\sum s_i)^2 - \sum s_i^2}{2}\f$, so it can be simplified.
+       * while \f$\sum_{i\le j} s_i s_j = \frac{(\sum s_i)^2 - \sum s_i^2}{2}\f$, so it can be simplified.
        */
       [[nodiscard]] static bool get_split_merge_parity(
             const range_of<self_t> auto& symmetries,     // before merge length
@@ -281,58 +247,16 @@ namespace TAT {
                split_merge_end_position++;
             }
             if (valid_mark[split_merge_group_position]) {
-               update_symmetry_result_for_get_split_merge_parity(
-                     result,
-                     symmetries,
-                     split_merge_begin_position,
-                     split_merge_end_position,
-                     index_sequence());
+               // (sum(x)^2 - sum(x^2)) / 2 % 2 = (sum(x)^2 - sum(x)) & 2 != 0 = sum(x) & 2 != 0
+               auto sum_of_parity = 0l;
+               for (auto position_in_group = split_merge_begin_position; position_in_group < split_merge_end_position; position_in_group++) {
+                  sum_of_parity += symmetries[position_in_group].get_parity();
+               }
+               result ^= ((sum_of_parity & 2) != 0);
             }
             split_merge_begin_position = split_merge_end_position;
          }
          return result;
-      }
-
-    private:
-      template<std::size_t Head, std::size_t... Tail>
-      auto loop_to_get_first_parity_item() const {
-         if constexpr (is_fermi_item[Head]) {
-            return std::get<Head>(*this);
-         } else {
-            return loop_to_get_first_parity_item<Tail...>();
-         }
-      }
-      template<std::size_t... Is>
-      auto loop_to_get_first_parity(std::index_sequence<Is...>) const {
-         return loop_to_get_first_parity_item<Is...>();
-      }
-
-    public:
-      /**
-       * Get the first fermi parity value.
-       *
-       * Used for auto reversing
-       */
-      [[nodiscard]] auto get_first_parity() const {
-         return loop_to_get_first_parity(index_sequence());
-      }
-
-    private:
-      template<std::size_t... Is>
-      bool loop_to_get_total_parity(std::index_sequence<Is...>) const {
-         return (get_item_parity<Is>() ^ ...);
-      }
-
-    public:
-      /**
-       * Get the total parity(may not be fermi symmetry)
-       *
-       * Used in contraction
-       *
-       * TODO: whether is correct when there are many fermions?
-       */
-      [[nodiscard]] bool get_total_parity() const {
-         return loop_to_get_total_parity(index_sequence());
       }
    };
 

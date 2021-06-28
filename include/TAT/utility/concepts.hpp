@@ -28,26 +28,39 @@ namespace TAT {
    template<typename T>
    using empty_list = std::array<T, 0>;
 
-   template<typename Range, typename Value = void>
-   concept range_of = std::ranges::range<Range> &&(std::is_same_v<Value, void> || std::same_as<Value, std::ranges::range_value_t<Range>>);
-
    template<typename T, typename Target = void>
-   concept exist = std::is_same_v<T, T> &&(std::is_same_v<Target, void> || std::is_same_v<Target, T>);
+   concept exist = std::same_as<T, T> &&(std::same_as<Target, void> || std::same_as<Target, std::remove_cvref_t<T>>);
+
+   template<typename T, typename... Targets>
+   concept one_of = (exist<T, Targets> || ...);
+
+   template<typename Range, typename Value = void>
+   concept range_of = std::ranges::range<Range> && exist<std::ranges::range_value_t<Range>, Value>;
+
+   template<typename Pair, typename First = void, typename Second = void>
+   concept pair_of = requires(const Pair pair) {
+      { std::get<0>(pair) } -> exist<First>;
+      { std::get<1>(pair) } -> exist<Second>;
+   };
 
    template<typename Range, typename Key = void, typename Value = void>
-   concept map_like_range_of = std::ranges::range<Range> && exist<std::remove_cvref_t<typename std::ranges::range_value_t<Range>::first_type>, Key> &&
-         exist<std::remove_cvref_t<typename std::ranges::range_value_t<Range>::second_type>, Value>;
+   concept pair_range_of = std::ranges::range<Range> && pair_of<typename std::ranges::range_value_t<Range>, Key, Value>;
+
+   template<typename T, typename Name>
+   concept same_pair_range_of = pair_range_of<T, Name, Name>;
+
+   // The following is used to simulate map or set by vector
 
    // set or map
    template<typename Container, typename Key = void>
-   concept findable = requires(Container c, std::conditional_t<std::is_same_v<Key, void>, typename std::remove_cvref_t<Container>::key_type, Key> k) {
+   concept findable = requires(Container c, std::conditional_t<std::same_as<Key, void>, typename std::remove_cvref_t<Container>::key_type, Key> k) {
       c.find(k);
    };
 
    // A maybe just key or pair of key and value
    template<typename Key, typename A>
    const auto& get_key(const A& a) {
-      if constexpr (std::is_same_v<std::remove_cvref_t<Key>, std::remove_cvref_t<A>>) {
+      if constexpr (std::same_as<std::remove_cvref_t<Key>, std::remove_cvref_t<A>>) {
          return a;
       } else {
          return std::get<0>(a);
@@ -60,17 +73,22 @@ namespace TAT {
       std::ranges::equal(a, b);
    };
 
+   template<typename A, typename B>
+   concept value_first_type_lexicographical_comparable = lexicographical_comparable<typename std::ranges::range_value_t<A>::first_type, B>;
+
    // find for map of map like array
    template<bool Lexicographic = false, typename Container, typename Key>
-      requires(
-            Lexicographic ? lexicographical_comparable<typename std::ranges::range_value_t<Container>::first_type, Key> :
-                            map_like_range_of<Container, Key>)
+      requires(Lexicographic ? value_first_type_lexicographical_comparable<Container, Key> : pair_range_of<Container, Key>)
    constexpr auto map_find(Container& v, const Key& key) {
+      // it may be slow when v is real map but find lexicographically
       if constexpr (Lexicographic) {
          auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) {
             return std::ranges::lexicographical_compare(get_key<Key>(a), get_key<Key>(b));
          });
-         if (result == v.end() || std::ranges::equal(result->first, key)) {
+         if (result == v.end()) {
+            // result may be un dereferencable
+            return v.end();
+         } else if (std::ranges::equal(result->first, key)) {
             return result;
          } else {
             return v.end();
@@ -82,7 +100,10 @@ namespace TAT {
             auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) {
                return get_key<Key>(a) < get_key<Key>(b);
             });
-            if (result == v.end() || result->first == key) {
+            if (result == v.end()) {
+               // result may be un dereferencable
+               return v.end();
+            } else if (result->first == key) {
                return result;
             } else {
                return v.end();
@@ -93,32 +114,13 @@ namespace TAT {
 
    // at for map of map like array
    template<bool Lexicographic = false, typename Container, typename Key>
-      requires(
-            Lexicographic ? lexicographical_comparable<typename std::ranges::range_value_t<Container>::first_type, Key> :
-                            map_like_range_of<Container, Key>)
+      requires(Lexicographic ? value_first_type_lexicographical_comparable<Container, Key> : pair_range_of<Container, Key>)
    auto& map_at(Container& v, const Key& key) {
-      if constexpr (Lexicographic) {
-         auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) {
-            return std::ranges::lexicographical_compare(get_key<Key>(a), get_key<Key>(b));
-         });
-         if (result == v.end() || !std::ranges::equal(result->first, key)) {
-            throw std::out_of_range("fake map at");
-         } else {
-            return result->second;
-         }
+      auto found = map_find<Lexicographic>(v, key);
+      if (found == v.end()) {
+         throw std::out_of_range("fake map at");
       } else {
-         if constexpr (findable<Container, Key>) {
-            return v.at(key);
-         } else {
-            auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) {
-               return get_key<Key>(a) < get_key<Key>(b);
-            });
-            if (result == v.end() || result->first != key) {
-               throw std::out_of_range("fake map at");
-            } else {
-               return result->second;
-            }
-         }
+         return found->second;
       }
    }
 
@@ -131,7 +133,9 @@ namespace TAT {
          auto result = std::lower_bound(v.begin(), v.end(), key, [](const auto& a, const auto& b) {
             return a < b;
          });
-         if (result == v.end() || *result == key) {
+         if (result == v.end()) {
+            return result;
+         } else if (*result == key) {
             return result;
          } else {
             return v.end();
@@ -139,45 +143,52 @@ namespace TAT {
       }
    }
 
-   template<typename Container>
-   void do_sort(Container& c) {
-      if constexpr (map_like_range_of<Container>) {
-         // map like
-         std::ranges::sort(c, [](const auto& a, const auto& b) {
-            return std::get<0>(a) < std::get<0>(b);
-         });
-      } else {
+   // generate map/set like array
+
+   auto default_compare = [](const auto& a, const auto& b) {
+      return a < b;
+   };
+
+   template<bool force_set = false, typename Container, typename Compare = const decltype(default_compare)&>
+   void do_sort(Container& c, Compare&& compare = default_compare) {
+      if constexpr (force_set || !pair_range_of<Container>) {
          // set like
          std::ranges::sort(c);
+      } else {
+         // map like
+         std::ranges::sort(c, [&](const auto& a, const auto& b) {
+            return compare(std::get<0>(a), std::get<0>(b));
+         });
       }
    }
 
    // forward map/set like container, if need sort, sort it
+   /**
+    * forward map/set like container, if need sort, sort it
+    *
+    * if the input is a map or set, return itself
+    * if it is array, try to sort inplace(move from caller), otherwise sort outplace and return sorted array
+    *
+    * if outplace sort is needed, Result is preferred result type
+    */
    template<typename Result, typename Container>
    decltype(auto) may_need_sort(Container&& c) {
       if constexpr (findable<Container>) {
          return std::forward<Container>(c);
       } else {
-         // it is stange that if I requires do_sort(l) here, program cannot compile.
+         // it is strange that if I requires do_sort(l) here, program cannot compile.
          if constexpr (requires(Container && l) { std::ranges::sort(l); }) {
-            // 可以修改
+            // can change inplace
             do_sort(c);
             return std::move(c);
          } else {
-            // 不可以修改
+            // can not change inplace
             auto result = Result(c.begin(), c.end());
             do_sort(result);
             return result;
          }
       }
    }
-
-   template<typename T, typename Name>
-   concept pair_range_of = requires(typename std::remove_cvref_t<T>::value_type item) {
-      requires std::ranges::range<T>;
-      Name(std::get<0>(item));
-      Name(std::get<1>(item));
-   };
 } // namespace TAT
 
 #endif

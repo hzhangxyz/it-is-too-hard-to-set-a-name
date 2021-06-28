@@ -77,17 +77,17 @@ namespace TAT {
             symmetry_of_s = -symmetry_of_s;
          }
          const auto& vector_in_S = map_at<true>(S.core->blocks, pmr::vector<Symmetry>{-symmetry_of_s, symmetry_of_s});
-         auto dimension = map_at(S.core->edges[1].map, symmetry_of_s);
+         auto dimension = S.edges(1).get_dimension_from_symmetry(symmetry_of_s);
          auto dimension_plus_one = dimension + 1;
          Rank i = 0;
          Size m = 1;
          for (; i < index; i++) {
-            m *= map_at(core->edges[i].map, symmetries[i]);
+            m *= edges(i).get_dimension_from_symmetry(symmetries[i]);
          }
-         Size k = map_at(core->edges[i].map, symmetries[i]);
+         Size k = edges(i).get_dimension_from_symmetry(symmetries[i]);
          Size n = 1;
          for (i++; i < names.size(); i++) {
-            n *= map_at(core->edges[i].map, symmetries[i]);
+            n *= edges(i).get_dimension_from_symmetry(symmetries[i]);
          }
          if (dimension != k) [[unlikely]] {
             detail::error("Vector Size incompatible in Multiple with a tensor");

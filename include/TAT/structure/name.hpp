@@ -56,7 +56,7 @@ namespace TAT {
       FastName() = default;
 
       // Specify name by its id directly
-      FastName(const id_t id) : id(id) {}
+      explicit FastName(const id_t id) : id(id) {}
 
       template<typename String>
          requires(std::is_convertible_v<String, std::string> && !std::is_same_v<std::remove_cvref_t<String>, FastName>)

@@ -68,7 +68,7 @@ namespace TAT {
          contract_names.insert({old_name, old_name});
          new_names.push_back(old_name);
          // 调整使得可以缩并
-         auto& old_edge = core->edges[map_at(name_to_index, old_name)];
+         auto& old_edge = edges(old_name);
          if (old_edge.map.size() != 1 || old_edge.map.begin()->second != 1) {
             detail::error("Cannot Expand a Edge which dimension is not one");
          }
@@ -125,8 +125,8 @@ namespace TAT {
                index = std::get<1>(position);
                total_symmetry += symmetry;
             }
-            const auto& this_edge = core->edges[map_at(name_to_index, name)];
-            Size dimension = map_at(this_edge.map, symmetry);
+            const auto& this_edge = edges(name);
+            Size dimension = this_edge.get_dimension_from_symmetry(symmetry);
             total_offset *= dimension;
             total_offset += index;
             new_names.push_back(name);

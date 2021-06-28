@@ -342,8 +342,8 @@ namespace TAT {
       auto reversed_set_origin = pmr::set<Name>();
       auto result_name_1 = std::vector<Name>();
       auto result_name_2 = std::vector<Name>();
-      auto free_names_and_edges_1 = pmr::vector<std::tuple<Name, edge_map_t<Symmetry, true>>>();
-      auto free_names_and_edges_2 = pmr::vector<std::tuple<Name, edge_map_t<Symmetry, true>>>();
+      auto free_names_and_edges_1 = pmr::vector<std::tuple<Name, edge_segment_t<Symmetry, true>>>();
+      auto free_names_and_edges_2 = pmr::vector<std::tuple<Name, edge_segment_t<Symmetry, true>>>();
       free_name_1.reserve(rank);
       free_name_2.reserve(rank);
       result_name_1.reserve(rank + 1);
@@ -359,9 +359,9 @@ namespace TAT {
          if ((set_find(free_name_set, n) != free_name_set.end()) == use_r_name == use_qr_not_lq) {
             free_name_2.push_back(n);
             result_name_2.push_back(n);
-            free_names_and_edges_2.push_back({n, {core->edges[i].map}});
+            free_names_and_edges_2.push_back({n, {edges(i).segment}});
             if constexpr (is_fermi) {
-               if (core->edges[i].arrow) {
+               if (edges(i).arrow) {
                   reversed_set_2.insert(n);
                   reversed_set_origin.insert(n);
                }
@@ -369,9 +369,9 @@ namespace TAT {
          } else {
             free_name_1.push_back(n);
             result_name_1.push_back(n);
-            free_names_and_edges_1.push_back({n, {core->edges[i].map}});
+            free_names_and_edges_1.push_back({n, {edges(i).segment}});
             if constexpr (is_fermi) {
-               if (core->edges[i].arrow) {
+               if (edges(i).arrow) {
                   reversed_set_1.insert(n);
                   reversed_set_origin.insert(n);
                }
@@ -391,8 +391,7 @@ namespace TAT {
       }
       result_name_1.push_back(use_qr_not_lq ? common_name_q : common_name_r);
       auto tensor_merged = edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
-            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_segment_t<Symmetry>>>>>(),
             reversed_set_origin,
             pmr::map<Name, pmr::vector<Name>>{{InternalName<Name>::QR_1, std::move(free_name_1)}, {InternalName<Name>::QR_2, std::move(free_name_2)}},
             std::vector<Name>{InternalName<Name>::QR_1, InternalName<Name>::QR_2},
@@ -406,26 +405,28 @@ namespace TAT {
       auto common_edge_1 = Edge<Symmetry>();
       auto common_edge_2 = Edge<Symmetry>();
       for (const auto& [sym, _] : tensor_merged.core->blocks) {
-         auto m = map_at(tensor_merged.core->edges[0].map, sym[0]);
-         auto n = map_at(tensor_merged.core->edges[1].map, sym[1]);
+         auto m = tensor_merged.edges(0).get_dimension_from_symmetry(sym[0]);
+         auto n = tensor_merged.edges(1).get_dimension_from_symmetry(sym[1]);
          auto k = m > n ? n : m;
-         common_edge_1.map.emplace_back(sym[1], k);
-         common_edge_2.map.emplace_back(sym[0], k);
+         common_edge_1.segment.emplace_back(sym[1], k);
+         common_edge_2.segment.emplace_back(sym[0], k);
       }
-      do_sort(common_edge_1.map);
-      do_sort(common_edge_2.map);
+      do_sort(common_edge_1.segment);
+      do_sort(common_edge_2.segment, [](const auto& a, const auto& b) {
+         return a > b;
+      }); // reverse
       auto tensor_1 = Tensor<ScalarType, Symmetry, Name>{
             {InternalName<Name>::QR_1, use_qr_not_lq ? common_name_q : common_name_r},
-            {std::move(tensor_merged.core->edges[0]), std::move(common_edge_1)}};
+            {std::move(tensor_merged.edges(0)), std::move(common_edge_1)}};
       auto tensor_2 = Tensor<ScalarType, Symmetry, Name>{
             {use_qr_not_lq ? common_name_r : common_name_q, InternalName<Name>::QR_2},
-            {std::move(common_edge_2), std::move(tensor_merged.core->edges[1])}};
+            {std::move(common_edge_2), std::move(tensor_merged.edges(1))}};
       for (auto& [symmetries, block] : tensor_merged.core->blocks) {
          auto* data_1 = map_at(tensor_1.core->blocks, symmetries).data();
          auto* data_2 = map_at(tensor_2.core->blocks, symmetries).data();
          auto* data = block.data();
-         const int m = map_at(tensor_1.core->edges[0].map, symmetries[0]);
-         const int n = map_at(tensor_2.core->edges[1].map, symmetries[1]);
+         const int m = tensor_1.edges(0).get_dimension_from_symmetry(symmetries[0]);
+         const int n = tensor_2.edges(1).get_dimension_from_symmetry(symmetries[1]);
          const int k = m > n ? n : m;
          const int max = m > n ? m : n;
          if (m * n != 0) {
@@ -440,8 +441,8 @@ namespace TAT {
          (use_qr_not_lq ? reversed_set_1 : reversed_set_2).insert(common_name_q);
       }
       auto new_tensor_1 = tensor_1.edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
-            pmr::map<Name, pmr::vector<std::tuple<Name, edge_map_t<Symmetry, true>>>>{{InternalName<Name>::QR_1, std::move(free_names_and_edges_1)}},
+            pmr::map<Name, pmr::vector<std::tuple<Name, edge_segment_t<Symmetry, true>>>>{
+                  {InternalName<Name>::QR_1, std::move(free_names_and_edges_1)}},
             reversed_set_1,
             empty_list<std::pair<Name, std::initializer_list<Name>>>(),
             std::move(result_name_1),
@@ -452,8 +453,8 @@ namespace TAT {
             empty_list<Name>(),
             empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       auto new_tensor_2 = tensor_2.edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
-            pmr::map<Name, pmr::vector<std::tuple<Name, edge_map_t<Symmetry, true>>>>{{InternalName<Name>::QR_2, std::move(free_names_and_edges_2)}},
+            pmr::map<Name, pmr::vector<std::tuple<Name, edge_segment_t<Symmetry, true>>>>{
+                  {InternalName<Name>::QR_2, std::move(free_names_and_edges_2)}},
             reversed_set_2,
             empty_list<std::pair<Name, std::initializer_list<Name>>>(),
             std::move(result_name_2),

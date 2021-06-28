@@ -41,12 +41,15 @@ void run_test() {
       }) << "\n";
       std::cout << decltype(v)::contract(v.multiple(s, "F", 'v'), u, {{"F", "E"}}).transpose({"A", "B", "C", "D"}) << "\n";
    } while (false);
+#define t_edge(...) \
+   { {__VA_ARGS__}, true }
+#define f_edge(...) \
+   { {__VA_ARGS__}, false }
    do {
       auto c =
             TAT::Tensor<double, TAT::U1Symmetry>{
                   {"A", "B", "C", "D"},
-                  {{{-1, 1}, {0, 1}, {-2, 1}}, {{0, 1}, {1, 2}}, {{0, 2}, {1, 2}}, {{-2, 2}, {-1, 1}, {0, 2}}},
-                  true}
+                  {t_edge({-1, 1}, {0, 1}, {-2, 1}), f_edge({0, 1}, {1, 2}), f_edge({0, 2}, {1, 2}), t_edge({-2, 2}, {-1, 1}, {0, 2})}}
                   .range();
       auto [u, s, v] = c.svd({"C", "A"}, "E", "F");
       std::cout << u << "\n";
@@ -75,8 +78,7 @@ void run_test() {
       auto c =
             TAT::Tensor<double, TAT::U1Symmetry>{
                   {"A", "B", "C", "D"},
-                  {{{-1, 1}, {0, 1}, {-2, 1}}, {{0, 1}, {1, 2}}, {{0, 2}, {1, 2}}, {{-2, 2}, {-1, 1}, {0, 2}}},
-                  true}
+                  {t_edge({-1, 1}, {0, 1}, {-2, 1}), f_edge({0, 1}, {1, 2}), f_edge({0, 2}, {1, 2}), t_edge({-2, 2}, {-1, 1}, {0, 2})}}
                   .range();
       auto [u, s, v] = c.svd({"C", "A"}, "E", "F", 7);
       std::cout << u << "\n";

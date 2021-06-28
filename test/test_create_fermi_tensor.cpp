@@ -18,32 +18,38 @@
 #include <TAT/TAT.hpp>
 
 #include "run_test.hpp"
+
+#define t_edge(...) \
+   { {__VA_ARGS__}, true }
+#define f_edge(...) \
+   { {__VA_ARGS__}, false }
+
 void run_test() {
-   std::cout
-         << TAT::Tensor<double, TAT::FermiSymmetry>{{"Left", "Right", "Up"}, {{{0, 1}, {1, 2}}, {{-1, 1}, {-2, 3}, {0, 2}}, {{0, 3}, {1, 1}}}, true}
-                  .range(2)
-         << "\n";
+   std::cout << TAT::Tensor<
+                      double,
+                      TAT::FermiSymmetry>{{"Left", "Right", "Up"}, {f_edge({0, 1}, {1, 2}), t_edge({-1, 1}, {-2, 3}, {0, 2}), f_edge({0, 3}, {1, 1})}}
+                      .range(2)
+             << "\n";
    std::cout
          << TAT::Tensor<
                   double,
-                  TAT::FermiU1Symmetry>{{"Left", "Right", "Up"}, {{{{0, 0}, 1}, {{1, 1}, 2}}, {{{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}}, {{{0, 0}, 3}, {{1, -1}, 1}}}, true}
+                  TAT::FermiU1Symmetry>{{"Left", "Right", "Up"}, {f_edge({{0, 0}, 1}, {{1, 1}, 2}), t_edge({{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}), f_edge({{0, 0}, 3}, {{1, -1}, 1})}}
                   .range(2)
          << "\n";
    auto a = TAT::Tensor<double, TAT::FermiU1Symmetry>{
          {"Left", "Right", "Up"},
-         {{{{0, 0}, 1}, {{1, 1}, 2}}, {{{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}}, {{{0, 0}, 3}, {{1, -1}, 1}}},
-         true};
+         {f_edge({{0, 0}, 1}, {{1, 1}, 2}), t_edge({{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}), f_edge({{0, 0}, 3}, {{1, -1}, 1})}};
    std::cout
          << TAT::Tensor<
                   double,
-                  TAT::FermiU1Symmetry>{{"Left", "Right", "Up"}, {{{{0, 0}, 1}, {{1, 1}, 2}}, {{{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}}, {{{0, 0}, 3}, {{1, -1}, 1}}}, true}
+                  TAT::FermiU1Symmetry>{{"Left", "Right", "Up"}, {f_edge({{0, 0}, 1}, {{1, 1}, 2}), t_edge({{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}), f_edge({{0, 0}, 3}, {{1, -1}, 1})}}
                   .range(2)
          << "\n";
-   std::cout << TAT::Tensor<double, TAT::FermiU1Symmetry>{1234}.at({}) << "\n";
+   std::cout << TAT::Tensor<double, TAT::FermiU1Symmetry>{1234}.at() << "\n";
    std::cout
          << TAT::Tensor<
                   double,
-                  TAT::FermiU1Symmetry>{{"Left", "Right", "Up"}, {{{{0, 0}, 1}, {{1, 1}, 2}}, {{{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}}, {{{0, 0}, 3}, {{1, -1}, 1}}}, true}
+                  TAT::FermiU1Symmetry>{{"Left", "Right", "Up"}, {f_edge({{0, 0}, 1}, {{1, 1}, 2}), t_edge({{-1, -1}, 1}, {{-2, 0}, 3}, {{0, 0}, 2}), f_edge({{0, 0}, 3}, {{1, -1}, 1})}}
                   .range(2)
                   .at({{"Left", {{1, 1}, 1}}, {"Up", {{1, -1}, 0}}, {"Right", {{-2, 0}, 0}}})
          << "\n";

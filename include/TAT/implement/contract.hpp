@@ -279,14 +279,14 @@ namespace TAT {
 #endif
 
    /// \private
-   template<is_scalar ScalarType, is_name Name, pair_range_of<Name> SetNameAndName>
+   template<is_scalar ScalarType, is_name Name, same_pair_range_of<Name> SetNameAndName>
    Tensor<ScalarType, Symmetry<>, Name> contract_with_fuse(
          const Tensor<ScalarType, Symmetry<>, Name>& tensor_1,
          const Tensor<ScalarType, Symmetry<>, Name>& tensor_2,
          SetNameAndName contract_names);
 
    /// \private
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name, pair_range_of<Name> SetNameAndName>
+   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name, same_pair_range_of<Name> SetNameAndName>
    Tensor<ScalarType, Symmetry, Name> contract_without_fuse(
          const Tensor<ScalarType, Symmetry, Name>& tensor_1,
          const Tensor<ScalarType, Symmetry, Name>& tensor_2,
@@ -295,7 +295,7 @@ namespace TAT {
    inline timer contract_guard("contract");
 
    template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name>
-   template<pair_range_of<Name> SetNameAndName>
+   template<same_pair_range_of<Name> SetNameAndName>
    Tensor<ScalarType, Symmetry, Name> Tensor<ScalarType, Symmetry, Name>::contract(
          const Tensor<ScalarType, Symmetry, Name>& tensor_1,
          const Tensor<ScalarType, Symmetry, Name>& tensor_2,
@@ -315,7 +315,7 @@ namespace TAT {
       }
    }
 
-   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name, pair_range_of<Name> SetNameAndName>
+   template<is_scalar ScalarType, is_symmetry Symmetry, is_name Name, same_pair_range_of<Name> SetNameAndName>
    Tensor<ScalarType, Symmetry, Name> contract_without_fuse(
          const Tensor<ScalarType, Symmetry, Name>& tensor_1,
          const Tensor<ScalarType, Symmetry, Name>& tensor_2,
@@ -357,9 +357,9 @@ namespace TAT {
       if constexpr (is_no_symmetry) {
          edge_result.reserve(rank_1 + rank_2 - 2 * common_rank);
       }
-      auto split_map_result = pmr::map<Name, pmr::vector<std::tuple<Name, edge_map_t<Symmetry>>>>(); // split方案
-      auto reversed_set_result = pmr::set<Name>();                                                   // 最后split时的反转标
-      auto name_result = std::vector<Name>();                                                        // 最后split后的name
+      auto split_map_result = pmr::map<Name, pmr::vector<std::tuple<Name, edge_segment_t<Symmetry>>>>(); // split方案
+      auto reversed_set_result = pmr::set<Name>();                                                       // 最后split时的反转标
+      auto name_result = std::vector<Name>();                                                            // 最后split后的name
       name_result.reserve(rank_1 + rank_2 - 2 * common_rank);
       split_map_result[InternalName<Name>::Contract_1].reserve(rank_1 - common_rank);
       split_map_result[InternalName<Name>::Contract_2].reserve(rank_2 - common_rank);
@@ -371,13 +371,13 @@ namespace TAT {
             // 是free name
             free_name_1.push_back(n);
             if constexpr (is_no_symmetry) {
-               edge_result.push_back(tensor_1.core->edges[i]);
+               edge_result.push_back(tensor_1.edges(i));
             } else {
-               split_map_result.at(InternalName<Name>::Contract_1).push_back({n, {tensor_1.core->edges[i].map}});
+               split_map_result.at(InternalName<Name>::Contract_1).push_back({n, {tensor_1.edges(i).segment}});
             }
             name_result.push_back(n);
             if constexpr (is_fermi) {
-               if (tensor_1.core->edges[i].arrow) {
+               if (tensor_1.edges(i).arrow) {
                   reversed_set_1.insert(n);
                   reversed_set_result.insert(n);
                }
@@ -385,7 +385,7 @@ namespace TAT {
          } else {
             // 将被contract掉
             if constexpr (is_fermi) {
-               if (!tensor_1.core->edges[i].arrow) {
+               if (!tensor_1.edges(i).arrow) {
                   reversed_set_1.insert(n);
                }
             }
@@ -400,13 +400,13 @@ namespace TAT {
             // 是free name
             free_name_2.push_back(n);
             if constexpr (is_no_symmetry) {
-               edge_result.push_back(tensor_2.core->edges[i]);
+               edge_result.push_back(tensor_2.edges(i));
             } else {
-               split_map_result.at(InternalName<Name>::Contract_2).push_back({n, {tensor_2.core->edges[i].map}});
+               split_map_result.at(InternalName<Name>::Contract_2).push_back({n, {tensor_2.edges(i).segment}});
             }
             name_result.push_back(n);
             if constexpr (is_fermi) {
-               if (tensor_2.core->edges[i].arrow) {
+               if (tensor_2.edges(i).arrow) {
                   reversed_set_2.insert(n);
                   reversed_set_result.insert(n);
                }
@@ -414,7 +414,7 @@ namespace TAT {
          } else {
             // 将被contract掉
             if constexpr (is_fermi) {
-               if (tensor_2.core->edges[i].arrow) {
+               if (tensor_2.edges(i).arrow) {
                   reversed_set_2.insert(n);
                }
             }
@@ -474,8 +474,8 @@ namespace TAT {
          for (Rank i = 0; i < common_rank; i++) {
             auto name_1 = common_name_1[i];
             auto name_2 = common_name_2[i];
-            auto edge_1 = tensor_1.core->edges[map_at(tensor_1.name_to_index, name_1)];
-            auto edge_2 = tensor_2.core->edges[map_at(tensor_2.name_to_index, name_2)];
+            auto edge_1 = tensor_1.edges(name_1);
+            auto edge_2 = tensor_2.edges(name_2);
             auto delete_unused_dimension = [](const auto& edge_this, const auto& edge_other, const auto& name_this, auto& delete_this) {
                if constexpr (is_fermi) {
                   if (edge_this.arrow == edge_other.arrow) [[unlikely]] {
@@ -483,11 +483,11 @@ namespace TAT {
                   }
                }
                auto delete_map = pmr::map<Symmetry, Size>();
-               for (const auto& [symmetry, dimension] : edge_this.map) {
+               for (const auto& [symmetry, dimension] : edge_this.segment) {
                   // conjugated仅仅用在遍历edge时的顺序中
                   // contract不受到影响
-                  auto found = map_find(edge_other.map, -symmetry);
-                  if (found != edge_other.map.end()) {
+                  auto found = std::ranges::find(edge_other.segment, -symmetry, &std::pair<Symmetry, Size>::first);
+                  if (found != edge_other.segment.end()) {
                      // found
                      if (const auto dimension_other = found->second; dimension_other != dimension) [[unlikely]] {
                         detail::error("Different Dimension to Contract");
@@ -506,12 +506,12 @@ namespace TAT {
             delete_unused_dimension(edge_2, edge_1, name_2, delete_2);
          }
       }
+
       // merge
       // 仅对第一个张量的公共边的reverse和merge做符号
       auto common_name_1_set = pmr::set<Name>(common_name_1.begin(), common_name_1.end());
       auto tensor_1_merged = tensor_1.edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
-            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_segment_t<Symmetry>>>>>(),
             reversed_set_1,
             pmr::map<Name, pmr::vector<Name>>{
                   {InternalName<Name>::Contract_1, std::move(free_name_1)},
@@ -525,8 +525,7 @@ namespace TAT {
             pmr::vector<Name>{InternalName<Name>::Contract_2},
             delete_1);
       auto tensor_2_merged = tensor_2.edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
-            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_segment_t<Symmetry>>>>>(),
             reversed_set_2,
             pmr::map<Name, pmr::vector<Name>>{
                   {InternalName<Name>::Contract_2, std::move(free_name_2)},
@@ -543,9 +542,9 @@ namespace TAT {
       // calculate_product
       auto product_result = Tensor<ScalarType, Symmetry, Name>(
             {InternalName<Name>::Contract_1, InternalName<Name>::Contract_2},
-            {std::move(tensor_1_merged.core->edges[!put_common_1_right]), std::move(tensor_2_merged.core->edges[!put_common_2_right])});
+            {std::move(tensor_1_merged.edges(!put_common_1_right)), std::move(tensor_2_merged.edges(!put_common_2_right))});
       // 因取了T1和T2的edge，所以会自动去掉merge后仍然存在的交错边
-      auto common_edge = std::move(tensor_1_merged.core->edges[put_common_1_right]);
+      auto common_edge = std::move(tensor_1_merged.edges(put_common_1_right));
 
       auto max_batch_size = product_result.core->blocks.size();
       no_initialize::pmr::vector<char> transpose_a_list(max_batch_size), transpose_b_list(max_batch_size);
@@ -562,13 +561,13 @@ namespace TAT {
          auto symmetries_2 = put_common_2_right ? decltype(symmetries){symmetries[1], symmetries[0]} : symmetries;
          const auto& data_1 = map_at(tensor_1_merged.core->blocks, symmetries_1);
          const auto& data_2 = map_at(tensor_2_merged.core->blocks, symmetries_2);
-         const int m = map_at(product_result.core->edges[0].map, symmetries[0]);
-         const int n = map_at(product_result.core->edges[1].map, symmetries[1]);
-         const int k = map_at(common_edge.map, symmetries[1]);
+         const int m = product_result.edges(0).get_dimension_from_symmetry(symmetries[0]);
+         const int n = product_result.edges(1).get_dimension_from_symmetry(symmetries[1]);
+         const int k = common_edge.get_dimension_from_symmetry(symmetries[1]);
          ScalarType alpha = 1;
          if constexpr (is_fermi) {
             // 因为并非标准- + - -产生的符号
-            if ((put_common_2_right ^ !put_common_1_right) && symmetries[0].get_total_parity()) {
+            if ((put_common_2_right ^ !put_common_1_right) && symmetries[0].get_parity()) {
                alpha = -1;
             }
          }
@@ -614,7 +613,6 @@ namespace TAT {
          return result;
       } else {
          auto result = product_result.edge_operator_implement(
-               empty_list<std::pair<Name, Name>>(),
                split_map_result,
                reversed_set_result,
                empty_list<std::pair<Name, std::initializer_list<Name>>>(),
@@ -629,7 +627,7 @@ namespace TAT {
       }
    }
 
-   template<is_scalar ScalarType, is_name Name, pair_range_of<Name> SetNameAndName>
+   template<is_scalar ScalarType, is_name Name, same_pair_range_of<Name> SetNameAndName>
    Tensor<ScalarType, Symmetry<>, Name> contract_with_fuse(
          const Tensor<ScalarType, Symmetry<>, Name>& tensor_1,
          const Tensor<ScalarType, Symmetry<>, Name>& tensor_2,
@@ -680,8 +678,8 @@ namespace TAT {
       for (const auto& name : fuse_names) {
          name_result.push_back(name);
          fuse_names_list.push_back(name);
-         const auto& edge_1 = tensor_1.core->edges[map_at(tensor_1.name_to_index, name)];
-         const auto& edge_2 = tensor_2.core->edges[map_at(tensor_2.name_to_index, name)];
+         const auto& edge_1 = tensor_1.edges(name);
+         const auto& edge_2 = tensor_2.edges(name);
          if (!(edge_1 == edge_2)) [[unlikely]] {
             detail::error("Cannot fuse two edge with different shape");
          }
@@ -697,7 +695,7 @@ namespace TAT {
             if (fuse_names.find(n) == fuse_names.end()) {
                // 不是fuse name, 是free name
                free_name_1.push_back(n);
-               edge_result.push_back(tensor_1.core->edges[i]);
+               edge_result.push_back(tensor_1.edges(i));
                name_result.push_back(n);
             }
          }
@@ -712,7 +710,7 @@ namespace TAT {
             if (fuse_names.find(n) == fuse_names.end()) {
                // 不是fuse name, 是free name
                free_name_2.push_back(n);
-               edge_result.push_back(tensor_2.core->edges[i]);
+               edge_result.push_back(tensor_2.edges(i));
                name_result.push_back(n);
             }
          }
@@ -770,8 +768,7 @@ namespace TAT {
       // merge
       // 仅对第一个张量的公共边的reverse和merge做符号
       auto tensor_1_merged = tensor_1.edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
-            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry<>>>>>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_segment_t<Symmetry<>>>>>>(),
             empty_list<Name>(),
             pmr::map<Name, pmr::vector<Name>>{
                   {InternalName<Name>::Contract_1, std::move(free_name_1)},
@@ -786,8 +783,7 @@ namespace TAT {
             empty_list<Name>(),
             empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry<>, Size>>>>());
       auto tensor_2_merged = tensor_2.edge_operator_implement(
-            empty_list<std::pair<Name, Name>>(),
-            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry<>>>>>>(),
+            empty_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_segment_t<Symmetry<>>>>>>(),
             empty_list<Name>(),
             pmr::map<Name, pmr::vector<Name>>{
                   {InternalName<Name>::Contract_2, std::move(free_name_2)},
@@ -802,16 +798,16 @@ namespace TAT {
             empty_list<Name>(),
             empty_list<std::pair<Name, std::initializer_list<std::pair<Symmetry<>, Size>>>>());
       // calculate_product
-      const int l = tensor_1_merged.core->edges[0].map.begin()->second;
-      const int m = tensor_1_merged.core->edges[1 + !put_common_1_right].map.begin()->second;
-      const int n = tensor_2_merged.core->edges[1 + !put_common_2_right].map.begin()->second;
-      const int k = tensor_1_merged.core->edges[1 + put_common_1_right].map.begin()->second;
+      const int l = tensor_1_merged.edges(0).segment.begin()->second;
+      const int m = tensor_1_merged.edges(1 + !put_common_1_right).segment.begin()->second;
+      const int n = tensor_2_merged.edges(1 + !put_common_2_right).segment.begin()->second;
+      const int k = tensor_1_merged.edges(1 + put_common_1_right).segment.begin()->second;
       const ScalarType alpha = 1;
       const ScalarType beta = 0;
 
       auto result = Tensor<ScalarType, Symmetry<>, Name>{name_result, edge_result};
 
-      ScalarType* data = result.core->storage.data();
+      ScalarType* data = result.storage().data();
       const ScalarType* data_1 = tensor_1_merged.core->blocks.begin()->second.data();
       const ScalarType* data_2 = tensor_2_merged.core->blocks.begin()->second.data();
       if (m && n && k) [[likely]] {
@@ -838,7 +834,7 @@ namespace TAT {
                &n,
                l);
       } else if (m && n) [[unlikely]] {
-         std::fill(result.core->storage.begin(), result.core->storage.end(), 0);
+         std::fill(result.storage().begin(), result.storage().end(), 0);
       }
       return result;
    }

@@ -23,8 +23,8 @@ from .abstract_lattice import AbstractLattice
 
 __all__ = ["AbstractNetworkLattice"]
 
-CTensor: type = TAT.Tensor.ZNo
-Tensor: type = TAT.Tensor.DNo
+CTensor: type = TAT.No.Z.Tensor
+Tensor: type = TAT.No.D.Tensor
 
 
 class AbstractNetworkLattice(AbstractLattice):

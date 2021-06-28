@@ -33,8 +33,8 @@
 // - TAT_USE_MPI: define to enable mpi support, cmake can configure it
 // - TAT_USE_MKL_TRANSPOSE: define to use mkl for matrix transpose, cmake can configure it, TODO optimize
 // - TAT_USE_MKL_GEMM_BATCH: define to use mkl ?gemm_batch, cmake can configure it
+
 // - TAT_USE_SIMPLE_NAME: define to use raw std::string as default name
-// - TAT_USE_VALID_DEFAULT_TENSOR: define to construct valid tensor when no argument given, default behavior constructs an invalid tensor
 // - TAT_USE_TIMER: define to add timers for some common operator
 // - TAT_ERROR_BITS: throw exception for different situations, rather than print warning
 // - TAT_NOTHING_BITS: keep silent for different situations, rather than print warning
@@ -122,7 +122,7 @@ namespace TAT {
        *
        * \see warning, nothing
        */
-      inline void error(const char* message);
+      [[noreturn]] inline void error(const char* message);
 
 #ifndef TAT_ERROR_BITS
 #define TAT_ERROR_BITS 0

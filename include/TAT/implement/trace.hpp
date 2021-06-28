@@ -62,7 +62,7 @@ namespace TAT {
                // found in trace_names
                // 对于费米子考虑方向, 应是一进一出才合法
                if constexpr (is_fermi) {
-                  if (core->edges[i].arrow) {
+                  if (edges(i).arrow) {
                      trace_1_names.push_back(name_to_find);
                      trace_2_names.push_back(*name_correspond);
                   } else {
@@ -85,13 +85,13 @@ namespace TAT {
       // 寻找自由脚
       auto result_names = std::vector<Name>();
       auto reverse_names = pmr::set<Name>();
-      auto split_plan = pmr::vector<std::tuple<Name, edge_map_t<Symmetry>>>();
+      auto split_plan = pmr::vector<std::tuple<Name, edge_segment_t<Symmetry>>>();
       result_names.reserve(free_rank);
       split_plan.reserve(free_rank);
       for (Rank i = 0; i < rank; i++) {
          const auto& name = names[i];
          if (auto found = traced_names.find(name); found == traced_names.end()) {
-            const auto& this_edge = core->edges[i];
+            const auto& this_edge = edges(i);
             result_names.push_back(name);
             split_plan.push_back({name, {this_edge.map}});
             if constexpr (is_fermi) {
@@ -102,8 +102,7 @@ namespace TAT {
          }
       }
       auto merged_tensor = edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
-            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_map_t<Symmetry>>>>>(),
+            std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Name, edge_segment_t<Symmetry>>>>>(),
             reverse_names,
             pmr::map<Name, pmr::vector<Name>>{
                   {InternalName<Name>::Trace_1, std::move(trace_1_names)},
@@ -117,7 +116,7 @@ namespace TAT {
             std::initializer_list<Name>(),
             std::initializer_list<std::pair<Name, std::initializer_list<std::pair<Symmetry, Size>>>>());
       // Trace_1和Trace_2一起merge, 而他们相连, 所以要有一个有效, Trace_3等一会会翻转回来, 所以没事
-      auto traced_tensor = Tensor<ScalarType, Symmetry, Name>({InternalName<Name>::Trace_3}, {merged_tensor.core->edges[2]}).zero();
+      auto traced_tensor = Tensor<ScalarType, Symmetry, Name>({InternalName<Name>::Trace_3}, {merged_tensor.edges(2)}).zero();
       auto& destination_block = traced_tensor.core->blocks.begin()->second;
       // 应该只有一个边, 所以也只有一个block
       const Size line_size = destination_block.size();
@@ -126,7 +125,7 @@ namespace TAT {
       std::visit(
             [&](const auto& const_line_size) {
                const auto line_size = const_line_size.value();
-               for (const auto& [symmetry_1, dimension] : merged_tensor.core->edges[0].map) {
+               for (const auto& [symmetry_1, dimension] : merged_tensor.edges(0).map) {
                   // 而source的形状应该是多个分块对角矩阵, 每个元素是一个向量, 我只需要把正对角的向量们求和
                   auto symmetry_2 = -symmetry_1;
                   auto source_block = map_at<true>(merged_tensor.core->blocks, pmr::vector<Symmetry>{symmetry_1, symmetry_2, Symmetry()});
@@ -143,7 +142,6 @@ namespace TAT {
             const_line_size_variant);
 
       auto result = traced_tensor.edge_operator_implement(
-            std::initializer_list<std::pair<Name, Name>>(),
             pmr::map<Name, decltype(split_plan)>{{InternalName<Name>::Trace_3, std::move(split_plan)}},
             reverse_names,
             std::initializer_list<std::pair<Name, std::initializer_list<Name>>>(),
